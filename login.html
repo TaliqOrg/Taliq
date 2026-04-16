@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Taliq</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Unified Global Stylings -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="split-layout">
+
+        <!-- Login Form area -->
+        <div class="login-pane">
+            <div class="login-content">
+
+                <a href="welcome_page.html" class="brand-logo">Taliq</a>
+                <h1 class="login-title">Log in to Taliq</h1>
+                <br><br><br>
+                <!-- Form Section -->
+                <form action="post" class="login-form">
+
+                    <!-- Email Field -->
+                    <div class="input-group">
+                        <label for="email" class="input-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">mail</span>
+                            <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="input-group">
+                        <label for="password" class="input-label">Password</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <input type="password" id="password" class="form-input" placeholder="Enter your password"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" class="checkbox">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn-submit">Log In</button>
+
+                </form>
+
+                <p class="signup-prompt">
+                    Don't have an account? <a href="#" class="signup-link">Sign up</a>
+                </p>
+
+            </div>
+        </div>
+
+        <!-- Right Side: Minimalist Image -->
+        <div class="image-pane">
+            <img src="images/login_illustration.png" alt="Custom Flat Illustration of Learning Platform"
+                class="pane-image" style="object-fit: contain; background-color: var(--surface); padding: 4rem;">
+            <div class="image-overlay" style="background: none;">
+                <blockquote class="overlay-quote"
+                    style="color: var(--primary); text-shadow: none; font-weight: 800; display: none;">
+                    Empowering the next generation of lifelong learners and educators.
+                </blockquote>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,639 @@
+
+
+
+
+/* --- CSS Variables (IMPORTANT) --- */
+:root {
+    --bg-main: #f7f9fb;
+    --surface: #ffffff;
+    --surface-low: #f2f4f6;
+    --surface-hover: #e6e8ea;
+
+    --primary: #059669;
+    --primary-hover: #047857;
+    --primary-container: #10b981;
+    --on-primary: #ffffff;
+
+    --text-main: #191c1e;
+    --text-muted: #434655;
+
+    --secondary-container: #d1fae5;
+    --on-secondary-container: #065f46;
+
+    --badge-onsite: #505f76;
+    --error: #ba1a1a;
+
+    --font-heading: 'Manrope', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --border-radius-lg: 1rem;
+    --border-radius-xl: 2rem;
+
+    --nav-padding: 0.5rem 1.25rem;
+    --nav-border-radius: 0.5rem;
+}
+
+/* --- Resets --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensures footer sticks to bottom */
+}
+
+/* Removes underlines from links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+/* --- Utility Classes --- */
+
+
+/* horizontal padding */
+.container {
+    padding: 0 2rem;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+
+.mt-custom {
+    margin-top: 1.5rem;
+}
+
+/* vertical padding */
+.py-custom {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.pb-custom {
+    padding-bottom: 5rem;
+}
+
+/* ---------- Header & Navigation ---------- */
+.main-header {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(50px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 2px solid var(--secondary-container);
+}
+
+/* Aligning the navbar (used flexbox) */
+.nav-container {
+    display: flex;
+    align-items: center;
+    height: 72px;
+    gap: 2rem;
+}
+
+/* logo customization */
+.logo {
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--primary);
+}
+
+
+/* ---------- search bar ---------- */
+.nav-search {
+    display: flex;
+    background-color: var(--surface-low);
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-left: 2rem;
+    width: 20rem;
+}
+
+/* when focus is set on the search bar  */
+.nav-search:focus-within {
+    background-color: var(--surface);
+    border-color: var(--primary);
+}
+
+/* adjust search icon */
+.search-icon {
+    color: var(--text-muted);
+    font-size: 1.20rem;
+    margin-right: 0.5rem;
+}
+
+/* customize search input */
+.search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-family: var(--font-body);
+}
+
+.search-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ---------- nav links & cart button alignment ---------- */
+
+/* nav links wrapper */
+.desktop-nav {
+    display: flex;
+    /* used flexbox !!! */
+    margin-left: auto;
+    align-items: center;
+}
+
+/* for navigation links */
+.nav-link {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: var(--nav-padding);
+    border-radius: var(--nav-border-radius);
+    border: 2px solid transparent;
+}
+
+.nav-link:hover {
+    color: var(--primary-hover);
+    background-color: var(--surface-hover);
+}
+
+/* signup link */
+.nav-signup {
+    background-color: var(--primary);
+    color: var(--on-primary);
+    padding: var(--nav-padding);
+}
+
+.nav-signup:hover {
+    background-color: var(--primary-hover);
+    color: var(--on-primary)
+}
+
+/* login link */
+.nav-login {
+    border: 2px solid var(--primary);
+    margin: 0 1rem;
+}
+
+.nav-login:hover {
+    background-color: var(--surface-hover);
+}
+
+/* cart button link */
+.cart-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    position: relative;
+    /* using relative to add red dot */
+}
+
+.cart-btn:hover {
+    color: var(--primary);
+}
+
+/* customizing the red dot */
+.cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--error);
+    border-radius: 50%;
+}
+
+/* ---------- Welcome Section (used grid layout) ---------- */
+
+/* main conatiner */
+.welcome-card {
+    background-color: var(--surface-low);
+    border-radius: var(--border-radius-xl);
+    padding: 2rem;
+
+    display: grid; /* using grid with two fraction columns */
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    align-items: center;
+}
+
+/* title heading */
+.welcome-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    line-height: 1.1;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+/* text under the title */
+.welcome-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+}
+
+/* buttons under the text */
+.welcome-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    /* for screen change */
+    justify-content: center;
+}
+
+/* welcome Image */
+.welcome-img {
+    width: 100%;
+    height: 90%;
+    border-radius: var(--border-radius-xl);
+}
+
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-container);
+    color: var(--on-primary);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.1);
+}
+
+/* color on hover */
+
+.btn-outline {
+    background-color: var(--surface);
+    color: var(--primary);
+    border: 1px solid rgba(115, 118, 134, 0.2);
+}
+
+.btn-outline:hover {
+    background-color: var(--surface-hover);
+}
+
+
+/* ---------- Products Grid ---------- */
+
+/* bottom margin */
+.section-header {
+    margin-bottom: 3rem;
+}
+
+/* header title */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* header subtitle */
+.section-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* a grid container for cards */
+.product-grid {
+    display: grid;
+
+    /*  fit cards based on screen size */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+/* used for each course card */
+.product-card {
+    display: inline-block;
+    background-color: var(--surface);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 4px solid transparent;
+    border-radius: 1.5rem;
+}
+
+.product-card:hover {
+    background-color: var(--surface-hover);
+}
+
+/* customize container for image and its badge */
+.card-image-container {
+    position: relative; /* to set badge above it */
+    height: 12rem;
+    overflow: hidden;
+    padding: 0.5rem;
+}
+
+/* image in course card */
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+/* badge on image in course card */
+.badge {
+    position: absolute; /* position on top of image */
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/* for online badge */
+.badge-online {
+    background-color: var(--primary-container);
+    color: var(--on-primary);
+}
+
+/* for on-site badge */
+.badge-onsite {
+    background-color: var(--badge-onsite);
+    color: var(--surface);
+}
+
+/* content container in the course card */
+.card-content {
+    padding: 1.5rem;
+}
+
+/* course title */
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.20rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* rating for the course */
+.rating {
+    display: flex;
+    /* using flexbox */
+    align-items: center;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+/* rating star icon */
+.star-icon {
+    color: #fbbf24;
+    font-size: 0.875rem;
+}
+
+
+.rating-score {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.rating-count {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* for price & action in the card */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* price for the course */
+.price {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* cart button for the course */
+.add-cart-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: #eceef0;
+    border: none;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.add-cart-btn:hover {
+    background-color: var(--primary);
+    color: var(--on-primary);
+}
+
+/*
+for "View All Courses" button
+under course cards
+*/
+.view-all-container {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+
+.btn-secondary {
+    background-color: var(--surface-low);
+    color: var(--text-main);
+}
+
+.btn-secondary:hover {
+    background-color: #eceef0;
+}
+
+/* --- Newsletter Section --- */
+.newsletter-card {
+    background: var(--primary-container);
+    border-radius: 2.5rem;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--on-primary);
+}
+
+.newsletter-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.newsletter-subtitle {
+    color: #c0f4dc;
+    font-size: 1.125rem;
+    margin: 0 auto 2.5rem auto;
+    max-width: 600px;
+}
+
+
+.newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+/* newsletter field */
+.newsletter-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 1rem;
+}
+
+/* for newsletter button "Subscribe" */
+.btn-subscribe {
+    background-color: var(--surface);
+    color: var(--primary-container);
+}
+
+.btn-subscribe:hover {
+    background-color: var(--surface-hover);
+}
+
+/* --- Footer --- */
+.main-footer {
+    background-color: #f2f4f6;
+    margin-top: auto;
+}
+
+/* ---------- Footer Section ---------- */
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3rem 2rem;
+}
+
+.footer-logo {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+/* for navigation links container (flexbox) */
+.footer-links {
+    display: flex;
+    gap: 2rem;
+}
+
+
+.footer-links a {
+    color: var(--text-muted);
+    font-size: 0.80rem;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+/*  for copyright container */
+.footer-bottom {
+    text-align: center;
+    padding-bottom: 2rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+
+/* ---------- Responsive Media Queries ---------- */
+
+
+@media (max-width: 768px) {
+    /* For Tablets and Mobile */
+
+    .desktop-nav,
+    .nav-search {
+        display: none;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .welcome-card {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .welcome-img {
+        height: auto;
+    }
+
+    .welcome-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .newsletter-title {
+        font-size: 1.75rem;
+    }
+
+    .welcome-buttons {
+        justify-content: center;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .btn-subscribe {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+}
