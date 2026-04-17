@@ -40,6 +40,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--bg-main);
@@ -120,9 +124,9 @@ a {
     background-color: var(--surface-low);
     border: 2px solid transparent;
     border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
     margin-left: 2rem;
     width: 20rem;
+    align-items: center;
 }
 
 /* when focus is set on the search bar  */
@@ -131,15 +135,12 @@ a {
     border-color: var(--primary);
 }
 
-/* adjust search icon */
-.search-icon {
-    color: var(--text-muted);
-    font-size: 1.20rem;
-    margin-right: 0.5rem;
-}
-
 /* customize search input */
 .search-input {
+    flex: 1;
+
+    position: relative;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
     border: none;
     background: transparent;
     outline: none;
@@ -149,6 +150,16 @@ a {
 .search-input::placeholder {
     color: var(--text-muted);
 }
+
+/* adjust search icon */
+.search-icon {
+    position: absolute;
+    color: var(--text-muted);
+    font-size: 1.20rem;
+    /* margin-right: 0.5rem; */
+    margin-left: 0.5rem;
+}
+
 
 /* ---------- nav links & cart button alignment ---------- */
 

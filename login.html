@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log In - Taliq</title>
+    <title>Log In - Taleeq</title>
 
     <!-- Google Fonts -->
     <link
@@ -14,23 +14,63 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
-    <!-- Unified Global Stylings -->
-    <link rel="stylesheet" href="css/login.css">
+        <!-- Global Styling -->
+        <link rel="stylesheet" href="css/welcome_page.css">
+        <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
 
-    <div class="split-layout">
 
-        <!-- Login Form area -->
+    <!-- Website's Navbar -->
+    <header class="main-header">
+
+        <!-- Naviation Bar -->
+        <nav class="container nav-container">
+
+            <!-- website's Name -->
+            <a href="welcome_page.html" class="logo">Taleeq</a>
+
+            <!-- Search Bar -->
+            <div class="nav-search">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" placeholder="Search courses..." class="search-input">
+            </div>
+
+            <!-- navigation links -->
+            <div class="desktop-nav">
+                <a href="welcome_page.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="login.html" class="nav-link nav-login">Log in</a>
+                <a href="signup.html" class="nav-link nav-signup">Sign up</a>
+            </div>
+
+            <!-- shopping cart icon -->
+            <div>
+                <!-- shopping cart button -->
+                <button class="cart-btn">
+
+                    <!-- a shopping cart icon from Google Fonts Library -->
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge"></span> <!-- notification dot (set initally. might be numbers !) -->
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- flexbox layouts -->
+    <main class="split-layout">
+
+        <!-- Login Form Side -->
         <div class="login-pane">
+            
             <div class="login-content">
 
-                <a href="welcome_page.html" class="brand-logo">Taliq</a>
-                <h1 class="login-title">Log in to Taliq</h1>
-                <br><br><br>
+                <h1 class="login-title" style="margin-bottom: 3rem;">Log in to Taleeq</h1>
+                
                 <!-- Form Section -->
-                <form action="post" class="login-form">
+                <form action="user_home.html" class="login-form">
 
                     <!-- Email Field -->
                     <div class="input-group">
@@ -51,13 +91,13 @@
                         </div>
                     </div>
 
-                    <!-- Additional Options -->
+                    <!-- Remember me & Forgot Password options -->
                     <div class="form-options">
                         <label class="remember-me">
                             <input type="checkbox" class="checkbox">
                             <span>Remember me</span>
                         </label>
-                        <a href="#" class="forgot-link">Forgot password?</a>
+                        <a href="forgot_password.html" class="forgot-link">Forgot password?</a>
                     </div>
 
                     <!-- Submit Button -->
@@ -66,26 +106,19 @@
                 </form>
 
                 <p class="signup-prompt">
-                    Don't have an account? <a href="#" class="signup-link">Sign up</a>
+                    Don't have an account? <a href="signup.html" class="signup-link">Sign up</a>
                 </p>
 
             </div>
         </div>
 
-        <!-- Right Side: Minimalist Image -->
+        <!-- Image Area -->
         <div class="image-pane">
-            <img src="images/login_illustration.png" alt="Custom Flat Illustration of Learning Platform"
-                class="pane-image" style="object-fit: contain; background-color: var(--surface); padding: 4rem;">
-            <div class="image-overlay" style="background: none;">
-                <blockquote class="overlay-quote"
-                    style="color: var(--primary); text-shadow: none; font-weight: 800; display: none;">
-                    Empowering the next generation of lifelong learners and educators.
-                </blockquote>
-            </div>
+            <img src="images/login_image.png" alt="Learning Platform Image"
+                class="pane-image" style=" padding: 4rem;">
         </div>
 
-    </div>
+    </main>
 
 </body>
-
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - Taliq</title>
+    <title>Sign Up - Taleeq</title>
 
     <!-- Google Fonts -->
     <link
@@ -14,25 +14,63 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
-    <!-- Unified Global Stylings -->
+    <!-- Global Stylings -->
+    <link rel="stylesheet" href="css/welcome_page.css">
     <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
 
-    <div class="split-layout">
 
-        <!-- Left Side: Sign Up Form area -->
+    <header class="main-header">
+
+        <!-- Naviation Bar -->
+        <nav class="container nav-container">
+
+            <!-- website's Name -->
+            <a href="welcome_page.html" class="logo">Taleeq</a>
+
+            <!-- Search Bar -->
+            <div class="nav-search">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" placeholder="Search courses..." class="search-input">
+            </div>
+
+            <!-- navigation links -->
+            <div class="desktop-nav">
+                <a href="welcome_page.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="login.html" class="nav-link nav-login">Log in</a>
+                <a href="signup.html" class="nav-link nav-signup">Sign up</a>
+            </div>
+
+            <!-- shopping cart icon -->
+            <div>
+                <!-- shopping cart button -->
+                <button class="cart-btn">
+
+                    <!-- a shopping cart icon from Google Fonts Library -->
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge"></span> <!-- notification dot (set initally. might be numbers !) -->
+                </button>
+            </div>
+        </nav>
+    </header>
+
+
+    <main class="split-layout">
+
+        <!-- Sign Up Form area -->
         <div class="login-pane">
             <div class="login-content">
 
-                <a href="welcome_page.html" class="brand-logo">Taliq</a>
                 <h1 class="login-title">Create your account</h1>
-                <p class="login-subtitle">Join us today to unlock a universe of expert-led courses.</p>
+                <p class="login-subtitle">Join us today to unlock a universe of professional courses.</p>
                 <br>
 
                 <!-- Form Section -->
-                <form action="post" class="login-form">
+                <form action="user_home.html" class="login-form">
 
                     <!-- Full Name Field -->
                     <div class="input-group">
@@ -57,7 +95,8 @@
                         <label for="password" class="input-label">Password</label>
                         <div class="input-wrapper">
                             <span class="material-symbols-outlined input-icon">lock</span>
-                            <input type="password" id="password" class="form-input" placeholder="Create a password" required>
+                            <input type="password" id="password" class="form-input" placeholder="Create a password"
+                                required>
                         </div>
                     </div>
 
@@ -66,7 +105,8 @@
                         <label for="confirm-password" class="input-label">Confirm Password</label>
                         <div class="input-wrapper">
                             <span class="material-symbols-outlined input-icon">verified_user</span>
-                            <input type="password" id="confirm-password" class="form-input" placeholder="Confirm your password" required>
+                            <input type="password" id="confirm-password" class="form-input"
+                                placeholder="Confirm your password" required>
                         </div>
                     </div>
 
@@ -74,7 +114,8 @@
                     <div class="form-options">
                         <label class="remember-me">
                             <input type="checkbox" class="checkbox" required>
-                            <span>I agree to the <a href="#" class="forgot-link">Terms</a> & <a href="#" class="forgot-link">Privacy Policy</a></span>
+                            <span>I agree to the <a href="#" class="forgot-link">Terms</a> & <a href="#"
+                                    class="forgot-link">Privacy Policy</a></span>
                         </label>
                     </div>
 
@@ -90,14 +131,13 @@
             </div>
         </div>
 
-        <!-- Right Side: Minimalist Image -->
+        <!-- Image Area -->
         <div class="image-pane">
-            <img src="images/login_illustration.png" alt="Custom Flat Illustration of Learning Platform"
+            <img src="images/login_image.png" alt="Custom Flat Illustration of Learning Platform"
                 class="pane-image" style="object-fit: contain; background-color: var(--surface); padding: 4rem;">
         </div>
 
-    </div>
+    </main>
 
 </body>
-
 </html>
