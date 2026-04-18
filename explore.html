@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Courses - Taliq</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/welcome_page.css">
+    <link rel="stylesheet" href="css/explore.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="container nav-container">
+            <a href="welcome_page.html" class="logo">Taliq</a>
+
+            <div class="nav-search">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" placeholder="Search courses..." class="search-input">
+            </div>
+
+            <div class="desktop-nav">
+                <a href="welcome_page.html" class="nav-link">Home</a>
+                <a href="explore.html" class="nav-link active">Explore</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="login.html" class="nav-link nav-login">Log in</a>
+                <a href="signup.html" class="nav-link nav-signup">Sign up</a>
+
+                <a href="Cart.html" class="cart-btn" style="margin: 1rem;">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge"></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="container mt-custom">
+            <div class="explore-header">
+                <h1 class="explore-title">Explore All Courses</h1>
+                <p class="explore-subtitle">Discover 120+ courses and workshops to enhance your skills</p>
+            </div>
+        </section>
+
+        <section class="container py-custom">
+            <div class="explore-layout">
+
+                <aside class="filters-sidebar">
+                    <div class="filter-section">
+                        <h3 class="filter-title">Category</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="all" checked>
+                                <span>All Categories</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="technology">
+                                <span>Technology</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="business">
+                                <span>Business</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="design">
+                                <span>Design</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="category" value="data-science">
+                                <span>Data Science</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3 class="filter-title">Type</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="type" value="all" checked>
+                                <span>All Types</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="type" value="online">
+                                <span>Online Courses</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="type" value="onsite">
+                                <span>On-site Workshops</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3 class="filter-title">Level</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="level" value="beginner">
+                                <span>Beginner</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="level" value="intermediate">
+                                <span>Intermediate</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="level" value="advanced">
+                                <span>Advanced</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3 class="filter-title">Price Range</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="price" value="0-500">
+                                <span>0 - 500 SAR</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="price" value="500-1000">
+                                <span>500 - 1000 SAR</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="price" value="1000+">
+                                <span>1000+ SAR</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-section">
+                        <h3 class="filter-title">Language</h3>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="language" value="english">
+                                <span>English</span>
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="language" value="arabic">
+                                <span>Arabic</span>
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+
+                <div class="courses-content">
+                    <div class="courses-header">
+                        <p class="results-count">Showing 120 courses</p>
+                        <div class="sort-dropdown">
+                            <label for="sort">Sort by:</label>
+                            <select id="sort" class="sort-select">
+                                <option value="popular">Most Popular</option>
+                                <option value="newest">Newest</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="product-grid">
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Data Science Course" class="card-img">
+                                <span class="badge badge-online">Online</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Data Mastery & Analysis</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.9</span>
+                                    <span class="rating-count">(1.2k)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">450 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Business Workshop" class="card-img">
+                                <span class="badge badge-onsite">On-site</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Leadership In Practice</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.8</span>
+                                    <span class="rating-count">(850)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">850 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Tech Fundamentals" class="card-img">
+                                <span class="badge badge-online">Online</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Software Architecture</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">5.0</span>
+                                    <span class="rating-count">(430)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">590 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Creative Design" class="card-img">
+                                <span class="badge badge-onsite">On-site</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Human-Centric Design</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.7</span>
+                                    <span class="rating-count">(2.1k)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">720 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Marketing Course" class="card-img">
+                                <span class="badge badge-online">Online</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Digital Marketing Mastery</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.6</span>
+                                    <span class="rating-count">(980)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">380 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Finance Course" class="card-img">
+                                <span class="badge badge-online">Online</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Financial Analysis & Planning</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.8</span>
+                                    <span class="rating-count">(1.5k)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">650 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Team Workshop" class="card-img">
+                                <span class="badge badge-onsite">On-site</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">Agile Project Management</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.9</span>
+                                    <span class="rating-count">(760)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">920 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="course_details.html" class="product-card">
+                            <div class="card-image-container">
+                                <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="AI Course" class="card-img">
+                                <span class="badge badge-online">Online</span>
+                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">AI & Machine Learning</h3>
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">5.0</span>
+                                    <span class="rating-count">(2.3k)</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="price">890 SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <div class="pagination">
+                        <button class="pagination-btn" disabled>
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <button class="pagination-btn active">1</button>
+                        <button class="pagination-btn">2</button>
+                        <button class="pagination-btn">3</button>
+                        <button class="pagination-btn">4</button>
+                        <button class="pagination-btn">5</button>
+                        <button class="pagination-btn">
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">Taliq</div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Taliq. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
