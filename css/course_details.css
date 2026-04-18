@@ -1,0 +1,362 @@
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    padding: 1rem 0;
+}
+
+.breadcrumb a {
+    color: var(--primary);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+.course-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 3rem;
+}
+
+.course-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.course-hero {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+}
+
+.course-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.course-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.course-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.course-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    line-height: 1.2;
+}
+
+.course-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.course-students {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.course-students .material-symbols-outlined {
+    font-size: 1.2rem;
+}
+
+.course-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.info-icon {
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+.info-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.info-value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.course-section {
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+}
+
+.section-heading {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+}
+
+.course-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.course-description:last-child {
+    margin-bottom: 0;
+}
+
+.learning-outcomes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.outcome-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.outcome-icon {
+    color: var(--primary);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.curriculum {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.curriculum-item {
+    border: 2px solid var(--surface-low);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.curriculum-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.curriculum-header:hover {
+    background-color: var(--surface-low);
+}
+
+.curriculum-header .material-symbols-outlined {
+    color: var(--text-muted);
+    font-size: 1.5rem;
+}
+
+.curriculum-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    flex: 1;
+}
+
+.curriculum-info {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.requirements-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.requirements-list li {
+    padding: 0.75rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.requirements-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.course-sidebar {
+    position: sticky;
+    top: 90px;
+    height: fit-content;
+}
+
+.purchase-card {
+    background-color: var(--surface);
+    border: 2px solid var(--surface-low);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.price-section {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--surface-low);
+}
+
+.price-large {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.btn-full {
+    width: 100%;
+    justify-content: center;
+}
+
+.includes-section {
+    padding-top: 1rem;
+    border-top: 2px solid var(--surface-low);
+}
+
+.includes-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.includes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.includes-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.includes-item .material-symbols-outlined {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.share-section {
+    padding-top: 1rem;
+    border-top: 2px solid var(--surface-low);
+}
+
+.share-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.share-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--surface-low);
+    border-radius: 0.5rem;
+    background-color: var(--surface);
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.share-btn:hover {
+    background-color: var(--surface-hover);
+    border-color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+    .course-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .course-sidebar {
+        position: static;
+    }
+
+    .course-title {
+        font-size: 2rem;
+    }
+
+    .course-hero {
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .course-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .course-title {
+        font-size: 1.75rem;
+    }
+
+    .section-heading {
+        font-size: 1.5rem;
+    }
+}

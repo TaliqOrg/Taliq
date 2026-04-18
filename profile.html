@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Taliq</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/welcome_page.css">
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <nav class="container nav-container">
+            <a href="welcome_page.html" class="logo">Taliq</a>
+
+            <div class="nav-search">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" placeholder="Search courses..." class="search-input">
+            </div>
+
+            <div class="desktop-nav">
+                <a href="user_home.html" class="nav-link">Dashboard</a>
+                <a href="explore.html" class="nav-link">Explore</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+
+                <a href="profile.html" class="nav-link active" style="display: flex; align-items: center; gap: 0.25rem;">
+                    <span class="material-symbols-outlined">account_circle</span> My Account
+                </a>
+
+                <a href="Cart.html" class="cart-btn" style="margin: 1rem;">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge"></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="container mt-custom">
+            <h1 class="page-title">My Profile</h1>
+        </section>
+
+        <section class="container py-custom">
+            <div class="profile-layout">
+
+                <aside class="profile-sidebar">
+                    <div class="profile-card">
+                        <div class="profile-avatar">
+                            <span class="material-symbols-outlined avatar-icon">account_circle</span>
+                        </div>
+                        <h2 class="profile-name">Ali Mohammed</h2>
+                        <p class="profile-email">ali.mohammed@email.com</p>
+                        <p class="profile-joined">Member since Jan 2026</p>
+                    </div>
+
+                    <nav class="profile-nav">
+                        <a href="#personal-info" class="profile-nav-link active">
+                            <span class="material-symbols-outlined">person</span>
+                            Personal Information
+                        </a>
+                        <a href="#my-courses" class="profile-nav-link">
+                            <span class="material-symbols-outlined">school</span>
+                            My Courses
+                        </a>
+                        <a href="#certificates" class="profile-nav-link">
+                            <span class="material-symbols-outlined">workspace_premium</span>
+                            Certificates
+                        </a>
+                        <a href="#wishlist" class="profile-nav-link">
+                            <span class="material-symbols-outlined">favorite</span>
+                            Wishlist
+                        </a>
+                        <a href="#orders" class="profile-nav-link">
+                            <span class="material-symbols-outlined">receipt_long</span>
+                            Order History
+                        </a>
+                        <a href="#settings" class="profile-nav-link">
+                            <span class="material-symbols-outlined">settings</span>
+                            Settings
+                        </a>
+                        <a href="welcome_page.html" class="profile-nav-link logout">
+                            <span class="material-symbols-outlined">logout</span>
+                            Logout
+                        </a>
+                    </nav>
+                </aside>
+
+                <div class="profile-content">
+
+                    <section id="personal-info" class="content-section">
+                        <div class="section-header-profile">
+                            <h2 class="section-title-profile">Personal Information</h2>
+                            <button class="btn-edit">
+                                <span class="material-symbols-outlined">edit</span>
+                                Edit
+                            </button>
+                        </div>
+
+                        <div class="info-grid">
+                            <div class="info-field">
+                                <label class="field-label">Full Name</label>
+                                <p class="field-value">Ali Mohammed</p>
+                            </div>
+                            <div class="info-field">
+                                <label class="field-label">Email Address</label>
+                                <p class="field-value">ali.mohammed@email.com</p>
+                            </div>
+                            <div class="info-field">
+                                <label class="field-label">Phone Number</label>
+                                <p class="field-value">+966 50 123 4567</p>
+                            </div>
+                            <div class="info-field">
+                                <label class="field-label">Date of Birth</label>
+                                <p class="field-value">January 15, 1995</p>
+                            </div>
+                            <div class="info-field">
+                                <label class="field-label">Country</label>
+                                <p class="field-value">Saudi Arabia</p>
+                            </div>
+                            <div class="info-field">
+                                <label class="field-label">City</label>
+                                <p class="field-value">Riyadh</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="my-courses" class="content-section">
+                        <div class="section-header-profile">
+                            <h2 class="section-title-profile">My Enrolled Courses</h2>
+                            <a href="explore.html" class="btn-link">Browse More</a>
+                        </div>
+
+                        <div class="courses-list">
+                            <div class="course-item">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Course" class="course-thumbnail">
+                                <div class="course-details">
+                                    <h3 class="course-name">Data Mastery & Analysis</h3>
+                                    <p class="course-instructor">By Dr. Sarah Johnson</p>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 65%;"></div>
+                                        </div>
+                                        <span class="progress-text">65% Complete</span>
+                                    </div>
+                                </div>
+                                <a href="course_details.html" class="btn btn-outline btn-small">Continue Learning</a>
+                            </div>
+
+                            <div class="course-item">
+                                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Course" class="course-thumbnail">
+                                <div class="course-details">
+                                    <h3 class="course-name">Leadership In Practice</h3>
+                                    <p class="course-instructor">By Prof. Ahmed Al-Rashid</p>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 100%;"></div>
+                                        </div>
+                                        <span class="progress-text">Completed</span>
+                                    </div>
+                                </div>
+                                <a href="course_details.html" class="btn btn-outline btn-small">View Certificate</a>
+                            </div>
+
+                            <div class="course-item">
+                                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Course" class="course-thumbnail">
+                                <div class="course-details">
+                                    <h3 class="course-name">Software Architecture</h3>
+                                    <p class="course-instructor">By Eng. Mohammed Hassan</p>
+                                    <div class="progress-container">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" style="width: 30%;"></div>
+                                        </div>
+                                        <span class="progress-text">30% Complete</span>
+                                    </div>
+                                </div>
+                                <a href="course_details.html" class="btn btn-outline btn-small">Continue Learning</a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="certificates" class="content-section">
+                        <div class="section-header-profile">
+                            <h2 class="section-title-profile">My Certificates</h2>
+                        </div>
+
+                        <div class="certificates-grid">
+                            <div class="certificate-card">
+                                <div class="certificate-icon">
+                                    <span class="material-symbols-outlined">workspace_premium</span>
+                                </div>
+                                <div class="certificate-info">
+                                    <h3 class="certificate-title">Leadership In Practice</h3>
+                                    <p class="certificate-date">Completed on March 15, 2026</p>
+                                    <p class="certificate-code">Certificate ID: TLQ-2026-0123</p>
+                                </div>
+                                <div class="certificate-actions">
+                                    <button class="btn-icon">
+                                        <span class="material-symbols-outlined">download</span>
+                                    </button>
+                                    <button class="btn-icon">
+                                        <span class="material-symbols-outlined">share</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="certificate-card">
+                                <div class="certificate-icon">
+                                    <span class="material-symbols-outlined">workspace_premium</span>
+                                </div>
+                                <div class="certificate-info">
+                                    <h3 class="certificate-title">Digital Marketing Fundamentals</h3>
+                                    <p class="certificate-date">Completed on February 10, 2026</p>
+                                    <p class="certificate-code">Certificate ID: TLQ-2026-0089</p>
+                                </div>
+                                <div class="certificate-actions">
+                                    <button class="btn-icon">
+                                        <span class="material-symbols-outlined">download</span>
+                                    </button>
+                                    <button class="btn-icon">
+                                        <span class="material-symbols-outlined">share</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="wishlist" class="content-section">
+                        <div class="section-header-profile">
+                            <h2 class="section-title-profile">My Wishlist</h2>
+                        </div>
+
+                        <div class="product-grid">
+                            <a href="course_details.html" class="product-card">
+                                <div class="card-image-container">
+                                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Design Course" class="card-img">
+                                    <span class="badge badge-onsite">On-site</span>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">Human-Centric Design</h3>
+                                    <div class="rating">
+                                        <span class="material-symbols-outlined star-icon">star</span>
+                                        <span class="rating-score">4.7</span>
+                                        <span class="rating-count">(2.1k)</span>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="price">720 SAR</span>
+                                        <button class="add-cart-btn">
+                                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="course_details.html" class="product-card">
+                                <div class="card-image-container">
+                                    <img src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="AI Course" class="card-img">
+                                    <span class="badge badge-online">Online</span>
+                                </div>
+                                <div class="card-content">
+                                    <h3 class="card-title">AI & Machine Learning</h3>
+                                    <div class="rating">
+                                        <span class="material-symbols-outlined star-icon">star</span>
+                                        <span class="rating-score">5.0</span>
+                                        <span class="rating-count">(2.3k)</span>
+                                    </div>
+                                    <div class="card-footer">
+                                        <span class="price">890 SAR</span>
+                                        <button class="add-cart-btn">
+                                            <span class="material-symbols-outlined">add_shopping_cart</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </section>
+
+                    <section id="orders" class="content-section">
+                        <div class="section-header-profile">
+                            <h2 class="section-title-profile">Order History</h2>
+                        </div>
+
+                        <div class="orders-list">
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <div>
+                                        <p class="order-id">Order #TLQ-2026-0456</p>
+                                        <p class="order-date">March 10, 2026</p>
+                                    </div>
+                                    <div class="order-status status-completed">Completed</div>
+                                </div>
+                                <div class="order-items">
+                                    <div class="order-item">
+                                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Course" class="order-item-img">
+                                        <div class="order-item-details">
+                                            <h4 class="order-item-title">Data Mastery & Analysis</h4>
+                                            <p class="order-item-type">Online Course</p>
+                                        </div>
+                                        <p class="order-item-price">450 SAR</p>
+                                    </div>
+                                </div>
+                                <div class="order-footer">
+                                    <p class="order-total">Total: <strong>450 SAR</strong></p>
+                                    <button class="btn-link">View Details</button>
+                                </div>
+                            </div>
+
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <div>
+                                        <p class="order-id">Order #TLQ-2026-0321</p>
+                                        <p class="order-date">February 5, 2026</p>
+                                    </div>
+                                    <div class="order-status status-completed">Completed</div>
+                                </div>
+                                <div class="order-items">
+                                    <div class="order-item">
+                                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Workshop" class="order-item-img">
+                                        <div class="order-item-details">
+                                            <h4 class="order-item-title">Leadership In Practice</h4>
+                                            <p class="order-item-type">On-site Workshop</p>
+                                        </div>
+                                        <p class="order-item-price">850 SAR</p>
+                                    </div>
+                                    <div class="order-item">
+                                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" alt="Course" class="order-item-img">
+                                        <div class="order-item-details">
+                                            <h4 class="order-item-title">Software Architecture</h4>
+                                            <p class="order-item-type">Online Course</p>
+                                        </div>
+                                        <p class="order-item-price">590 SAR</p>
+                                    </div>
+                                </div>
+                                <div class="order-footer">
+                                    <p class="order-total">Total: <strong>1,440 SAR</strong></p>
+                                    <button class="btn-link">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">Taliq</div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="contact.html">Contact Us</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Taliq. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
