@@ -1,0 +1,146 @@
+/* --- Checkout & Cart Specific Styles --- */
+
+/* Layouts */
+.checkout-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: flex-start;
+}
+
+.checkout-forms {
+    flex: 3;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.checkout-summary {
+    flex: 2;
+    min-width: 320px;
+}
+
+/* Back Link */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.back-link .material-symbols-outlined {
+    font-size: 1.2rem;
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+/* Checkout Cards */
+.checkout-card {
+    width: 100%;
+    border: 1px solid var(--surface-hover);
+    padding: 2rem;
+    background-color: var(--surface);
+    border-radius: var(--border-radius-lg);
+}
+
+.checkout-card-title {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Form Elements */
+.form-group-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-col {
+    flex: 1;
+}
+
+.checkout-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.checkout-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--surface-low);
+    border-radius: var(--border-radius-lg);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    outline: none;
+    background: var(--surface);
+    color: var(--text-main);
+}
+
+.checkout-input:focus {
+    border-color: var(--on-secondary-container);
+}
+
+/* Order Summary */
+.summary-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-item-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.summary-item-price {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid var(--surface-low);
+    margin: 1.5rem 0;
+}
+
+.summary-row {
+    margin-bottom: 1rem;
+}
+
+.btn-block {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.secure-note {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+}
