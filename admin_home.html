@@ -1,210 +1,107 @@
-<!DOCTYPE html>
 <html lang="en">
-<!-- Author: Fadil -->
-<!-- Task: Web Design - Admin Dashboard (Milestone 2) -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Taliq</title>
+    <title>Admin Dashboard</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     
-    <!-- Importing the global layout variables -->
-    <link rel="stylesheet" href="css/welcome_page.css">
-    
-    <!-- Admin Specific static utility styling to keep layout clean for management -->
-    <style>
-        .admin-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: var(--surface);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-radius: var(--border-radius-lg);
-            border: 1px solid var(--surface-hover);
-        }
-        
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: var(--surface);
-            border-radius: var(--border-radius-lg);
-            overflow: hidden;
-            border: 1px solid var(--surface-hover);
-        }
-        
-        .admin-table th, .admin-table td {
-            padding: 1rem 1.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--surface-hover);
-        }
-        
-        .admin-table th {
-            background-color: var(--surface-low);
-            font-family: var(--font-heading);
-            font-weight: 700;
-        }
-        
-        .action-btns {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .btn-edit {
-            background-color: var(--secondary-container);
-            color: var(--on-secondary-container);
-            border: none;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .btn-delete {
-            background-color: #fee2e2;
-            color: var(--error);
-            border: none;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
-    </style>
+    <!-- Global Styling -->
+     <link rel="stylesheet" href="css/welcome_page.css">
+     <link rel="stylesheet" href="css/user_home.css">
+     <link rel="stylesheet" href="css/admin_home.css">
 </head>
-
 <body>
-
+    
+    <!-- Navbar (same as user_home but with admin links) -->
     <header class="main-header">
         <nav class="container nav-container">
-            <!-- Logo -->
-            <h1 class="logo" style="color: var(--text-main);">Taliq <span style="color: var(--primary); font-size: 1rem; font-weight: bold;">(ADMIN PANEL)</span></h1>
-
-            <!-- Search Bar -->
-            <div class="nav-search">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="Search database ID or Title..." class="search-input">
-            </div>
-
-            <!-- Navigation Links -->
+            <h1 class="logo">Taleeq Admin</h1>
             <div class="desktop-nav">
-                <a href="admin_home.html" class="nav-link active">Inventory Management</a>
-                <a href="orders.html" class="nav-link">Order History</a>
-                <a href="welcome_page.html" class="nav-link text-primary" style="display: flex; align-items: center; gap: 0.25rem;">
-                    <span class="material-symbols-outlined">logout</span> Log Out
+                <a href="admin_home.html" class="nav-link active">Home</a>
+                <a href="#" class="nav-link">Users</a>
+                <a href="#" class="nav-link">Settings</a>
+                
+                <a href="#" class="nav-link profile-link" style="margin-left: 1rem;">
+                    <span class="material-symbols-outlined">shield_person</span> Admin
                 </a>
+                <a href="welcome_page.html" class="nav-login nav-link">Log out</a>
             </div>
         </nav>
     </header>
 
     <main>
-        
+        <!-- Welcome Banner -->
+        <section class="container mt-custom">
+
+            <div class="home-banner" style="background-color: var(--surface); color: var(--text-main); border: 1px solid var(--surface-hover);">
+                <h1 class="home-title text-primary" style="font-size: 2rem;">Platform Management</h1>  
+                <p class="home-subtitle" style="color: var(--text-muted);">Perform tasks and manage content.</p> 
+            </div>
+        </section>
+
+        <!-- Admin Action Layout -->
         <section class="container py-custom">
             
             <div class="section-header">
                 <div>
-                    <h2 class="section-title">Inventory Management</h2>
-                    <p class="section-subtitle">Add, modify, or delete educational contents.</p>
+                    <h2 class="section-title">Administrative Actions</h2>
                 </div>
             </div>
 
-            <!-- Admin Toolbar -->
-            <div class="admin-toolbar">
-                <div style="display: flex; gap: 1rem; align-items: center;">
-                    <p style="font-weight: 600;">Total Active Courses: 12</p>
-                </div>
+            <!--  grid of action buttons for Admins -->
+            <div class="admin-actions-grid">
                 
-                <!-- Explicitly requested by project rubric: authenticated managers can add new products -->
-                <a href="add_product.html" class="nav-signup" style="display: flex; align-items: center; gap: 0.5rem;">
-                    <span class="material-symbols-outlined">add</span> Create New Course
+                <a href="#" class="admin-action-card">
+                    <span class="material-symbols-outlined action-icon">add_circle</span>
+                    <div class="action-info">
+                        <h3>Create New Course</h3>
+                        <p>Add a new course curriculum or workshop to the platform.</p>
+                    </div>
                 </a>
+
+                <a href="#" class="admin-action-card">
+                    <span class="material-symbols-outlined action-icon">manage_accounts</span>
+                    <div class="action-info">
+                        <h3>Manage Users</h3>
+                        <p>Search, edit, or disable trainer and student accounts.</p>
+                    </div>
+                </a>
+
+                <a href="#" class="admin-action-card">
+                    <span class="material-symbols-outlined action-icon">mark_email_read</span>
+                    <div class="action-info">
+                        <h3>Newsletters Management</h3>
+                        <p>Send newsletters and announcements to students.</p>
+                    </div>
+                </a>
+
+                <a href="#" class="admin-action-card">
+                    <span class="material-symbols-outlined action-icon">settings</span>
+                    <div class="action-info">
+                        <h3>Platform Settings</h3>
+                    </div>
+                </a>
+
             </div>
-
-            <!-- Inventory Database View -->
-            <table class="admin-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Pictue</th>
-                        <th>Course Name</th>
-                        <th>Type</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-family: monospace; font-weight: bold;">#PRD-001</td>
-                        <td>
-                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="img" style="width: 50px; height: 50px; object-fit: cover; border-radius: 0.25rem;">
-                        </td>
-                        <td style="font-weight: bold;">Leadership In Practice</td>
-                        <td><span class="badge badge-onsite">On-Site</span></td>
-                        <td>850 SAR</td>
-                        <td style="color: var(--primary); font-weight: bold;">24 Available</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn-edit" title="Edit Course"><span class="material-symbols-outlined">edit</span></button>
-                                <button class="btn-delete" title="Delete Course"><span class="material-symbols-outlined">delete</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td style="font-family: monospace; font-weight: bold;">#PRD-002</td>
-                        <td>
-                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="img" style="width: 50px; height: 50px; object-fit: cover; border-radius: 0.25rem;">
-                        </td>
-                        <td style="font-weight: bold;">Software Architecture</td>
-                        <td><span class="badge badge-online">Online</span></td>
-                        <td>590 SAR</td>
-                        <td style="color: var(--text-muted);">Unlimited</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn-edit" title="Edit Course"><span class="material-symbols-outlined">edit</span></button>
-                                <button class="btn-delete" title="Delete Course"><span class="material-symbols-outlined">delete</span></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td style="font-family: monospace; font-weight: bold;">#PRD-003</td>
-                        <td>
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=50&q=80" alt="img" style="width: 50px; height: 50px; object-fit: cover; border-radius: 0.25rem;">
-                        </td>
-                        <td style="font-weight: bold;">Data Mastery & Analysis</td>
-                        <td><span class="badge badge-online">Online</span></td>
-                        <td>1,240 SAR</td>
-                        <td style="color: var(--error); font-weight: bold;">Out of Stock</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn-edit" title="Edit Course"><span class="material-symbols-outlined">edit</span></button>
-                                <button class="btn-delete" title="Delete Course"><span class="material-symbols-outlined">delete</span></button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
 
         </section>
 
     </main>
 
-    <footer class="main-footer">
+    <footer class="main-footer" style="padding-top: 1rem;">
         <div class="container footer-container">
             <div class="footer-brand">
-                <div class="footer-logo">Taliq - Management</div>
-                <p class="footer-desc">Administrator control panel.</p>
-            </div>
-            <div class="footer-bottom" style="text-align: right; margin-top: auto;">
-                <p>© 2026 Admin Portal.</p>
+                <div class="footer-logo">Taleeq Admin</div>
             </div>
         </div>
-    </footer>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Taleeq Platform.</p>
+        </div>
+    </footer> 
 
 </body>
 </html>

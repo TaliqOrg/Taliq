@@ -1,23 +1,22 @@
-<!DOCTYPE html>
 <html lang="en">
-<!-- Author: Fadil -->
-<!-- Task: Web Design - User Home Page (Milestone 2) -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Dashboard - Taliq</title>
+    <title>Home Page</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     
-    <!-- Importing the global layout variables exactly as requested -->
-    <link rel="stylesheet" href="css/welcome_page.css">
+    <!-- Global Styling -->
+     <link rel="stylesheet" href="css/welcome_page.css">
+     <link rel="stylesheet" href="css/user_home.css">
+
 </head>
-
 <body>
-
+    
+    <!-- Navbar -->
     <header class="main-header">
         <nav class="container nav-container">
             <!-- Logo -->
@@ -32,77 +31,139 @@
             <!-- Navigation Links -->
             <div class="desktop-nav">
                 <a href="user_home.html" class="nav-link active">Dashboard</a>
-                <a href="products.html" class="nav-link">Shop</a>
+                <a href="products.html" class="nav-link">Explore</a>
                 <a href="contact.html" class="nav-link">Contact Us</a>
+                
+                <!-- shopping cart button -->
+                <button class="cart-btn" style="margin: 1rem">
+                    <!-- a shopping cart icon from Google Fonts Library -->
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge"></span> <!-- notification dot (set initally. might be numbers !) -->
+                </button>
+                
                 <a href="profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
                     <span class="material-symbols-outlined">account_circle</span> My Account
                 </a>
             </div>
 
-            <!-- Static Shopping Cart Requirement -->
-            <div class="nav-actions">
-                <a href="cart.html" class="cart-btn" style="display: flex; align-items: center; gap: 0.5rem; border: 1px solid var(--primary); padding: 0.4rem 1rem; border-radius: 0.5rem; color: var(--primary);">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                    <span style="font-weight: 700; font-family: var(--font-heading);">2 Items | 1040 SAR</span>
-                </a>
-            </div>
         </nav>
     </header>
 
     <main>
         
-        <!-- Welcome Banner using the established brand colors -->
+        <!-- Welcome Banner -->
         <section class="container mt-custom">
-            <div class="newsletter-card" style="padding: 2rem; border-radius: var(--border-radius-lg); text-align: left;">
-                <h2 class="newsletter-title" style="margin-bottom: 0.5rem;">Welcome back!</h2>
-                <p class="newsletter-subtitle" style="margin: 0; color: var(--surface);">Access your enrolled courses or continue exploring the shop.</p>
+
+            <div class="home-banner">
+                <h1 class="home-title">Welcome Back, Ali!</h1>  
+                <p class="home-subtitle">Access your enrolled courses or continue exploring the shop</p> 
             </div>
+
         </section>
 
-        <!-- Past Purchases Section (Mandatory Requirement) -->
-        <section class="container py-custom" style="padding-bottom: 2rem;">
+        <!-- view past purchases -->
+        <section class="container py-custom">
+            
+            <!-- heading -->
+            <div class="past-purchases-container py-custom">
+                <h2>View Past Purchases</h2>
+                <a href="past-purchases.html" class="view-all">View All</a>
+            </div>
+
+            <!-- purchased courses -->
+             <div class="purchased-courses-container">
+
+                <!-- Product Card 1 -->
+                <a href="product_details.html" class="product-card">
+
+                    <!-- image container -->
+                    <div class="card-image-container">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Data Science Course" class="card-img">
+
+                        <!-- a badge for Online/On-Site -->
+                        <span class="badge badge-online">Online</span>
+                    </div>
+
+                    <!-- container for course info -->
+                    <div class="card-content">
+
+                        <h3 class="card-title">Data Mastery & Analysis</h3>
+
+                    </div>
+                </a>
+
+
+                <!-- Product Card 2 -->
+                <a href="product_details.html" class="product-card">
+                    <div class="card-image-container">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Business Workshop" class="card-img">
+                        <span class="badge badge-onsite">On-site</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Leadership In Practice</h3>
+                    </div>
+                </a>
+
+             </div>
+        </section>
+
+        <!-- Recommended Courses Section -->
+        <section class="container py-custom" id="featured-courses" style="scroll-margin-top: 80px;">
+
+            <!-- Header -->
             <div class="section-header">
                 <div>
-                    <h2 class="section-title">Your Learning Library</h2>
-                    <p class="section-subtitle">Based on your past purchases (Cookie data goes here later).</p>
+                    <h2 style="margin-bottom: 1rem;">Recommended For You</h2>
+                    <p class="section-subtitle">Discover our top-rated courses.</p>
                 </div>
             </div>
 
+            <!-- A grid container to display course cards as links -->
             <div class="product-grid">
-                
-                <!-- Past Purchase Card -->
+
+                <!-- Product Card 1 -->
                 <a href="product_details.html" class="product-card">
+
+                    <!-- image container -->
                     <div class="card-image-container">
-                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Data Science" class="card-img">
-                        <span class="badge badge-online">Purchased</span>
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Data Science Course" class="card-img">
+
+                        <!-- a badge for Online/On-Site -->
+                        <span class="badge badge-online">Online</span>
                     </div>
+
+                    <!-- container for course info -->
                     <div class="card-content">
+
                         <h3 class="card-title">Data Mastery & Analysis</h3>
-                        <div class="card-footer" style="margin-top: 1rem;">
-                            <span class="price" style="font-size: 1rem;">Continue Learning</span>
-                            <button class="add-cart-btn"><span class="material-symbols-outlined">play_arrow</span></button>
+
+                        <!-- Rating info -->
+                        <div class="rating">
+
+                            <!-- A star icon -->
+                            <span class="material-symbols-outlined star-icon">star</span>
+                            <span class="rating-score">4.9</span> <!--average score-->
+                            <span class="rating-count">(1.2k)</span> <!--total number of ratings-->
+                        </div>
+
+                        <!-- price & action info -->
+                        <div class="card-footer">
+                            <span class="price">450 SAR</span>
+                            <button class="add-cart-btn">
+                                <span class="material-symbols-outlined">add_shopping_cart</span>
+                            </button>
                         </div>
                     </div>
                 </a>
 
-            </div>
-        </section>
-
-        <!-- Recommended Courses Section -->
-        <section class="container pb-custom">
-            <div class="section-header">
-                <div>
-                    <h2 class="section-title">Recommended Courses</h2>
-                    <p class="section-subtitle">Keep your skills sharp with these top-rated workshops.</p>
-                </div>
-            </div>
-
-            <div class="product-grid">
-
-                <!-- Product 1 -->
+                <!-- Product Card 2 -->
                 <a href="product_details.html" class="product-card">
                     <div class="card-image-container">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Workshop" class="card-img">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Business Workshop" class="card-img">
                         <span class="badge badge-onsite">On-site</span>
                     </div>
                     <div class="card-content">
@@ -114,15 +175,17 @@
                         </div>
                         <div class="card-footer">
                             <span class="price">850 SAR</span>
-                            <button class="add-cart-btn"><span class="material-symbols-outlined">add_shopping_cart</span></button>
+                            <button class="add-cart-btn"><span
+                                    class="material-symbols-outlined">add_shopping_cart</span></button>
                         </div>
                     </div>
                 </a>
 
-                <!-- Product 2 -->
+                <!-- Product Card 3 -->
                 <a href="product_details.html" class="product-card">
                     <div class="card-image-container">
-                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Tech Course" class="card-img">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Tech Fundamentals" class="card-img">
                         <span class="badge badge-online">Online</span>
                     </div>
                     <div class="card-content">
@@ -134,32 +197,70 @@
                         </div>
                         <div class="card-footer">
                             <span class="price">590 SAR</span>
-                            <button class="add-cart-btn"><span class="material-symbols-outlined">add_shopping_cart</span></button>
+                            <button class="add-cart-btn"><span
+                                    class="material-symbols-outlined">add_shopping_cart</span></button>
                         </div>
                     </div>
                 </a>
 
+                <!-- Product Card 4 -->
+                <a href="product_details.html" class="product-card">
+                    <div class="card-image-container">
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Creative Design" class="card-img">
+                        <span class="badge badge-onsite">On-site</span>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Human-Centric Design</h3>
+                        <div class="rating">
+                            <span class="material-symbols-outlined star-icon">star</span>
+                            <span class="rating-score">4.7</span>
+                            <span class="rating-count">(2.1k)</span>
+                        </div>
+                        <div class="card-footer">
+                            <span class="price">720 SAR</span>
+                            <button class="add-cart-btn"><span
+                                    class="material-symbols-outlined">add_shopping_cart</span></button>
+                        </div>
+                    </div>
+                </a>
             </div>
+
+            <!-- A container to show "View All Courses" button -->
+            <div class="view-all-container">
+                <button class="btn btn-secondary">View All 120+ Courses</button>
+            </div>
+
         </section>
 
     </main>
 
-    <footer class="main-footer">
+    <footer class="main-footer" style="padding-top: 1rem;">
+        
+        <!-- A container for footer content -->
         <div class="container footer-container">
+            <!-- the brand logo + short description -->
             <div class="footer-brand">
-                <div class="footer-logo">Taliq</div>
-                <p class="footer-desc">Empowering the next generation of lifelong learners through premium educational experiences.</p>
+                <div class="footer-logo">Taleeq</div>
             </div>
+
+            <!-- footer navigation links -->
             <div class="footer-links">
+
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
                 <a href="contact.html">Contact Us</a>
+
             </div>
+
         </div>
+
+        <!-- copyright container -->
         <div class="footer-bottom">
-            <p>© 2026 Taliq. All rights reserved.</p>
+            <p>&copy 2026 Taleeq. All rights reserved.</p>
         </div>
-    </footer>
+
+    </footer> 
 
 </body>
 </html>

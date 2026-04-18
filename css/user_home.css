@@ -1,0 +1,137 @@
+/* --- CSS Variables (IMPORTANT) --- */
+:root {
+    --bg-main: #f7f9fb;
+    --surface: #ffffff;
+    --surface-low: #f2f4f6;
+    --surface-hover: #e6e8ea;
+
+    --primary: #059669;
+    --primary-hover: #047857;
+    --primary-container: #10b981;
+    --on-primary: #ffffff;
+
+    --text-main: #191c1e;
+    --text-muted: #434655;
+
+    --secondary-container: #d1fae5;
+    --on-secondary-container: #065f46;
+
+    --badge-onsite: #505f76;
+    --error: #ba1a1a;
+
+    --font-heading: 'Manrope', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --border-radius-md: 0.5rem;
+    --border-radius-lg: 1rem;
+    --border-radius-xl: 2rem;
+
+    --nav-padding: 0.5rem 1.25rem;
+    --nav-border-radius: 0.5rem;
+}
+
+/* --- Resets --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Ensures footer sticks to bottom */
+}
+
+/* Removes underlines from links */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Utility Classes --- */
+
+
+/* horizontal padding */
+.container {
+    padding: 0 2rem;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+
+.mt-custom {
+    margin-top: 1.5rem;
+}
+
+/* vertical padding */
+.py-custom {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.pb-custom {
+    padding-bottom: 5rem;
+}
+
+/* Welcome banner */
+.home-banner {
+    background-color: var(--primary-container);
+    color: var(--on-primary);
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius-lg);
+    /* border: 4px solid red; */
+}
+
+.home-title {
+    margin-bottom: 1rem;
+    font-size: 2.7rem;
+    font-style: var(--font-heading);
+}
+
+.home-subtitle {
+    font-size: 1rem;
+    font-style: var(--font-body);
+    color: var(--on-primary)
+}
+
+
+/* past purchases section */
+.past-purchases-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 0.5rem;
+}
+
+/* view all link for past purchases */
+.view-all {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--border-radius-xl);
+}
+
+.view-all:hover {
+    color: var(--primary-hover);
+    font-weight: 900;
+    background-color: var(--surface-hover);
+
+}
+
+/* for past purchases layout */
+.purchased-courses-container {
+    display: flex;
+    flex: 1;
+    gap: 1rem;
+    align-items: center;
+}

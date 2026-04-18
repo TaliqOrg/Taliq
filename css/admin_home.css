@@ -1,0 +1,54 @@
+/* --- Admin Styling --- */
+
+.admin-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Action Card */
+.admin-action-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--surface);
+    border: 1px solid var(--surface-hover);
+    border-radius: var(--border-radius-lg); 
+    color: var(--text-main);
+}
+
+.admin-action-card:hover {
+    background-color: var(--surface-low);
+    border-color: var(--primary);
+}
+
+.action-icon {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-top: 0.1rem;
+}
+
+.action-info {
+    flex: 1;
+}
+
+.action-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: var(--text-main);
+}
+
+.action-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .admin-actions-grid {
+        grid-template-columns: 1fr;
+    }
+}
