@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Taliq </title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/welcome_page.css">
+    <link rel="stylesheet" href="css/user_home.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+
+<header class="main-header">
+    <nav class="container nav-container">
+        <a href="user_home.html" class="logo">Taliq </a>
+
+        <div class="nav-search">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search courses..." class="search-input">
+        </div>
+
+        <div class="desktop-nav">
+            <a href="user_home.html" class="nav-link">Dashboard</a>
+            <a href="explore.html" class="nav-link">Explore</a>
+            <a href="contact.html" class="nav-link">Contact Us</a>
+
+            <a href="profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
+                <span class="material-symbols-outlined">account_circle</span> My Account
+            </a>
+
+            <a href="cart.html" class="cart-btn" style="margin: 1rem">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <span class="cart-badge"></span>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <section class="container mt-custom">
+        <div class="section-header">
+            <a href="cart.html" class="back-link">
+                <span class="material-symbols-outlined">arrow_back</span> Back to Cart
+            </a>
+            <h1 class="section-title">Checkout</h1>
+        </div>
+    </section>
+
+    <section class="container pb-custom">
+
+        <div class="checkout-layout">
+
+            <div class="checkout-forms">
+
+                <div class="checkout-card">
+                    <h3 class="checkout-card-title">
+                        <span class="material-symbols-outlined text-primary">person</span> Billing Information
+                    </h3>
+
+                    <div class="form-group-list">
+                        <div>
+                            <label class="checkout-label">Full Name</label>
+                            <input type="text" placeholder="Ali Al-Fulan" class="checkout-input">
+                        </div>
+                        <div>
+                            <label class="checkout-label">Email Address</label>
+                            <input type="email" placeholder="ali@example.com" class="checkout-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-card">
+                    <h3 class="checkout-card-title">
+                        <span class="material-symbols-outlined text-primary">credit_card</span> Payment Details
+                    </h3>
+
+                    <div class="form-group-list">
+                        <div>
+                            <label class="checkout-label">Name on Card</label>
+                            <input type="text" placeholder="Ali Al-Fulan" class="checkout-input">
+                        </div>
+                        <div>
+                            <label class="checkout-label">Card Number</label>
+                            <input type="text" placeholder="0000 0000 0000 0000" class="checkout-input">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label class="checkout-label">Expiry Date</label>
+                                <input type="text" placeholder="MM/YY" class="checkout-input">
+                            </div>
+                            <div class="form-col">
+                                <label class="checkout-label">CVC</label>
+                                <input type="text" placeholder="123" class="checkout-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="checkout-summary">
+                <div class="checkout-card">
+                    <h3 class="card-title" style="margin-bottom: 1.5rem;">Order Summary</h3>
+
+                    <div class="summary-items">
+                        <div class="summary-item">
+                            <span class="summary-item-name">1x Data Mastery & Analysis</span>
+                            <span class="summary-item-price">450 SAR</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-item-name">1x Leadership In Practice</span>
+                            <span class="summary-item-price">850 SAR</span>
+                        </div>
+                    </div>
+
+                    <hr class="summary-divider">
+
+                    <div class="past-purchases-container summary-row">
+                        <span class="section-subtitle">Original Price</span>
+                        1300 SAR
+                    </div>
+
+                    <div class="past-purchases-container summary-row">
+                        <span class="section-subtitle">Discounts</span>
+                        <span class="rating-score text-primary">0 SAR</span>
+                    </div>
+
+                    <hr class="summary-divider">
+
+                    <div class="past-purchases-container" style="margin-bottom: 2rem;">
+                        <span class="card-title" style="margin: 0;">Total</span>
+                        <span class="price">1300 SAR</span>
+                    </div>
+
+                    <a href="user_home.html" class="btn btn-primary btn-block">
+                        <span class="material-symbols-outlined">lock</span>
+                        Confirm & Pay
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>

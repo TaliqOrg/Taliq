@@ -1,0 +1,81 @@
+/* --- Cart Page Specific Styles --- */
+
+/* Main split layout (75% / 25%) */
+.cart-layout {
+    align-items: flex-start;
+    background: transparent;
+    padding: 0;
+    grid-template-columns: 3fr 1fr;
+}
+
+@media (max-width: 900px) {
+    .cart-layout {
+        grid-template-columns: 1fr; /* Stacks on smaller screens */
+    }
+}
+
+/* Left Side: Cart Items */
+.cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cart-item {
+    background-color: var(--surface);
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--surface-low);
+}
+
+.cart-img-wrapper {
+    height: 6rem;
+    width: 9rem;
+    padding: 0;
+}
+
+.cart-item-title {
+    margin-bottom: 0.25rem;
+}
+
+.cart-badge-static {
+    position: static;
+    display: inline-block;
+}
+
+.cart-item-actions {
+    gap: 2rem;
+}
+
+/* Right Side: Order Summary */
+.cart-summary-card {
+    width: 100%;
+    border: 1px solid var(--surface-hover);
+}
+
+.summary-heading {
+    margin-bottom: 1.5rem;
+}
+
+.summary-line {
+    margin-bottom: 1rem;
+}
+
+.summary-total-line {
+    margin-bottom: 2rem;
+}
+
+.summary-total-text {
+    margin: 0;
+}
+
+.summary-divider {
+    border: none;
+    border-top: 1px solid var(--surface-hover);
+    margin: 1.5rem 0;
+}
+
+.btn-checkout {
+    width: 100%;
+    justify-content: center;
+}
