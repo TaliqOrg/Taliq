@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Taleeq</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/welcome_page.css">
+    <link rel="stylesheet" href="css/user_home.css">
+</head>
+<body>
+
+<header class="main-header">
+
+    <!-- Naviation Bar -->
+    <nav class="container nav-container">
+
+        <!-- website's Name -->
+        <a href="welcome_page.html" class="logo">Taleeq</a>
+
+        <!-- Search Bar -->
+        <div class="nav-search">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" placeholder="Search courses..." class="search-input">
+        </div>
+
+        <!-- navigation links -->
+        <div class="desktop-nav">
+            <a href="explore.html" class="nav-link">Explore</a>
+            <a href="contact.html" class="nav-link">Contact Us</a>
+            <a href="login.html" class="nav-link nav-login">Log in</a>
+            <a href="signup.html" class="nav-link nav-signup">Sign up</a>
+
+            <!-- shopping cart button -->
+            <a href="Cart.html" class="cart-btn" style="margin: 1rem;">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <span class="cart-badge"></span> </a>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+    <section class="container mt-custom">
+        <div class="section-header">
+            <h1 class="section-title">Your Cart</h1>
+            <p class="section-subtitle">Review your selected courses before checkout.</p>
+        </div>
+    </section>
+
+    <section class="container pb-custom">
+
+        <div class="welcome-card" style="align-items: flex-start; background: transparent; padding: 0; grid-template-columns: 3fr 1fr;">
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+                <div class="past-purchases-container" style="background-color: var(--surface); padding: 1rem 1.5rem; border-radius: var(--border-radius-lg); border: 1px solid var(--surface-low);">
+                    <div class="purchased-courses-container">
+                        <div class="card-image-container" style="height: 6rem; width: 9rem; padding: 0;">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Data Science Course" class="card-img">
+                        </div>
+                        <div>
+                            <h3 class="card-title" style="margin-bottom: 0.25rem;">Data Mastery & Analysis</h3>
+                            <span class="badge badge-online" style="position: static; display: inline-block;">Online</span>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="gap: 2rem;">
+                        <span class="price">450 SAR</span>
+                        <button class="cart-btn" title="Remove Item"><span class="material-symbols-outlined">delete</span></button>
+                    </div>
+                </div>
+
+                <div class="past-purchases-container" style="background-color: var(--surface); padding: 1rem 1.5rem; border-radius: var(--border-radius-lg); border: 1px solid var(--surface-low);">
+                    <div class="purchased-courses-container">
+                        <div class="card-image-container" style="height: 6rem; width: 9rem; padding: 0;">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Business Workshop" class="card-img">
+                        </div>
+                        <div>
+                            <h3 class="card-title" style="margin-bottom: 0.25rem;">Leadership In Practice</h3>
+                            <span class="badge badge-onsite" style="position: static; display: inline-block;">On-site</span>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="gap: 2rem;">
+                        <span class="price">850 SAR</span>
+                        <button class="cart-btn" title="Remove Item"><span class="material-symbols-outlined">delete</span></button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <div class="product-card" style="width: 100%; border: 1px solid var(--surface-hover);">
+                    <div class="card-content">
+                        <h3 class="card-title" style="margin-bottom: 1.5rem;">Order Summary</h3>
+
+                        <div class="past-purchases-container" style="margin-bottom: 1rem;">
+                            <span class="section-subtitle">Original Price</span>
+                            <span class="rating-score">1300 SAR</span>
+                        </div>
+
+                        <div class="past-purchases-container" style="margin-bottom: 1rem;">
+                            <span class="section-subtitle">Discounts</span>
+                            <span class="rating-score text-primary">-0 SAR</span>
+                        </div>
+
+                        <hr style="border: none; border-top: 1px solid var(--surface-hover); margin: 1.5rem 0;">
+
+                        <div class="past-purchases-container" style="margin-bottom: 2rem;">
+                            <span class="card-title" style="margin: 0;">Total</span>
+                            <span class="price">1300 SAR</span>
+                        </div>
+
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            Checkout
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer class="main-footer" style="padding-top: 1rem;">
+    <div class="container footer-container">
+        <div class="footer-brand">
+            <div class="footer-logo">Taleeq</div>
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Taleeq. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
