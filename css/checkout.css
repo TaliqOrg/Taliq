@@ -4,7 +4,7 @@
 .checkout-layout {
     display: flex;
     flex-wrap: wrap;
-    gap: 3rem;
+    gap: 0.5rem;
     align-items: flex-start;
 }
 
@@ -13,7 +13,7 @@
     min-width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0.5rem;
 }
 
 .checkout-summary {

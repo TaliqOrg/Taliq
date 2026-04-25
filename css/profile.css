@@ -1,6 +1,5 @@
 .active {
-    color: var(--primary) !important;
-    background-color: var(--secondary-container) !important;
+    color: var(--primary);
 }
 
 .page-title {
@@ -13,19 +12,19 @@
 .profile-layout {
     display: grid;
     grid-template-columns: 300px 1fr;
-    gap: 3rem;
+    gap: 0.8rem;
 }
 
 .profile-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
 }
 
 .profile-card {
     background-color: var(--surface);
     padding: 2rem;
-    border-radius: var(--border-radius-lg);
+    border-top-left-radius: var(--border-radius-lg);
+    border-top-right-radius: var(--border-radius-lg);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -71,11 +70,13 @@
 
 .profile-nav {
     background-color: var(--surface);
-    border-radius: var(--border-radius-lg);
+    border-bottom-left-radius: var(--border-radius-lg);
+    border-bottom-right-radius: var(--border-radius-lg);
     padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    border-top: 3px solid var(--surface-low);
 }
 
 .profile-nav-link {
@@ -86,7 +87,6 @@
     border-radius: 0.5rem;
     color: var(--text-muted);
     font-weight: 600;
-    transition: all 0.2s;
 }
 
 .profile-nav-link:hover {
@@ -113,7 +113,7 @@
 .profile-content {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0.8rem;
 }
 
 .content-section {
@@ -148,7 +148,6 @@
     font-family: var(--font-heading);
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
 .btn-edit:hover {
@@ -164,7 +163,6 @@
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    transition: all 0.2s;
 }
 
 .btn-link:hover {
@@ -256,7 +254,6 @@
     height: 100%;
     background-color: var(--primary);
     border-radius: 1rem;
-    transition: width 0.3s;
 }
 
 .progress-text {
@@ -286,7 +283,6 @@
     background-color: var(--surface-low);
     border-radius: var(--border-radius-lg);
     border: 2px solid transparent;
-    transition: all 0.2s;
 }
 
 .certificate-card:hover {
@@ -348,7 +344,6 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
 .btn-icon:hover {

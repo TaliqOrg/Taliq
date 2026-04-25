@@ -1,6 +1,5 @@
 .active {
-    color: var(--primary) !important;
-    background-color: var(--secondary-container) !important;
+    color: var(--primary);
 }
 
 .explore-header {

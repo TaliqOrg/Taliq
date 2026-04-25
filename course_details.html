@@ -13,27 +13,36 @@
 </head>
 <body>
 
+    <!-- Navbar -->
     <header class="main-header">
         <nav class="container nav-container">
+            <!-- Logo -->
             <a href="welcome_page.html" class="logo">Taliq</a>
 
+            <!-- Search Bar -->
             <div class="nav-search">
                 <span class="material-symbols-outlined search-icon">search</span>
                 <input type="text" placeholder="Search courses..." class="search-input">
             </div>
 
+            <!-- Navigation Links -->
             <div class="desktop-nav">
-                <a href="welcome_page.html" class="nav-link">Home</a>
+                <a href="user_home.html" class="nav-link">Dashboard</a>
                 <a href="explore.html" class="nav-link">Explore</a>
                 <a href="contact.html" class="nav-link">Contact Us</a>
-                <a href="login.html" class="nav-link nav-login">Log in</a>
-                <a href="signup.html" class="nav-link nav-signup">Sign up</a>
 
-                <a href="Cart.html" class="cart-btn" style="margin: 1rem;">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                    <span class="cart-badge"></span>
+
+                
+                <a href="profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
+                    <span class="material-symbols-outlined">account_circle</span> My Account
                 </a>
+
+                <!-- shopping cart button -->
+                <a href="cart.html" class="cart-btn" style="margin: 1rem;">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge"></span> </a>
             </div>
+
         </nav>
     </header>
 
@@ -61,7 +70,7 @@
                     <div class="course-header">
                         <h1 class="course-title">Data Mastery & Analysis</h1>
                         <div class="course-meta">
-                            <div class="rating">
+                            <div class="rating" style="margin-bottom: 0;">
                                 <span class="material-symbols-outlined star-icon">star</span>
                                 <span class="rating-score">4.9</span>
                                 <span class="rating-count">(1,234 ratings)</span>

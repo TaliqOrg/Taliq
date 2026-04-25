@@ -1,0 +1,33 @@
+
+textarea {
+    resize: none;
+    height: 10rem;
+}
+
+
+.contact-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+}
+
+.contact-img img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: contain;
+}
+
+@media (max-width: 900px) {
+    .contact-img {
+        display: none;
+    }
+}
