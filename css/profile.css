@@ -536,3 +536,199 @@
         flex-direction: column;
     }
 }
+
+/* Gamification Styles */
+.gamification-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--surface-low) 0%, var(--surface) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card.points-card {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--surface) 100%);
+    border-color: var(--primary);
+}
+
+.stat-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stat-icon .material-symbols-outlined {
+    font-size: 2rem;
+    color: var(--primary);
+}
+
+.points-card .stat-icon {
+    background-color: var(--primary);
+}
+
+.points-card .stat-icon .material-symbols-outlined {
+    color: white;
+}
+
+.stat-details {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0 0 0.25rem 0;
+}
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.points-card .stat-value {
+    color: var(--primary);
+}
+
+/* Achievements Section */
+.achievements-section {
+    margin-top: 2rem;
+}
+
+.achievements-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--surface-low);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    transition: all 0.2s;
+}
+
+.achievement-item.unlocked {
+    background: linear-gradient(90deg, var(--success-light) 0%, var(--surface-low) 100%);
+    border-color: var(--success);
+}
+
+.achievement-item.locked {
+    opacity: 0.6;
+}
+
+.achievement-item:hover {
+    transform: translateX(4px);
+}
+
+.achievement-badge {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-color: var(--surface);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.achievement-item.unlocked .achievement-badge {
+    background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
+    border-color: var(--success);
+}
+
+.achievement-item.unlocked .achievement-badge.gold {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+    border-color: #FFD700 !important;
+}
+
+.achievement-item.unlocked .achievement-badge.silver {
+    background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%) !important;
+    border-color: #C0C0C0 !important;
+}
+
+.achievement-item.unlocked .achievement-badge.bronze {
+    background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%) !important;
+    border-color: #CD7F32 !important;
+}
+
+.achievement-badge .material-symbols-outlined {
+    font-size: 2rem;
+    color: var(--text-muted);
+}
+
+.achievement-item.unlocked .achievement-badge .material-symbols-outlined {
+    color: #FFD700;
+}
+
+.achievement-item.locked .achievement-badge .material-symbols-outlined {
+    color: var(--text-muted);
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem 0;
+}
+
+.achievement-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.5rem 0;
+}
+
+.achievement-points {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0;
+}
+
+.achievement-item.locked .achievement-points {
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .gamification-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .gamification-stats {
+        grid-template-columns: 1fr;
+    }
+}
