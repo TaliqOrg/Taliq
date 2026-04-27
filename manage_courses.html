@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Courses - Admin</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Global Styling -->
+    <link rel="stylesheet" href="css/welcome_page.css">
+    <link rel="stylesheet" href="css/admin_home.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/manage_courses.css">
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="main-header">
+        <nav class="container nav-container">
+            <a href="admin_home.html" class="logo">Taliq Admin</a>
+            <div class="desktop-nav">
+                <a href="#" class="nav-link">Users</a>
+                <a href="#" class="nav-link">Settings</a>
+
+                <a href="#" class="nav-link profile-link" style="margin-left: 1rem;">
+                    <span class="material-symbols-outlined">shield_person</span> Admin
+                </a>
+                <a href="welcome_page.html" class="nav-login nav-link">Log out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Header -->
+        <section class="container mt-custom">
+            <div class="section-header">
+                <a href="admin_home.html" class="back-link">
+                    <span class="material-symbols-outlined">arrow_back</span> Back to Dashboard
+                </a>
+                <h1 class="section-title">Manage Courses & Workshops</h1>
+                <p class="section-subtitle">View, edit, and manage curriculum for all platform offerings.</p>
+            </div>
+        </section>
+
+        <section class="container pb-custom">
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-filters">
+                    <div class="search-wrapper">
+                        <span class="material-symbols-outlined">search</span>
+                        <input type="text" class="filter-input" placeholder="Search by title...">
+                    </div>
+                    <select class="filter-select">
+                        <option value="all">All Statuses</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Drafts</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="all">All Types</option>
+                        <option value="course">Online Courses</option>
+                        <option value="workshop">Workshops</option>
+                    </select>
+                </div>
+
+                <a href="new_course.html" class="btn btn-primary">
+                    <span class="material-symbols-outlined">add</span> Create New
+                </a>
+            </div>
+
+            <!-- List of Courses -->
+            <div class="admin-list-container">
+
+                <!-- A Draft Course -->
+                <div class="admin-list-card">
+                    <img src="images/digital_marketing.png"
+                        alt="Course Thumbnail" class="admin-card-img">
+
+                    <div class="admin-card-info">
+                        <h3 class="admin-card-title">
+                            Digital Marketing
+                            <span class="badge-draft">Draft</span>
+                        </h3>
+                        <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Business</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">payments</span> 380
+                                SAR</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">library_books</span> 0
+                                Lessons</span>
+                        </div>
+
+                    </div>
+                    <div class="admin-card-actions">
+                        <a href="course_details.html" class="action-btn" title="Edit Metadata">
+                            <span class="material-symbols-outlined">edit</span> Details
+                        </a>
+                        <a href="course_curriculum.html" class="action-btn primary" title="Manage Lessons">
+                            <span class="material-symbols-outlined">view_list</span> Curriculum
+                        </a>
+                        <button class="action-btn danger" title="Delete Course">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- A Published Course -->
+                <div class="admin-list-card">
+                    <img src="images/data_mastery_and_analysis.png"
+                        alt="Course Thumbnail" class="admin-card-img">
+
+                    <div class="admin-card-info">
+                        <h3 class="admin-card-title">
+                            Data Mastery & Analysis
+                            <span class="badge-published">Published</span>
+                        </h3>
+                        <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span> Data
+                                Science</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">payments</span> 450
+                                SAR</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">library_books</span> 32
+                                Lessons</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">group</span> 1,234
+                                Enrolled</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-card-actions">
+                        <a href="course_details.html" class="action-btn" title="Edit Metadata">
+                            <span class="material-symbols-outlined">edit</span> Details
+                        </a>
+                        <a href="course_curriculum.html" class="action-btn primary" title="Manage Lessons">
+                            <span class="material-symbols-outlined">view_list</span> Curriculum
+                        </a>
+                        <button class="action-btn danger" title="Delete Course">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- A Published Workshop -->
+                <div class="admin-list-card">
+                    <img src="images/leadership_in_practice.png"
+                        alt="Workshop Thumbnail" class="admin-card-img">
+
+                    <div class="admin-card-info">
+                        <h3 class="admin-card-title">
+                            Leadership In Practice (Workshop)
+                            <span class="badge-published">Published</span>
+                        </h3>
+                        <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Business</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">payments</span> 850
+                                SAR</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">event</span> 3 Upcoming
+                                Sessions</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">location_on</span> Riyadh
+                                HQ</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-card-actions">
+                        <a href="course_details.html" class="action-btn" title="Edit Metadata">
+                            <span class="material-symbols-outlined">edit</span> Details
+                        </a>
+
+                        <button class="action-btn primary" title="Manage Workshop Sessions">
+                            <span class="material-symbols-outlined">calendar_month</span> Sessions
+                        </button>
+                        <button class="action-btn danger" title="Delete Workshop">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer" style="padding-top: 1rem;">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">Taliq Admin</div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Taliq Platform.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
