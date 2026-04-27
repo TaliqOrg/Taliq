@@ -46,7 +46,8 @@ a {
 
 /* ---------- Login Area ---------- */
 .login-pane {
-    flex: 1; /* take all the space */
+    flex: 1;
+    /* take all the space */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,7 +95,8 @@ a {
 
 /* used in form text fields */
 .input-wrapper {
-    position: relative; /* to add input icons */
+    position: relative;
+    /* to add input icons */
     display: flex;
     align-items: center;
 }
@@ -111,19 +113,22 @@ a {
 /* input field */
 .form-input {
     width: 100%;
-    padding: 1rem 1rem 1rem 3rem; /* left padding to push text */
+    padding: 1rem 1rem 1rem 3rem;
+    /* left padding to push text */
     border: 2px solid var(--surface-xlow);
     background-color: var(--surface);
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--text-main);
     border-radius: var(--border-radius-lg);
+    resize: none;
 }
 
 /* --- Remember me & Forgot Password --- */
 .form-options {
     display: flex;
-    justify-content: space-between; /* seperate options */
+    justify-content: space-between;
+    /* seperate options */
     align-items: center;
 }
 
@@ -200,8 +205,10 @@ a {
 /* --- Image Area --- */
 .image-pane {
     flex: 1;
-    display: none; /* mobile-first design: hide image on mobiles */
-    height: 85vh; /* 85% of viewport height */
+    display: none;
+    /* mobile-first design: hide image on mobiles */
+    height: 85vh;
+    /* 85% of viewport height */
     background-color: var(--surface-low);
 }
 
@@ -220,8 +227,9 @@ a {
 
 @media (min-width: 900px) {
     /* Laptops & Large Screens */
-    
+
     .image-pane {
-        display: block; /* Show image only on large screens */
+        display: block;
+        /* Show image only on large screens */
     }
 }

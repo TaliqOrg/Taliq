@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Curriculum - Admin</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Global Styling -->
+    <link rel="stylesheet" href="css/welcome_page.css">
+    <link rel="stylesheet" href="css/user_home.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/admin_home.css">
+    <link rel="stylesheet" href="css/course_curriculum.css">
+
+
+</head>
+
+<body>
+
+    <!-- Navbar (Admin specific) -->
+    <header class="main-header">
+        <nav class="container nav-container">
+            <a href="admin_home.html" class="logo">Taliq Admin</a>
+            <div class="desktop-nav">
+                <a href="#" class="nav-link">Users</a>
+                <a href="#" class="nav-link">Settings</a>
+
+                <a href="#" class="nav-link profile-link" style="margin-left: 1rem;">
+                    <span class="material-symbols-outlined">shield_person</span> Admin
+                </a>
+                <a href="welcome_page.html" class="nav-login nav-link">Log out</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Header & Back Button -->
+        <section class="container mt-custom">
+            <div class="section-header">
+                <a href="manage_courses.html" class="back-link">
+                    <span class="material-symbols-outlined">arrow_back</span> Back to Manage Courses
+                </a>
+                <h1 class="section-title">Manage Curriculum</h1>
+                <p class="section-subtitle">Editing lessons for: <strong>Data Mastery & Analysis</strong></p>
+            </div>
+        </section>
+
+        <!-- Curriculum Manager Layout -->
+        <section class="container pb-custom">
+            <div class="curriculum-layout">
+
+                <!-- Left Side: Existing Lessons List -->
+                <div class="curriculum-list-section">
+
+                    <h3 style="font-family: var(--font-heading); margin-bottom: 0.5rem;">Current Lessons</h3>
+
+                    <!-- Lesson 1 -->
+                    <div class="lesson-item">
+                        <div class="drag-handle" title="Drag to reorder">
+                            <span class="material-symbols-outlined">drag_indicator</span>
+                        </div>
+                        <div class="lesson-icon-wrapper icon-video">
+                            <span class="material-symbols-outlined">play_circle</span>
+                        </div>
+                        <div class="lesson-details">
+                            <h4 class="lesson-title">1. Introduction to Data Analysis</h4>
+                            <div class="lesson-meta">
+                                <span><span class="material-symbols-outlined"
+                                        style="font-size: 1rem; vertical-align: middle;">schedule</span> 15 mins</span>
+                                <span>Video</span>
+                            </div>
+                        </div>
+                        <div class="lesson-actions">
+                            <button class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined"
+                                    style="font-size: 1.2rem;">edit</span></button>
+                            <button class="btn-icon-small danger" title="Delete Lesson"><span
+                                    class="material-symbols-outlined" style="font-size: 1.2rem;">delete</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 2 -->
+                    <div class="lesson-item">
+                        <div class="drag-handle" title="Drag to reorder">
+                            <span class="material-symbols-outlined">drag_indicator</span>
+                        </div>
+                        <div class="lesson-icon-wrapper icon-video">
+                            <span class="material-symbols-outlined">play_circle</span>
+                        </div>
+                        <div class="lesson-details">
+                            <h4 class="lesson-title">2. Setting up Python and Pandas</h4>
+                            <div class="lesson-meta">
+                                <span><span class="material-symbols-outlined"
+                                        style="font-size: 1rem; vertical-align: middle;">schedule</span> 25 mins</span>
+                                <span>Video</span>
+                            </div>
+                        </div>
+                        <div class="lesson-actions">
+                            <button class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined"
+                                    style="font-size: 1.2rem;">edit</span></button>
+                            <button class="btn-icon-small danger" title="Delete Lesson"><span
+                                    class="material-symbols-outlined" style="font-size: 1.2rem;">delete</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Lesson 3 -->
+                    <div class="lesson-item">
+                        <div class="drag-handle" title="Drag to reorder">
+                            <span class="material-symbols-outlined">drag_indicator</span>
+                        </div>
+                        <div class="lesson-icon-wrapper icon-document">
+                            <span class="material-symbols-outlined">article</span>
+                        </div>
+                        <div class="lesson-details">
+                            <h4 class="lesson-title">3. Pandas Functions Cheat Sheet</h4>
+                            <div class="lesson-meta">
+                                <span><span class="material-symbols-outlined"
+                                        style="font-size: 1rem; vertical-align: middle;">schedule</span> 10 mins</span>
+                                <span>Document / PDF</span>
+                            </div>
+                        </div>
+                        <div class="lesson-actions">
+                            <button class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined"
+                                    style="font-size: 1.2rem;">edit</span></button>
+                            <button class="btn-icon-small danger" title="Delete Lesson"><span
+                                    class="material-symbols-outlined" style="font-size: 1.2rem;">delete</span></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Side: Add New Lesson Form -->
+                <div class="curriculum-form-section">
+                    <div class="checkout-card">
+                        <h3 class="checkout-card-title">
+                            <span class="material-symbols-outlined text-primary">add_box</span> Add New Lesson
+                        </h3>
+
+                        <!-- Form mapped to the 'Lesson' database table -->
+                        <form action="#" class="form-group-list">
+
+                            <div>
+                                <label class="checkout-label" for="lessonTitle">Lesson Title</label>
+                                <input type="text" id="lessonTitle" name="Title" class="checkout-input"
+                                    placeholder="e.g., Data Cleaning Basics" required>
+                            </div>
+
+                            <div>
+                                <label class="checkout-label" for="lessonDesc">Description</label>
+                                <textarea rows="5" id="lessonDesc" name="Description" class="checkout-input"
+                                    placeholder="Brief description of the lesson content..." required></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkout-label" for="contentType">Content Type</label>
+                                    <select id="contentType" name="ContentType" class="checkout-input" required>
+                                        <option value="Video">Video</option>
+                                        <option value="Document">Document (PDF/Article)</option>
+                                        <option value="Quiz">Quiz</option>
+                                    </select>
+                                </div>
+                                <div class="form-col">
+                                    <label class="checkout-label" for="duration">Duration (Minutes)</label>
+                                    <input type="number" id="duration" name="DurationMinutes" class="checkout-input"
+                                        placeholder="e.g., 15" required>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="checkout-label" for="contentUrl">Content URL</label>
+                                <input type="url" id="contentUrl" name="ContentUrl" class="checkout-input"
+                                    placeholder="https://video-host.com/lesson-link" required>
+                            </div>
+
+                            <div>
+                                <label class="checkout-label" for="orderNum">Order Number</label>
+                                <input type="number" id="orderNum" name="OrderNumber" class="checkout-input" value="4"
+                                    required>
+                            </div>
+
+                            <hr class="summary-divider">
+
+                            <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                                <span class="material-symbols-outlined">save</span> Save Lesson
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer" style="padding-top: 1rem;">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">Taliq Admin</div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Taliq Platform.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
