@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Details - Taliq</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="css/welcome_page.css">
     <link rel="stylesheet" href="css/course_details.css">
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -27,18 +32,18 @@
 
             <!-- Navigation Links -->
             <div class="desktop-nav">
-                <a href="user_home.html" class="nav-link">Dashboard</a>
+                <a href="user/user_home.html" class="nav-link">Dashboard</a>
                 <a href="explore.html" class="nav-link">Explore</a>
                 <a href="contact.html" class="nav-link">Contact Us</a>
 
 
-                
-                <a href="profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
+
+                <a href="user/profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
                     <span class="material-symbols-outlined">account_circle</span> My Account
                 </a>
 
                 <!-- shopping cart button -->
-                <a href="cart.html" class="cart-btn" style="margin: 1rem;">
+                <a href="user/cart.html" class="cart-btn" style="margin: 1rem;">
                     <span class="material-symbols-outlined">shopping_cart</span>
                     <span class="cart-badge"></span> </a>
             </div>
@@ -63,7 +68,8 @@
 
                 <div class="course-main">
                     <div class="course-hero">
-                        <img src="images/data_mastery_and_analysis.png" alt="Data Science Course" class="course-hero-img">
+                        <img src="../images/data_mastery_and_analysis.png" alt="Data Science Course"
+                            class="course-hero-img">
                         <span class="badge badge-online course-badge">Online</span>
                     </div>
 
@@ -116,14 +122,14 @@
                     <div class="course-section">
                         <h2 class="section-heading">About This Course</h2>
                         <p class="course-description">
-                            Master the fundamentals of data analysis and visualization with this comprehensive course. 
-                            Learn to work with large datasets, perform statistical analysis, and create compelling 
-                            visualizations that tell a story. This course covers Python, Pandas, NumPy, and popular 
+                            Master the fundamentals of data analysis and visualization with this comprehensive course.
+                            Learn to work with large datasets, perform statistical analysis, and create compelling
+                            visualizations that tell a story. This course covers Python, Pandas, NumPy, and popular
                             visualization libraries like Matplotlib and Seaborn.
                         </p>
                         <p class="course-description">
-                            Whether you're looking to advance your career in data science or simply want to make 
-                            data-driven decisions in your current role, this course will provide you with the 
+                            Whether you're looking to advance your career in data science or simply want to make
+                            data-driven decisions in your current role, this course will provide you with the
                             essential skills and knowledge you need to succeed.
                         </p>
                     </div>
@@ -224,10 +230,10 @@
                             <span class="price-large">450 SAR</span>
                         </div>
 
-                        <button class="btn btn-primary btn-full">
+                        <a href="user/cart.html" class="btn btn-primary btn-full">
                             <span class="material-symbols-outlined">add_shopping_cart</span>
                             Add to Cart
-                        </button>
+                        </a>
 
                         <button class="btn btn-outline btn-full">
                             <span class="material-symbols-outlined">favorite_border</span>
@@ -290,7 +296,7 @@
             <div class="product-grid">
                 <a href="course_details.html" class="product-card">
                     <div class="card-image-container">
-                        <img src="images/software_architecture.png" alt="Tech Course" class="card-img">
+                        <img src="../images/software_architecture.png" alt="Tech Course" class="card-img">
                         <span class="badge badge-online">Online</span>
                     </div>
                     <div class="card-content">
@@ -311,7 +317,7 @@
 
                 <a href="course_details.html" class="product-card">
                     <div class="card-image-container">
-                        <img src="images/ai_and_machine_learning.png" alt="AI Course" class="card-img">
+                        <img src="../images/ai_and_machine_learning.png" alt="AI Course" class="card-img">
                         <span class="badge badge-online">Online</span>
                     </div>
                     <div class="card-content">
@@ -332,7 +338,7 @@
 
                 <a href="course_details.html" class="product-card">
                     <div class="card-image-container">
-                        <img src="images/financial_analysis_and_planning.png" alt="Finance Course" class="card-img">
+                        <img src="../images/financial_analysis_and_planning.png" alt="Finance Course" class="card-img">
                         <span class="badge badge-online">Online</span>
                     </div>
                     <div class="card-content">
@@ -353,7 +359,7 @@
 
                 <a href="course_details.html" class="product-card">
                     <div class="card-image-container">
-                        <img src="images/human-centric_design.png" alt="Design Course" class="card-img">
+                        <img src="../images/human-centric_design.png" alt="Design Course" class="card-img">
                         <span class="badge badge-onsite">On-site</span>
                     </div>
                     <div class="card-content">
@@ -395,4 +401,5 @@
     </footer>
 
 </body>
+
 </html>

@@ -140,7 +140,6 @@
     font-family: var(--font-heading);
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
 .pagination-btn:hover:not(:disabled) {
