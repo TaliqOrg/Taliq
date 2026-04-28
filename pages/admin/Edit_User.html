@@ -45,6 +45,71 @@
         </div>
     </section>
 
+    <section class="container pb-custom">
+        <div class="checkout-layout" style="display: block;">
+            <div class="checkout-card">
+                    <h3 class="checkout-card-title">
+                        <span class="material-symbols-outlined text-primary">edit_document</span> Update Information
+                    </h3>
+
+                <form action="ManagerUser.html" class="form-group-list">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="checkout-label" for="First Name">First Name</label>
+                            <input type="text" id="First Name" name="First Name" class="checkout-input" value="Abdulhadi" required>
+                        </div>
+
+                        <div class="form-col">
+                            <label class="checkout-label" for="Last Name">First Name</label>
+                            <input type="text" id="Last Name" name="Last Name" class="checkout-input" value="Shamea" required>
+                        </div>
+
+                        <div class="form-col">
+                            <label class="checkout-label" for="Role">Role</label>
+                            <select id="Role" name="Role" class="checkout-input" required>
+                                <option value="1">Admin</option>
+                                <option value="2">Customer</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-col">
+                        <label class="checkout-label" for="Email">Email</label>
+                        <span class="material-symbols-outlined">Email</span>
+                        <input type="text" id="Email" name="Email" class="checkout-input" value="2230006315@iau.edu.sa" required>
+                    </div>
+
+                    <div class="form-col">
+                        <label class="checkout-label" for="Password">Password</label>
+                        <input type="password" id="Password" name="Password" class="checkout-input" placeholder="******" >
+                    </div>
+
+                    <div class="form-col">
+                        <label class="checkout-label" for="ConfirmPassword">Confirm Password</label>
+                        <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="checkout-input" placeholder="******" >
+                    </div>
+
+
+
+                    <hr class="summary-divider">
+
+                    <!-- Action Buttons -->
+                    <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                        <a href="ManagerUser.html" class="btn btn-outline" style="padding: 0.8rem 1.5rem; border: none;">Cancel</a>
+                        <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2rem;">
+                            <span class="material-symbols-outlined">save</span> Save Changes
+                        </button>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+        </div>
+    </section>
+
 
 
 
