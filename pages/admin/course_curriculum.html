@@ -34,7 +34,7 @@
                 <a href="#" class="nav-link">Users</a>
                 <a href="#" class="nav-link">Settings</a>
 
-                <a href="#" class="nav-link profile-link" style="margin-left: 1rem;">
+                <a href="../user/profile.html" class="nav-link profile-link" style="margin-left: 1rem;">
                     <span class="material-symbols-outlined">shield_person</span> Admin
                 </a>
                 <a href="../welcome_page.html" class="nav-login nav-link">Log out</a>
@@ -61,7 +61,7 @@
                 <!-- Left Side: Existing Lessons List -->
                 <div class="curriculum-list-section">
 
-                    <h3 style="font-family: var(--font-heading); margin-bottom: 0.5rem;">Current Lessons</h3>
+                    <h3>Current Lessons</h3>
 
                     <!-- Lesson 1 -->
                     <div class="lesson-item">
@@ -74,16 +74,13 @@
                         <div class="lesson-details">
                             <h4 class="lesson-title">1. Introduction to Data Analysis</h4>
                             <div class="lesson-meta">
-                                <span><span class="material-symbols-outlined"
-                                        style="font-size: 1rem; vertical-align: middle;">schedule</span> 15 mins</span>
+                                <span><span class="material-symbols-outlined">schedule</span> 15 mins</span>
                                 <span>Video</span>
                             </div>
                         </div>
                         <div class="lesson-actions">
-                            <button class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined"
-                                    style="font-size: 1.2rem;">edit</span></button>
-                            <button class="btn-icon-small danger" title="Delete Lesson"><span
-                                    class="material-symbols-outlined" style="font-size: 1.2rem;">delete</span></button>
+                            <a href="edit_course_details.html" class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined">edit</span></a>
+                            <button class="btn-icon-small danger" title="Delete Lesson"><span class="material-symbols-outlined">delete</span></button>
                         </div>
                     </div>
 
@@ -98,16 +95,13 @@
                         <div class="lesson-details">
                             <h4 class="lesson-title">2. Setting up Python and Pandas</h4>
                             <div class="lesson-meta">
-                                <span><span class="material-symbols-outlined"
-                                        style="font-size: 1rem; vertical-align: middle;">schedule</span> 25 mins</span>
+                                <span><span class="material-symbols-outlined">schedule</span> 25 mins</span>
                                 <span>Video</span>
                             </div>
                         </div>
                         <div class="lesson-actions">
-                            <button class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined"
-                                    style="font-size: 1.2rem;">edit</span></button>
-                            <button class="btn-icon-small danger" title="Delete Lesson"><span
-                                    class="material-symbols-outlined" style="font-size: 1.2rem;">delete</span></button>
+                            <a href="edit_course_details.html" class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined">edit</span></a>
+                            <button class="btn-icon-small danger" title="Delete Lesson"><span class="material-symbols-outlined">delete</span></button>
                         </div>
                     </div>
 
@@ -122,16 +116,13 @@
                         <div class="lesson-details">
                             <h4 class="lesson-title">3. Pandas Functions Cheat Sheet</h4>
                             <div class="lesson-meta">
-                                <span><span class="material-symbols-outlined"
-                                        style="font-size: 1rem; vertical-align: middle;">schedule</span> 10 mins</span>
+                                <span><span class="material-symbols-outlined">schedule</span> 10 mins</span>
                                 <span>Document / PDF</span>
                             </div>
                         </div>
                         <div class="lesson-actions">
-                            <button class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined"
-                                    style="font-size: 1.2rem;">edit</span></button>
-                            <button class="btn-icon-small danger" title="Delete Lesson"><span
-                                    class="material-symbols-outlined" style="font-size: 1.2rem;">delete</span></button>
+                            <a href="edit_course_details.html" class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined">edit</span></a>
+                            <button class="btn-icon-small danger" title="Delete Lesson"><span class="material-symbols-outlined">delete</span></button>
                         </div>
                     </div>
 
@@ -189,9 +180,9 @@
 
                             <hr class="summary-divider">
 
-                            <button type="button" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <a href="manage_courses.html" class="btn btn-primary btn-full">
                                 <span class="material-symbols-outlined">save</span> Save Lesson
-                            </button>
+                            </a>
 
                         </form>
                     </div>
@@ -202,7 +193,7 @@
 
     </main>
 
-    <footer class="main-footer" style="padding-top: 1rem;">
+    <footer class="main-footer">
         <div class="container footer-container">
             <div class="footer-brand">
                 <div class="footer-logo">Taliq Admin</div>

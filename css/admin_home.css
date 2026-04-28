@@ -2,38 +2,43 @@
 
 .admin-actions-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 }
 
 /* Action Card */
 .admin-action-card {
     display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.5rem;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
     background-color: var(--surface);
-    border: 1px solid var(--surface-hover);
-    border-radius: var(--border-radius-lg);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-lg, 1rem);
     color: var(--text-main);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
+.admin-action-card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background-color: var(--surface);
+    border-color: var(--primary);
+}
 
 .profile-link {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-}
-
-.admin-action-card:hover {
-    background-color: var(--surface-low);
-    border-color: var(--primary);
+    margin-left: 1rem;
 }
 
 .action-icon {
     color: var(--primary);
-    font-size: 2rem;
-    margin-top: 0.1rem;
+    border-radius: 1rem;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .action-info {
@@ -42,16 +47,63 @@
 
 .action-info h3 {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
     color: var(--text-main);
 }
 
 .action-info p {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    line-height: 1.5;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.checkout-layout {
+    display: block;
+}
+
+#description {
+    resize: vertical;
+}
+
+.publish-section {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background-color: var(--surface-low);
+    border-radius: var(--border-radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+label[for="isPublished"] {
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+}
+
+.publish-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+#isPublished {
+    width: 1.5rem;
+    height: 1.5rem;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.main-footer {
+    padding-top: 1rem;
 }
 
 @media (max-width: 768px) {

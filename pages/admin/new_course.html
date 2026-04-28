@@ -21,7 +21,7 @@
                 <a href="#" class="nav-link">Users</a>
                 <a href="#" class="nav-link">Settings</a>
                 
-                <a href="#" class="nav-link profile-link">
+                <a href="../user/profile.html" class="nav-link profile-link">
                     <span class="material-symbols-outlined">shield_person</span> Admin
                 </a>
                 <a href="../welcome_page.html" class="nav-login nav-link">Log out</a>
@@ -112,10 +112,10 @@
                     <!-- Thumbnail and Language -->
                     <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap;">
                         <div class="input-group" style="flex: 2; min-width: 300px;">
-                            <label class="input-label" for="thumbnail">Thumbnail URL</label>
+                            <label class="input-label" for="thumbnail">Thumbnail Image *</label>
                             <div class="input-wrapper">
                                 <span class="material-symbols-outlined input-icon">image</span>
-                                <input type="url" id="thumbnail" name="ThumbnailUrl" placeholder="https://example.com/image.jpg" class="form-input">
+                                <input type="file" id="thumbnail" name="ThumbnailImage" class="form-input" accept="image/*" required>
                             </div>
                         </div>
                         <div class="input-group" style="flex: 1; min-width: 200px;">

@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Course Details - Admin</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <!-- Google Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
     <!-- Global Styling -->
     <link rel="stylesheet" href="../../css/welcome_page.css">
     <link rel="stylesheet" href="../../css/user_home.css">
     <link rel="stylesheet" href="../../css/checkout.css">
     <link rel="stylesheet" href="../../css/admin_home.css">
 </head>
+
 <body>
-    
+
     <!-- Navbar -->
     <header class="main-header">
         <nav class="container nav-container">
@@ -25,8 +30,8 @@
             <div class="desktop-nav">
                 <a href="#" class="nav-link">Users</a>
                 <a href="#" class="nav-link">Settings</a>
-                
-                <a href="#" class="nav-link profile-link" style="margin-left: 1rem;">
+
+                <a href="../user/profile.html" class="nav-link profile-link">
                     <span class="material-symbols-outlined">shield_person</span> Admin
                 </a>
                 <a href="../welcome_page.html" class="nav-login nav-link">Log out</a>
@@ -48,8 +53,8 @@
 
         <!-- Course Edit Form -->
         <section class="container pb-custom">
-            <div class="checkout-layout" style="display: block;">
-                
+            <div class="checkout-layout">
+
                 <div class="checkout-card">
                     <h3 class="checkout-card-title">
                         <span class="material-symbols-outlined text-primary">edit_document</span> Update Information
@@ -57,12 +62,13 @@
 
                     <!-- Form with existing database values -->
                     <form action="manage_courses.html" class="form-group-list">
-                        
+
                         <!-- Title & Category -->
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="checkout-label" for="title">Course Title</label>
-                                <input type="text" id="title" name="Title" class="checkout-input" value="Data Mastery & Analysis" required>
+                                <input type="text" id="title" name="Title" class="checkout-input"
+                                    value="Data Mastery & Analysis" required>
                             </div>
                             <div class="form-col">
                                 <label class="checkout-label" for="category">Category</label>
@@ -74,22 +80,25 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <!-- Description -->
                         <div>
                             <label class="checkout-label" for="description">Description</label>
-                            <textarea id="description" name="Description" class="checkout-input" rows="5" style="resize: vertical;" required>Master the fundamentals of data analysis and visualization with this comprehensive course. Learn to work with large datasets, perform statistical analysis, and create compelling visualizations that tell a story.</textarea>
+                            <textarea id="description" name="Description" class="checkout-input" rows="5"
+                                required>Master the fundamentals of data analysis and visualization with this comprehensive course. Learn to work with large datasets, perform statistical analysis, and create compelling visualizations that tell a story.</textarea>
                         </div>
-                        
+
                         <!-- Price & Duration -->
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="checkout-label" for="price">Price in SAR</label>
-                                <input type="number" id="price" name="Price" step="0.01" class="checkout-input" value="450.00" required>
+                                <input type="number" id="price" name="Price" step="0.01" class="checkout-input"
+                                    value="450.00" required>
                             </div>
                             <div class="form-col">
                                 <label class="checkout-label" for="duration">Duration (Hours)</label>
-                                <input type="number" id="duration" name="DurationHours" class="checkout-input" value="40" required>
+                                <input type="number" id="duration" name="DurationHours" class="checkout-input"
+                                    value="40" required>
                             </div>
                         </div>
 
@@ -112,31 +121,31 @@
                             </div>
                         </div>
 
-                        <!-- Thumbnail URL -->
+                        <!-- Thumbnail -->
                         <div>
-                            <label class="checkout-label" for="thumbnail">Thumbnail Image URL</label>
-                            <input type="url" id="thumbnail" name="ThumbnailUrl" class="checkout-input" value="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" required>
+                            <label class="checkout-label" for="thumbnail">Thumbnail Image</label>
+                            <input type="file" id="thumbnail" name="Thumbnail" class="checkout-input"
+                                value="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
                         </div>
 
-                        <!-- Published Status (Boolean) -->
-                        <div style="margin-top: 1rem; padding: 1.5rem; background-color: var(--surface-low); border-radius: var(--border-radius-lg); display: flex; align-items: center; justify-content: space-between;">
+                        <!-- Published Status -->
+                        <div class="publish-section">
                             <div>
-                                <label class="checkout-label" for="isPublished" style="margin-bottom: 0.25rem; font-size: 1rem;">Publish Course</label>
-                                <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">Make this course visible to students in the catalog.</p>
+                                <label class="checkout-label" for="isPublished">Publish Course</label>
+                                <p class="publish-desc">Make this course
+                                    visible to students in the catalog.</p>
                             </div>
 
-                            <!-- Checked by default because this specific course is already published -->
-                            <input type="checkbox" id="isPublished" name="IsPublished" checked style="width: 1.5rem; height: 1.5rem; accent-color: var(--primary); cursor: pointer;">
+                            <input type="checkbox" id="isPublished" name="IsPublished" checked>
 
-                            
                         </div>
-                        
+
                         <hr class="summary-divider">
 
                         <!-- Action Buttons -->
-                        <div style="display: flex; justify-content: flex-end; gap: 1rem;">
-                            <a href="manage_courses.html" class="btn btn-outline" style="padding: 0.8rem 1.5rem; border: none;">Cancel</a>
-                            <button type="submit" class="btn btn-primary" style="padding: 0.8rem 2rem;">
+                        <div class="form-actions">
+                            <a href="manage_courses.html" class="btn btn-outline">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
                                 <span class="material-symbols-outlined">save</span> Save Changes
                             </button>
                         </div>
@@ -149,7 +158,7 @@
 
     </main>
 
-    <footer class="main-footer" style="padding-top: 1rem;">
+    <footer class="main-footer">
         <div class="container footer-container">
             <div class="footer-brand">
                 <div class="footer-logo">Taliq Admin</div>
@@ -158,7 +167,8 @@
         <div class="footer-bottom">
             <p>&copy; 2026 Taliq Platform.</p>
         </div>
-    </footer> 
+    </footer>
 
 </body>
+
 </html>

@@ -1,304 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Mastery & Analysis - Lesson 1 | Taliq</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="../../css/welcome_page.css">
     <link rel="stylesheet" href="../../css/user_home.css">
     <link rel="stylesheet" href="../../css/course_player.css">
 </head>
+
 <body>
 
-<!-- Points Reward Notification (Hidden by default) -->
-<div class="points-notification" id="pointsNotification">
-    <div class="points-popup">
-        <div class="points-icon">
-            <span class="material-symbols-outlined">stars</span>
+    <!-- Points Reward Notification (Hidden by default) -->
+    <div class="points-notification" id="pointsNotification">
+        <div class="points-popup">
+            <div class="points-icon">
+                <span class="material-symbols-outlined">stars</span>
+            </div>
+            <h3 class="points-title">Lesson Complete!</h3>
+            <p class="points-message">You earned <strong>+50 points</strong></p>
+            <div class="points-total">Total Points: 2,450</div>
+            <button class="btn btn-primary btn-small" onclick="closePointsNotification()">Continue</button>
         </div>
-        <h3 class="points-title">Lesson Complete!</h3>
-        <p class="points-message">You earned <strong>+50 points</strong></p>
-        <div class="points-total">Total Points: 2,450</div>
-        <button class="btn btn-primary btn-small" onclick="closePointsNotification()">Continue</button>
     </div>
-</div>
 
-<header class="main-header">
-    <nav class="container nav-container">
-        <a href="user_home.html" class="logo">Taliq</a>
+    <header class="main-header">
+        <nav class="container nav-container">
+            <a href="user_home.html" class="logo">Taliq</a>
 
-        <div class="nav-search">
-            <span class="material-symbols-outlined search-icon">search</span>
-            <input type="text" placeholder="Search courses..." class="search-input">
-        </div>
+            <div class="nav-search">
+                <span class="material-symbols-outlined search-icon">search</span>
+                <input type="text" placeholder="Search courses..." class="search-input">
+            </div>
 
-        <div class="desktop-nav">
-            <a href="user_home.html" class="nav-link">Dashboard</a>
-            <a href="../explore.html" class="nav-link">Explore</a>
-            <a href="../contact.html" class="nav-link">Contact Us</a>
+            <div class="desktop-nav">
+                <a href="user_home.html" class="nav-link">Dashboard</a>
+                <a href="../explore.html" class="nav-link">Explore</a>
+                <a href="../contact.html" class="nav-link">Contact Us</a>
 
-            <a href="profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
-                <span class="material-symbols-outlined">account_circle</span> My Account
-            </a>
-
-            <a href="cart.html" class="cart-btn" style="margin: 1rem;">
-                <span class="material-symbols-outlined">shopping_cart</span>
-                <span class="cart-badge"></span>
-            </a>
-        </div>
-    </nav>
-</header>
-
-<main class="player-main">
-
-    <div class="player-layout">
-
-        <!-- Video/Content Area -->
-        <div class="player-content">
-            
-            <!-- Back to My Courses Button -->
-            <div class="player-header">
-                <a href="profile.html#my-courses" class="back-icon-btn" title="Back to My Courses">
-                    <span class="material-symbols-outlined">arrow_back</span>
+                <a href="profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
+                    <span class="material-symbols-outlined">account_circle</span> My Account
                 </a>
-                <span class="course-breadcrumb">Data Mastery & Analysis</span>
-            </div>
 
-            <!-- Video Player -->
-            <div class="video-container">
-                <div class="video-placeholder">
-                    <span class="material-symbols-outlined video-icon">play_circle</span>
-                    <p>Video Player</p>
-                    <p class="video-duration">15:30</p>
+                <a href="cart.html" class="cart-btn" style="margin: 1rem;">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                    <span class="cart-badge"></span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="player-main">
+
+        <div class="player-layout">
+
+            <!-- Video/Content Area -->
+            <div class="player-content">
+
+                <!-- Back to My Courses Button -->
+                <div class="player-header">
+                    <a href="profile.html#my-courses" class="back-icon-btn" title="Back to My Courses">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </a>
+                    <span class="course-breadcrumb">Data Mastery & Analysis</span>
                 </div>
-            </div>
 
-            <!-- Lesson Info -->
-            <div class="lesson-info">
-                <div class="lesson-header">
-                    <div>
-                        <h1 class="lesson-title">Introduction to Data Analysis</h1>
-                        <p class="lesson-meta">Lesson 1 of 42 • 15 minutes</p>
+                <!-- Video Player -->
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <span class="material-symbols-outlined video-icon">play_circle</span>
+                        <p>Video Player</p>
+                        <p class="video-duration">15:30</p>
                     </div>
-                    <button class="btn-icon-large" title="Mark as Complete" onclick="showPointsNotification()">
-                        <span class="material-symbols-outlined">check_circle</span>
-                    </button>
                 </div>
 
-                <!-- Tabs -->
-                <div class="lesson-tabs">
-                    <button class="tab-btn active">Overview</button>
-                    <button class="tab-btn">Resources</button>
-                    <button class="tab-btn">Notes</button>
-                    <button class="tab-btn">Q&A</button>
-                </div>
+                <!-- Lesson Info -->
+                <div class="lesson-info">
+                    <div class="lesson-header">
+                        <div>
+                            <h1 class="lesson-title">Introduction to Data Analysis</h1>
+                            <p class="lesson-meta">Lesson 1 of 42 • 15 minutes</p>
+                        </div>
+                        <button class="btn-icon-large" title="Mark as Complete" onclick="showPointsNotification()">
+                            <span class="material-symbols-outlined">check_circle</span>
+                        </button>
+                    </div>
 
-                <!-- Tab Content -->
-                <div class="tab-content">
-                    <div class="tab-pane active">
-                        <h3 class="content-heading">About This Lesson</h3>
-                        <p class="content-text">
-                            Welcome to the first lesson of Data Mastery & Analysis! In this introductory lesson, 
-                            we'll explore the fundamental concepts of data analysis and why it's become such a 
-                            critical skill in today's data-driven world.
-                        </p>
-                        <p class="content-text">
-                            You'll learn about the data analysis lifecycle, common tools and techniques, and 
-                            how data analysis is applied across different industries. By the end of this lesson, 
-                            you'll have a solid understanding of what data analysis entails and what you can 
-                            expect to learn throughout this course.
-                        </p>
+                    <!-- Tabs -->
+                    <div class="lesson-tabs">
+                        <button class="tab-btn active">Overview</button>
+                        <button class="tab-btn">Resources</button>
+                        <button class="tab-btn">Notes</button>
+                        <button class="tab-btn">Q&A</button>
+                    </div>
 
-                        <h3 class="content-heading">What You'll Learn</h3>
-                        <ul class="content-list">
-                            <li>The definition and importance of data analysis</li>
-                            <li>Key stages of the data analysis process</li>
-                            <li>Common tools used by data analysts</li>
-                            <li>Real-world applications of data analysis</li>
-                            <li>Career opportunities in data analysis</li>
-                        </ul>
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <h3 class="content-heading">About This Lesson</h3>
+                            <p class="content-text">
+                                Welcome to the first lesson of Data Mastery & Analysis! In this introductory lesson,
+                                we'll explore the fundamental concepts of data analysis and why it's become such a
+                                critical skill in today's data-driven world.
+                            </p>
+                            <p class="content-text">
+                                You'll learn about the data analysis lifecycle, common tools and techniques, and
+                                how data analysis is applied across different industries. By the end of this lesson,
+                                you'll have a solid understanding of what data analysis entails and what you can
+                                expect to learn throughout this course.
+                            </p>
 
-                        <h3 class="content-heading">Downloadable Resources</h3>
-                        <div class="resource-list">
-                            <a href="#" class="resource-item">
-                                <span class="material-symbols-outlined">description</span>
-                                <div>
-                                    <p class="resource-name">Lesson 1 Slides.pdf</p>
-                                    <p class="resource-size">2.4 MB</p>
-                                </div>
-                                <span class="material-symbols-outlined">download</span>
-                            </a>
-                            <a href="#" class="resource-item">
-                                <span class="material-symbols-outlined">code</span>
-                                <div>
-                                    <p class="resource-name">Sample Dataset.csv</p>
-                                    <p class="resource-size">856 KB</p>
-                                </div>
-                                <span class="material-symbols-outlined">download</span>
-                            </a>
+                            <h3 class="content-heading">What You'll Learn</h3>
+                            <ul class="content-list">
+                                <li>The definition and importance of data analysis</li>
+                                <li>Key stages of the data analysis process</li>
+                                <li>Common tools used by data analysts</li>
+                                <li>Real-world applications of data analysis</li>
+                                <li>Career opportunities in data analysis</li>
+                            </ul>
+
+                            <h3 class="content-heading">Downloadable Resources</h3>
+                            <div class="resource-list">
+                                <a href="#" class="resource-item">
+                                    <span class="material-symbols-outlined">description</span>
+                                    <div>
+                                        <p class="resource-name">Lesson 1 Slides.pdf</p>
+                                        <p class="resource-size">2.4 MB</p>
+                                    </div>
+                                    <span class="material-symbols-outlined">download</span>
+                                </a>
+                                <a href="#" class="resource-item">
+                                    <span class="material-symbols-outlined">code</span>
+                                    <div>
+                                        <p class="resource-name">Sample Dataset.csv</p>
+                                        <p class="resource-size">856 KB</p>
+                                    </div>
+                                    <span class="material-symbols-outlined">download</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Navigation Buttons -->
-                <div class="lesson-navigation">
-                    <button class="btn btn-outline" disabled>
-                        <span class="material-symbols-outlined">arrow_back</span> Previous Lesson
-                    </button>
-                    <button class="btn btn-primary">
-                        Next Lesson <span class="material-symbols-outlined">arrow_forward</span>
-                    </button>
+                    <!-- Navigation Buttons -->
+                    <div class="lesson-navigation">
+                        <button class="btn btn-outline" disabled>
+                            <span class="material-symbols-outlined">arrow_back</span> Previous Lesson
+                        </button>
+                        <button class="btn btn-primary">
+                            Next Lesson <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            <!-- Curriculum Sidebar -->
+            <aside class="curriculum-sidebar">
+                <div class="sidebar-header">
+                    <h2 class="sidebar-title">Course Content</h2>
+                    <p class="sidebar-progress">12 of 42 lessons completed</p>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-bar-full">
+                        <div class="progress-bar-fill" style="width: 28%;"></div>
+                    </div>
+                    <span class="progress-percentage">28%</span>
+                </div>
+
+                <div class="curriculum-list">
+
+                    <details class="curriculum-section" open>
+                        <summary class="section-header-curriculum">
+                            <span class="material-symbols-outlined">expand_more</span>
+                            <div>
+                                <h3 class="section-title-curriculum">Introduction to Data Analysis</h3>
+                                <p class="section-meta">3 lessons • 58m</p>
+                            </div>
+                        </summary>
+                        <div class="section-lessons">
+                            <a href="#" class="lesson-item active">
+                                <span class="material-symbols-outlined">play_circle</span>
+                                <div class="lesson-details-sidebar">
+                                    <p class="lesson-name">Introduction to Data Analysis</p>
+                                    <p class="lesson-duration">15 min</p>
+                                </div>
+                                <span class="material-symbols-outlined">check_circle</span>
+                            </a>
+                            <a href="#" class="lesson-item">
+                                <span class="material-symbols-outlined">play_circle</span>
+                                <div class="lesson-details-sidebar">
+                                    <p class="lesson-name">The Data Analysis Lifecycle</p>
+                                    <p class="lesson-duration">25 min</p>
+                                </div>
+                            </a>
+                            <a href="#" class="lesson-item">
+                                <span class="material-symbols-outlined">play_circle</span>
+                                <div class="lesson-details-sidebar">
+                                    <p class="lesson-name">Types of Data</p>
+                                    <p class="lesson-duration">18 min</p>
+                                </div>
+                            </a>
+                        </div>
+                    </details>
+
+                    <details class="curriculum-section">
+                        <summary class="section-header-curriculum">
+                            <span class="material-symbols-outlined">expand_more</span>
+                            <div>
+                                <h3 class="section-title-curriculum">Python Fundamentals for Data Science</h3>
+                                <p class="section-meta">2 lessons • 40m</p>
+                            </div>
+                        </summary>
+                        <div class="section-lessons">
+                            <a href="#" class="lesson-item">
+                                <span class="material-symbols-outlined">play_circle</span>
+                                <div class="lesson-details-sidebar">
+                                    <p class="lesson-name">Python Environment Setup</p>
+                                    <p class="lesson-duration">10 min</p>
+                                </div>
+                            </a>
+                            <a href="#" class="lesson-item">
+                                <span class="material-symbols-outlined">play_circle</span>
+                                <div class="lesson-details-sidebar">
+                                    <p class="lesson-name">Basic Syntax & Variables</p>
+                                    <p class="lesson-duration">30 min</p>
+                                </div>
+                            </a>
+                        </div>
+                    </details>
+
+                    <details class="curriculum-section">
+                        <summary class="section-header-curriculum">
+                            <span class="material-symbols-outlined">expand_more</span>
+                            <div>
+                                <h3 class="section-title-curriculum">Working with Pandas</h3>
+                                <p class="section-meta">10 lessons • 7h 30m</p>
+                            </div>
+                        </summary>
+                        <div class="section-lessons">
+                            <p style="padding: 10px 20px;">Lessons coming soon...</p>
+                        </div>
+                    </details>
+
+                    <details class="curriculum-section">
+                        <summary class="section-header-curriculum">
+                            <span class="material-symbols-outlined">expand_more</span>
+                            <div>
+                                <h3 class="section-title-curriculum">Data Visualization</h3>
+                                <p class="section-meta">7 lessons • 4h 50m</p>
+                            </div>
+                        </summary>
+                        <div class="section-lessons">
+                            <p style="padding: 10px 20px;">Lessons coming soon...</p>
+                        </div>
+                    </details>
+
+                    <details class="curriculum-section">
+                        <summary class="section-header-curriculum">
+                            <span class="material-symbols-outlined">expand_more</span>
+                            <div>
+                                <h3 class="section-title-curriculum">Statistical Analysis</h3>
+                                <p class="section-meta">9 lessons • 6h 15m</p>
+                            </div>
+                        </summary>
+                        <div class="section-lessons">
+                            <p style="padding: 10px 20px;">Lessons coming soon...</p>
+                        </div>
+                    </details>
+
+                </div>
+            </aside>
+
         </div>
 
-        <!-- Curriculum Sidebar -->
-        <aside class="curriculum-sidebar">
-            <div class="sidebar-header">
-                <h2 class="sidebar-title">Course Content</h2>
-                <p class="sidebar-progress">12 of 42 lessons completed</p>
-            </div>
+    </main>
 
-            <div class="progress-bar-container">
-                <div class="progress-bar-full">
-                    <div class="progress-bar-fill" style="width: 28%;"></div>
-                </div>
-                <span class="progress-percentage">28%</span>
-            </div>
+    <script>
+        function showPointsNotification() {
+            const notification = document.getElementById('pointsNotification');
+            notification.style.display = 'flex';
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+        }
 
-            <div class="curriculum-list">
-                
-                <!-- Section 1 -->
-                <div class="curriculum-section">
-                    <div class="section-header-curriculum">
-                        <span class="material-symbols-outlined expand-icon">expand_more</span>
-                        <div>
-                            <h3 class="section-title-curriculum">Introduction to Data Analysis</h3>
-                            <p class="section-meta">5 lessons • 3h 20m</p>
-                        </div>
-                    </div>
-                    <div class="section-lessons">
-                        <a href="#" class="lesson-item active">
-                            <div class="lesson-icon completed">
-                                <span class="material-symbols-outlined">play_circle</span>
-                            </div>
-                            <div class="lesson-details-sidebar">
-                                <p class="lesson-name">Introduction to Data Analysis</p>
-                                <p class="lesson-duration">15 min</p>
-                            </div>
-                            <span class="material-symbols-outlined check-icon">check_circle</span>
-                        </a>
-                        <a href="#" class="lesson-item">
-                            <div class="lesson-icon">
-                                <span class="material-symbols-outlined">play_circle</span>
-                            </div>
-                            <div class="lesson-details-sidebar">
-                                <p class="lesson-name">The Data Analysis Lifecycle</p>
-                                <p class="lesson-duration">25 min</p>
-                            </div>
-                        </a>
-                        <a href="#" class="lesson-item">
-                            <div class="lesson-icon">
-                                <span class="material-symbols-outlined">play_circle</span>
-                            </div>
-                            <div class="lesson-details-sidebar">
-                                <p class="lesson-name">Types of Data</p>
-                                <p class="lesson-duration">18 min</p>
-                            </div>
-                        </a>
-                        <a href="#" class="lesson-item">
-                            <div class="lesson-icon">
-                                <span class="material-symbols-outlined">article</span>
-                            </div>
-                            <div class="lesson-details-sidebar">
-                                <p class="lesson-name">Data Analysis Tools Overview</p>
-                                <p class="lesson-duration">10 min read</p>
-                            </div>
-                        </a>
-                        <a href="#" class="lesson-item">
-                            <div class="lesson-icon">
-                                <span class="material-symbols-outlined">quiz</span>
-                            </div>
-                            <div class="lesson-details-sidebar">
-                                <p class="lesson-name">Section 1 Quiz</p>
-                                <p class="lesson-duration">5 questions</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Section 2 -->
-                <div class="curriculum-section">
-                    <div class="section-header-curriculum">
-                        <span class="material-symbols-outlined expand-icon">chevron_right</span>
-                        <div>
-                            <h3 class="section-title-curriculum">Python Fundamentals for Data Science</h3>
-                            <p class="section-meta">8 lessons • 5h 45m</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 3 -->
-                <div class="curriculum-section">
-                    <div class="section-header-curriculum">
-                        <span class="material-symbols-outlined expand-icon">chevron_right</span>
-                        <div>
-                            <h3 class="section-title-curriculum">Working with Pandas</h3>
-                            <p class="section-meta">10 lessons • 7h 30m</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 4 -->
-                <div class="curriculum-section">
-                    <div class="section-header-curriculum">
-                        <span class="material-symbols-outlined expand-icon">chevron_right</span>
-                        <div>
-                            <h3 class="section-title-curriculum">Data Visualization</h3>
-                            <p class="section-meta">7 lessons • 4h 50m</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Section 5 -->
-                <div class="curriculum-section">
-                    <div class="section-header-curriculum">
-                        <span class="material-symbols-outlined expand-icon">chevron_right</span>
-                        <div>
-                            <h3 class="section-title-curriculum">Statistical Analysis</h3>
-                            <p class="section-meta">9 lessons • 6h 15m</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </aside>
-
-    </div>
-
-</main>
-
-<script>
-function showPointsNotification() {
-    const notification = document.getElementById('pointsNotification');
-    notification.style.display = 'flex';
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 10);
-}
-
-function closePointsNotification() {
-    const notification = document.getElementById('pointsNotification');
-    notification.classList.remove('show');
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 300);
-}
-</script>
+        function closePointsNotification() {
+            const notification = document.getElementById('pointsNotification');
+            notification.classList.remove('show');
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 300);
+        }
+    </script>
 
 </body>
+
 </html>

@@ -256,6 +256,30 @@
     color: var(--primary);
 }
 
+.quantity-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quantity-label {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.quantity-input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 2px solid var(--surface-low);
+    border-radius: 0.5rem;
+    text-align: center;
+    font-size: 1rem;
+    font-family: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
 .btn-full {
     width: 100%;
     justify-content: center;
@@ -325,6 +349,26 @@
 .share-btn:hover {
     background-color: var(--surface-hover);
     border-color: var(--primary);
+}
+
+.help-purchasing-section {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.help-purchasing-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.help-purchasing-icon {
+    font-size: 1.1rem;
 }
 
 @media (max-width: 1024px) {
