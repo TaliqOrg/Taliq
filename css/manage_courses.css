@@ -200,4 +200,13 @@
         padding-top: 1rem;
         border-top: 1px solid var(--surface-low);
     }
+
+    .admin-Manage-Item-small{
+        flex: 1;
+        min-width: 300px;
+    }
+    .admin-Manage-Item-Large{
+        flex: 1;
+        min-width: 200px
+    }
 }
