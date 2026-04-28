@@ -1,30 +1,36 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
     <!-- Google Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
     <!-- Global Styling -->
-     <link rel="stylesheet" href="../../css/welcome_page.css">
-     <link rel="stylesheet" href="../../css/user_home.css">
-     <link rel="stylesheet" href="../../css/admin_home.css">
+    <link rel="stylesheet" href="../../css/welcome_page.css">
+    <link rel="stylesheet" href="../../css/user_home.css">
+    <link rel="stylesheet" href="../../css/admin_home.css">
 </head>
+
 <body>
-    
+
     <!-- Navbar (same as user_home but with admin links) -->
     <header class="main-header">
         <nav class="container nav-container">
-            <a href = "admin_home.html" class="logo">Taliq  Admin</a>
+            <a href="admin_home.html" class="logo">Taliq Admin</a>
             <div class="desktop-nav">
                 <a href="#" class="nav-link">Users</a>
                 <a href="#" class="nav-link">Settings</a>
-                
-                <a href="../user/profile.html" class="nav-link profile-link" style="margin-left: 1rem;">
+
+                <a href="../user/profile.html" class="nav-link profile-link">
                     <span class="material-symbols-outlined">shield_person</span> Admin
                 </a>
                 <a href="../welcome_page.html" class="nav-login nav-link">Log out</a>
@@ -36,15 +42,15 @@
         <!-- Welcome Banner -->
         <section class="container mt-custom">
 
-            <div class="home-banner" style="background-color: var(--surface); color: var(--text-main); border: 1px solid var(--surface-hover);">
-                <h1 class="home-title text-primary" style="font-size: 2rem;">Platform Management</h1>  
-                <p class="home-subtitle" style="color: var(--text-muted);">Perform tasks and manage content.</p> 
+            <div class="home-banner admin-home-banner">
+                <h1 class="home-title text-primary banner-title">Platform Management</h1>
+                <p class="home-subtitle banner-subtitle">Perform tasks and manage content.</p>
             </div>
         </section>
 
         <!-- Admin Action Layout -->
         <section class="container py-custom">
-            
+
             <div class="section-header">
                 <div>
                     <h2 class="section-title">Administrative Actions</h2>
@@ -53,10 +59,10 @@
 
             <!--  grid of action buttons for Admins -->
             <div class="admin-actions-grid">
-                
+
                 <a href="manage_courses.html" class="admin-action-card">
                     <span class="material-symbols-outlined action-icon">edit_document</span>
-                    
+
                     <div class="action-info">
                         <h3>Manage Courses</h3>
                         <p>View, edit, publish, or add lessons to existing courses and drafts.</p>
@@ -71,13 +77,28 @@
                     </div>
                 </a>
 
+                <!-- <a href="manage_newsletters.html" class="admin-action-card">
+                    <span class="material-symbols-outlined action-icon">mark_email_read</span>
+                    <div class="action-info">
+                        <h3>Newsletters Management</h3>
+                        <p>Send newsletters and announcements to students.</p>
+                    </div>
+                </a>
+
+                <a href="platform_settings.html" class="admin-action-card">
+                    <span class="material-symbols-outlined action-icon">settings</span>
+                    <div class="action-info">
+                        <h3>Platform Settings</h3>
+                    </div>
+                </a> -->
+
             </div>
 
         </section>
 
     </main>
 
-    <footer class="main-footer" style="padding-top: 1rem;">
+    <footer class="main-footer">
         <div class="container footer-container">
             <div class="footer-brand">
                 <div class="footer-logo">Taliq Admin</div>
@@ -86,7 +107,8 @@
         <div class="footer-bottom">
             <p>&copy; 2026 Taliq Platform.</p>
         </div>
-    </footer> 
+    </footer>
 
 </body>
+
 </html>

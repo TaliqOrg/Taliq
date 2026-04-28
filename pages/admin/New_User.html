@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User</title>
+
+    <!-- Google Fonts -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+            rel="stylesheet">
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet">
+
+    <!-- Global Styling -->
+    <link rel="stylesheet" href="../../css/welcome_page.css">
+    <link rel="stylesheet" href="../../css/admin_home.css">
+    <link rel="stylesheet" href="../../css/checkout.css">
+    <link rel="stylesheet" href="../../css/manage_courses.css">
+    <link rel="stylesheet" href="../../css/login.css">
+
+
+</head>
+<body>
+<header class="main-header">
+    <nav class="container nav-container">
+        <a href = "admin_home.html" class="logo">Taliq  Admin</a>
+        <div class="desktop-nav">
+            <a href="#" class="nav-link">Users</a>
+            <a href="#" class="nav-link">Settings</a>
+
+            <a href="#" class="nav-link profile-link" style="margin-left: 1rem;">
+                <span class="material-symbols-outlined">shield_person</span> Admin
+            </a>
+            <a href="../welcome_page.html" class="nav-login nav-link">Log out</a>
+        </div>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="container mt-custom">
+        <div style="max-width: 900px; margin: 0 auto; width: 100%;">
+            <a href="manage_users.html" class="back-link" style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-weight: 600; margin-bottom: 2rem;">
+                <span class="material-symbols-outlined">arrow_back</span> Back to User Management
+            </a>
+
+            <h1 class="login-title" style="margin-bottom: 0.5rem;">Create New User</h1>
+            <p class="login-subtitle" style="margin-bottom: 2.5rem;">Add a new user with select roles.</p>
+        </div>
+    </section>
+
+    <section class="container pb-custom">
+
+        <div class="login-content" style="max-width: 900px; margin: 0 auto; width: 100%;">
+            <form action="admin_home.html" method="" class="login-form">
+
+                <!-- Username, Email, and Role-->
+                <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap;">
+                    <div class="input-group admin-Manage-Item-Large">
+                        <label class="input-label" for="username">Username *</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">Title</span>
+                            <input type="text" id="username" name="username" placeholder="JohnDoe123" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group admin-Manage-Item-Large">
+                        <label class="input-label" for="Email">Email *</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">Email</span>
+                            <input type="text" id="Email" name="Email" placeholder="test@example.com" class="form-input" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group admin-Manage-Item-Large">
+                        <label class="input-label" for="Role">Role *</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">category</span>
+                            <select id="Role" name="Role" class="form-input" required>
+                                <option selected disabled value="">Select Role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="User">Customer</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap;">
+                    <div class="input-group admin-Manage-Item-Large">
+                        <label class="input-label" for="First-name">First name</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">Title</span>
+                            <input type="text" id="First-name" name="First-name" placeholder="John" class="form-input">
+                        </div>
+                    </div>
+
+                    <div class="input-group admin-Manage-Item-Large">
+                        <label class="input-label" for="Last-Name">Last Name</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">Title</span>
+                            <input type="text" id="Last-Name" name="Last-Name" placeholder="Doe" class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group admin-Manage-Item-Large">
+                    <label class="input-label" for="Password">Password *</label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined input-icon">Title</span>
+                        <input type="password" id="Password" name="Password" class="form-input" required>
+                    </div>
+                </div>
+                <div class="input-group admin-Manage-Item-Large">
+                    <label class="input-label" for="Confirm-Password">Confirm Password *</label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined input-icon">Title</span>
+                        <input type="password" id="Confirm-Password" name="Confirm-Password" class="form-input" required>
+                    </div>
+                </div>
+
+
+
+
+
+                <button type="submit" class="btn-submit" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+                    <span class="material-symbols-outlined">save</span>
+                    Submit New User
+                </button>
+            </form>
+
+
+
+        </div>
+
+
+    </section>
+
+
+
+</main>
+
+
+
+<footer class="main-footer" style="padding-top: 1rem;">
+    <div class="container footer-container">
+        <div class="footer-brand">
+            <div class="footer-logo">Taliq Admin</div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Taliq Platform.</p>
+    </div>
+</footer>
+</body>
+</html>

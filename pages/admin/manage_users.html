@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager User</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Global Styling -->
+    <link rel="stylesheet" href="../../css/welcome_page.css">
+    <link rel="stylesheet" href="../../css/admin_home.css">
+    <link rel="stylesheet" href="../../css/checkout.css">
+    <link rel="stylesheet" href="../../css/manage_courses.css">
+
+</head>
+<body>
+
+
+<header class="main-header">
+    <nav class="container nav-container">
+        <a href = "admin_home.html" class="logo">Taliq  Admin</a>
+        <div class="desktop-nav">
+            <a href="manage_users.html" class="nav-link">Users</a>
+            <a href="#" class="nav-link">Settings</a>
+
+            <a href="#" class="nav-link profile-link" style="margin-left: 1rem;">
+                <span class="material-symbols-outlined">shield_person</span> Admin
+            </a>
+            <a href="../welcome_page.html" class="nav-login nav-link">Log out</a>
+        </div>
+    </nav>
+</header>
+
+<!--Introduction and back to dashboard -->
+<main class="container">
+    <section class="container mt-custom">
+        <div class="section-header">
+            <a href="admin_home.html" class="back-link">
+                <span class="material-symbols-outlined">arrow_back</span> Back to Dashboard
+            </a>
+            <h1 class="section-title">Manage Users</h1>
+            <p class="section-subtitle">View, edit, and delete users.</p>
+        </div>
+    </section>
+
+<!-- Toolbar -->
+<section class="container pb-custom">
+    <div class="toolbar">
+        <div class="toolbar-filters">
+            <div class="search-wrapper">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" class="filter-input" placeholder="Search by name...">
+            </div>
+            <select class="filter-select">
+                <option value="all">All Roles</option>
+                <option value="Admin">Admin</option>
+                <option value="Customer">Customer</option>
+            </select>
+        </div>
+
+        <a href="new_user.html" class="btn btn-primary">
+            <span class="material-symbols-outlined">add</span> Create New
+        </a>
+    </div>
+
+
+    <div class="admin-list-container">
+
+        <!-- User 1 -->
+        <div class="admin-list-card">
+
+            <div class="admin-card-info">
+                <h3 class="admin-card-title">
+                    Abdulhadi Shamea
+                </h3>
+                <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Admin</span>
+                </div>
+            </div>
+
+                <div class="admin-card-actions">
+                    <a href="edit_user.html" class="action-btn" title="Edit User">
+                        <span class="material-symbols-outlined">Edit</span> Edit User
+                    </a>
+                    <button class="action-btn danger" title="Delete User">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </div>
+        </div>
+
+        <!-- User 2 -->
+        <div class="admin-list-card">
+
+            <div class="admin-card-info">
+                <h3 class="admin-card-title">
+                    Abdullah Bin Ahmad
+                </h3>
+                <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Customer</span>
+                </div>
+            </div>
+
+            <div class="admin-card-actions">
+                <a href="edit_user.html" class="action-btn" title="Edit User">
+                    <span class="material-symbols-outlined">Edit</span> Edit User
+                </a>
+                <button class="action-btn danger" title="Delete User">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- User 3 -->
+        <div class="admin-list-card">
+
+            <div class="admin-card-info">
+                <h3 class="admin-card-title">
+                    Fadallah
+                </h3>
+                <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Admin</span>
+                </div>
+            </div>
+
+            <div class="admin-card-actions">
+                <a href="edit_user.html" class="action-btn" title="Edit User">
+                    <span class="material-symbols-outlined">Edit</span> Edit User
+                </a>
+                <button class="action-btn danger" title="Delete User">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- User 4 -->
+        <div class="admin-list-card">
+
+            <div class="admin-card-info">
+                <h3 class="admin-card-title">
+                    Momeen
+                </h3>
+                <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Customer</span>
+                </div>
+            </div>
+
+            <div class="admin-card-actions">
+                <a href="edit_user.html" class="action-btn" title="Edit User">
+                    <span class="material-symbols-outlined">Edit</span> Edit User
+                </a>
+                <button class="action-btn danger" title="Delete User">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+</section>
+
+
+
+
+
+</main>
+
+
+
+
+
+<footer class="main-footer" style="padding-top: 1rem;">
+    <div class="container footer-container">
+        <div class="footer-brand">
+            <div class="footer-logo">Taliq Admin</div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 Taliq Platform.</p>
+    </div>
+</footer>
+</body>
+</html>
