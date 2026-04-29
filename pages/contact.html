@@ -1,111 +1,148 @@
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us</title>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet">
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="../css/welcome_page.css">
-    <link rel="stylesheet" href="../css/user_home.css">
-    <link rel="stylesheet" href="../css/login.css">
-    <link rel="stylesheet" href="../css/contact.css">
+    <link rel="stylesheet" href="../css/welcome_page.css" />
+    <link rel="stylesheet" href="../css/user_home.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../css/contact.css" />
+  </head>
 
-</head>
-
-<body>
-
+  <body>
     <!-- Navbar -->
     <header class="main-header">
-        <nav class="container nav-container">
-            <!-- Logo -->
-            <a href="user/user_home.html" class="logo">Taliq</a>
+      <nav class="container nav-container">
+        <!-- Logo -->
+        <a href="user/user_home.html" class="logo">Taliq</a>
 
-            <!-- Search Bar -->
-            <div class="nav-search">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="Search courses..." class="search-input">
-            </div>
+        <!-- Search Bar -->
+        <div class="nav-search">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input
+            type="text"
+            placeholder="Search courses..."
+            class="search-input"
+          />
+        </div>
 
-            <!-- Navigation Links -->
-            <div class="desktop-nav">
-                <a href="user/user_home.html" class="nav-link">Dashboard</a>
-                <a href="explore.html" class="nav-link">Explore</a>
-                <a href="contact.html" class="nav-link active">Contact Us</a>
+        <!-- Navigation Links -->
+        <div class="desktop-nav">
+          <a href="user/user_home.html" class="nav-link">Dashboard</a>
+          <a href="explore.html" class="nav-link">Explore</a>
+          <a href="contact.html" class="nav-link active">Contact Us</a>
 
+          <a
+            href="user/profile.html"
+            class="nav-link"
+            style="display: flex; align-items: center; gap: 0.25rem"
+          >
+            <span class="material-symbols-outlined">account_circle</span> My
+            Account
+          </a>
 
-
-                <a href="user/profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
-                    <span class="material-symbols-outlined">account_circle</span> My Account
-                </a>
-
-                <!-- shopping cart button -->
-                <a href="user/cart.html" class="cart-btn" style="margin: 1rem;">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                    <span class="cart-badge"></span> </a>
-            </div>
-
-        </nav>
+          <!-- shopping cart button -->
+          <a href="user/cart.html" class="cart-btn" style="margin: 1rem">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="cart-badge"></span>
+          </a>
+        </div>
+      </nav>
     </header>
 
     <main class="container py-custom contact-main">
+      <div class="login-pane">
+        <div class="login-content">
+          <h1 class="login-title">Let's get in touch</h1>
 
-        <div class="login-pane">
-
-            <div class="login-content">
-
-                <h1 class="login-title">Let's get in touch</h1>
-
-                <form action="user/user_home.html" method="" class="login-form">
-
-                    <div class="input-group">
-                        <p for="username" class="input-label">Name</p>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">person</span>
-                            <input type="text" id="username" class="form-input" placeholder="Enter your username">
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <p for="user-email" class="input-label">Email address *</p>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">email</span>
-                            <input type="email" id="user-email" class="form-input" placeholder="Enter your email" required>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <p for="subject" class="input-label">Subject *</p>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">subject</span>
-                            <input type="text" id="subject" class="form-input" placeholder="Enter your subject" required>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <p for="message" class="input-label">Message *</p>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">message</span>
-                            <textarea id="message" class="form-input" required></textarea>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn-submit">Send</button>
-                </form>
+          <form action="user/user_home.html" method="" class="login-form">
+            <div class="input-group">
+              <p for="username" class="input-label">Name</p>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon">person</span>
+                <input
+                  type="text"
+                  id="username"
+                  class="form-input"
+                  placeholder="Enter your username"
+                />
+              </div>
             </div>
-            
-        </div>
-        <div class="contact-img">
-            <img src="../images/contact_illustration_clean.png" alt="Contact Us Illustration">
-        </div>
 
+            <div class="input-group">
+              <p for="user-email" class="input-label">Email address *</p>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon">email</span>
+                <input
+                  type="email"
+                  id="user-email"
+                  class="form-input"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <p for="subject" class="input-label">Subject *</p>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon"
+                  >subject</span
+                >
+                <input
+                  type="text"
+                  id="subject"
+                  class="form-input"
+                  placeholder="Enter your subject"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="input-group">
+              <p for="message" class="input-label">Message *</p>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon"
+                  >message</span
+                >
+                <textarea id="message" class="form-input" required></textarea>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Send</button>
+          </form>
+        </div>
+      </div>
+      <div class="contact-img">
+        <img
+          src="../images/contact_illustration_clean.png"
+          alt="Contact Us Illustration"
+        />
+        <div class="contact-method">
+          <a
+            href="https://www.google.com/maps/place/College+of+Computer+Science+and+Information+Technology/@26.3948879,50.1957014,17z/data=!3m1!4b1!4m6!3m5!1s0x3e49ef811304efab:0xe664343a49ebbf2b!8m2!3d26.3948879!4d50.1957014!16s%2Fg%2F1q5bxv2b_?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D"
+          >
+            <img
+              src="../images/location-pin-svgrepo-com.svg"
+              alt="location pin"
+            />
+            <p>
+              Building A11, CCSIT, Imam Abdulrahman bin Faisal University,
+              Dammam
+            </p>
+          </a>
+        </div>
+      </div>
     </main>
-
-</body>
-
+  </body>
 </html>
