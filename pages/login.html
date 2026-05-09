@@ -14,9 +14,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
-        <!-- Global Styling -->
-        <link rel="stylesheet" href="../css/welcome_page.css">
-        <link rel="stylesheet" href="../css/login.css">
+    <!-- Global Styling -->
+    <link rel="stylesheet" href="../css/welcome_page.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <!-- Authentication JavaScript -->
+    <script src="../js/auth.js"></script>
 </head>
 
 <body>
@@ -64,7 +66,10 @@
                 <h1 class="login-title" style="margin-bottom: 3rem;">Log in to Taliq</h1>
                 
                 <!-- Form Section -->
-                <form action="user/user_home.html" class="login-form">
+                <form id="loginForm" class="login-form">
+
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="error-message"></div>
 
                     <!-- Email Field -->
                     <div class="input-group">
@@ -88,14 +93,14 @@
                     <!-- Remember me & Forgot Password options -->
                     <div class="form-options">
                         <label class="remember-me">
-                            <input type="checkbox" class="checkbox">
+                            <input type="checkbox" class="checkbox" id="rememberMe">
                             <span>Remember me</span>
                         </label>
                         <a href="forgot_password.html" class="forgot-link">Forgot password?</a>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn-submit">Log In</button>
+                    <button type="submit" class="btn-submit" id="loginBtn">Log In</button>
 
                 </form>
 

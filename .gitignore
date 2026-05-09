@@ -1,3 +1,7 @@
 .idea/modules.xml
 /.idea
 *.zip
+
+# Uploads directory
+uploads/*
+!uploads/.gitkeep
