@@ -161,6 +161,21 @@ a {
     text-decoration: underline;
 }
 
+/* --- Error Message --- */
+.error-message {
+    display: none;
+    background-color: #fee;
+    color: #c33;
+    padding: 1rem;
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.error-message.show {
+    display: block;
+}
+
 /* --- Form submit button --- */
 .btn-submit {
     width: 100%;
@@ -180,6 +195,11 @@ a {
 
 .btn-submit:hover {
     background-color: var(--primary-hover);
+}
+
+.btn-submit:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
 /* ---------- Signup/Login Prompt Link ---------- */
