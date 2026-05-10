@@ -49,6 +49,84 @@ function initLoginForm() {
     });
 }
 
+function initRegisterForm() {
+    const registerForm = document.getElementById('registerForm');
+    
+    if (!registerForm) return;
+    
+    registerForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const fullName = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const registerBtn = document.getElementById('registerBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        errorMessage.classList.remove('show');
+        
+        const nameParts = fullName.split(' ');
+        if (nameParts.length < 2) {
+            errorMessage.textContent = 'Please enter your full name (first and last name)';
+            errorMessage.classList.add('show');
+            return;
+        }
+        
+        const firstName = nameParts[0];
+        const lastName = nameParts.slice(1).join(' ');
+        
+        if (password !== confirmPassword) {
+            errorMessage.textContent = 'Passwords do not match';
+            errorMessage.classList.add('show');
+            return;
+        }
+        
+        if (password.length < 6) {
+            errorMessage.textContent = 'Password must be at least 6 characters long';
+            errorMessage.classList.add('show');
+            return;
+        }
+        
+        registerBtn.disabled = true;
+        registerBtn.textContent = 'Creating account...';
+        
+        try {
+            const response = await fetch('/taleeq/Taliq/api/auth.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    action: 'register',
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                window.location.href = '/taleeq/Taliq' + data.redirect;
+            } else {
+                errorMessage.textContent = data.message;
+                errorMessage.classList.add('show');
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Sign Up';
+            }
+            
+        } catch (error) {
+            console.error('Error:', error);
+            errorMessage.textContent = 'An error occurred. Please try again.';
+            errorMessage.classList.add('show');
+            registerBtn.disabled = false;
+            registerBtn.textContent = 'Sign Up';
+        }
+    });
+}
+
 async function checkSession() {
     console.log('[AUTH] checkSession() - fetching session status');
     try {
@@ -147,5 +225,6 @@ async function autoProtect() {
 
 document.addEventListener('DOMContentLoaded', function() {
     initLoginForm();
+    initRegisterForm();
     autoProtect();
 });

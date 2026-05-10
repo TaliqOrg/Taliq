@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchCourses(NumberOfCourseToDisplay=0) {
-    // Call PHP API
-    fetch('/taliq/api/courses.php')
+    const apiPath = window.location.pathname.includes('/user/') 
+        ? '../../api/courses.php' 
+        : '../api/courses.php';
+    
+    fetch(apiPath)
         .then(response => response.json())
         .then(data => {
             const container = document.getElementById('course-container');
@@ -31,35 +34,28 @@ function fetchCourses(NumberOfCourseToDisplay=0) {
 
                     // Create the HTML for one course card
                     const courseCard = `
-                       <a href="course_details.html" class="product-card">
+                       <a href="course_details.html" class="card">
                             <div class="card-image-container">
                                 <img class="card-img" src="${course.ThumbnailUrl || '/taliq/images/placeholder.png'}" alt="${course.Title}">
                                 <span class="badge ${badgeClass}">${PlaceOfCourse}</span>
                             </div>
                             
-                            <div>
-                            <h3 class="card-title" >${course.Title}</h3>
-                            
-                            <div class="rating">
-
-                            <!-- A star icon -->
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">4.9</span> <!--average score-->
-                            <span class="rating-count">(1.2k)</span> <!--total number of ratings-->
-                        </div>
-
-                             <!-- price & action info -->
-                        <div class="card-footer">
-                            <span class="price">${course.Price} SAR</span>
-                            <button class="add-cart-btn">
-                                <span class="material-symbols-outlined">add_shopping_cart</span>
-                            </button>
-                        </div>
-                        
-                        
-                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">${course.Title}</h3>
                                 
-                            
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.9</span>
+                                    <span class="rating-count">(1.2k)</span>
+                                </div>
+
+                                <div class="card-footer">
+                                    <span class="price">${course.Price} SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
                     `;
                     // Add this card to the container
                     container.innerHTML += courseCard;

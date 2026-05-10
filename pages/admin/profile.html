@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Profile - Taliq</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/welcome_page.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/components.js"></script>
+    <script src="../../js/profile.js"></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+
+        <section class="container mt-custom">
+            <h1 class="page-title">Admin Profile</h1>
+        </section>
+
+        <section class="container py-custom">
+            <div style="max-width: 900px; margin: 0 auto;">
+                
+                <!-- Profile Header Card -->
+                <div class="card mb-4">
+                    <div class="flex items-center justify-between flex-wrap gap-3">
+                        <div style="display: flex; align-items: center; gap: 1.5rem;">
+                            <div style="width: 80px; height: 80px; background: var(--surface-low); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <span class="material-symbols-outlined" style="font-size: 3rem; color: var(--primary);">shield_person</span>
+                            </div>
+                            <div>
+                                <h2 style="font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 0.25rem;" data-user-fullname>Admin User</h2>
+                                <p style="color: var(--text-muted); margin-bottom: 0.5rem;" data-user-email>admin@taliq.com</p>
+                                <p style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">
+                                    <span class="material-symbols-outlined" style="font-size: 1rem; vertical-align: middle;">verified</span>
+                                    Administrator
+                                </p>
+                            </div>
+                        </div>
+                        <button onclick="logout(); return false;" class="btn btn-outline" style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="material-symbols-outlined">logout</span>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title">Personal Information</h2>
+                        <button class="btn btn-outline" id="editBtn" onclick="toggleEditMode()" style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="material-symbols-outlined">edit</span>
+                            Edit
+                        </button>
+                    </div>
+
+                    <!-- View Mode -->
+                    <div class="form-grid" id="viewMode">
+                        <div>
+                            <label class="field-label">First Name</label>
+                            <p class="field-value" id="displayFirstName">Admin</p>
+                        </div>
+                        <div>
+                            <label class="field-label">Last Name</label>
+                            <p class="field-value" id="displayLastName">User</p>
+                        </div>
+                        <div>
+                            <label class="field-label">Email Address</label>
+                            <p class="field-value" id="displayEmail">admin@taliq.com</p>
+                        </div>
+                        <div>
+                            <label class="field-label">Phone Number</label>
+                            <p class="field-value" id="displayPhone">+966 50 000 0000</p>
+                        </div>
+                        <div>
+                            <label class="field-label">Role</label>
+                            <p class="field-value">Administrator</p>
+                        </div>
+                        <div>
+                            <label class="field-label">Account Status</label>
+                            <p class="field-value text-primary">Active</p>
+                        </div>
+                    </div>
+
+                    <!-- Edit Mode (Hidden by default) -->
+                    <form class="form-grid" id="editMode" style="display: none;">
+                        <div>
+                            <label class="input-label">First Name</label>
+                            <input type="text" class="form-input" id="editFirstName" value="Admin" required style="padding: 1rem;">
+                        </div>
+                        <div>
+                            <label class="input-label">Last Name</label>
+                            <input type="text" class="form-input" id="editLastName" value="User" required style="padding: 1rem;">
+                        </div>
+                        <div>
+                            <label class="input-label">Email Address</label>
+                            <input type="email" class="form-input" id="editEmail" value="admin@taliq.com" required style="padding: 1rem;">
+                        </div>
+                        <div>
+                            <label class="input-label">Phone Number</label>
+                            <input type="tel" class="form-input" id="editPhone" value="+966 50 000 0000" style="padding: 1rem;">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                                <button type="button" class="btn btn-primary" onclick="saveProfile()" style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span class="material-symbols-outlined">save</span>
+                                    Save Changes
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="cancelEdit()">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="successMessage" class="alert alert-success mt-3" style="display: none;">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        Profile updated successfully!
+                    </div>
+                </div>
+
+                <!-- Change Password Section -->
+                <div class="card">
+                    <h2 class="card-title mb-4">Change Password</h2>
+
+                    <form class="form-grid" id="passwordForm" onsubmit="changePassword(event)">
+                        <div>
+                            <label class="input-label">Current Password</label>
+                            <input type="password" class="form-input" id="currentPassword" required style="padding: 1rem;">
+                        </div>
+                        <div>
+                            <label class="input-label">New Password</label>
+                            <input type="password" class="form-input" id="newPassword" required minlength="6" style="padding: 1rem;">
+                        </div>
+                        <div>
+                            <label class="input-label">Confirm New Password</label>
+                            <input type="password" class="form-input" id="confirmPassword" required minlength="6" style="padding: 1rem;">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+                                <span class="material-symbols-outlined">lock_reset</span>
+                                Update Password
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Password Error Message -->
+                    <div id="passwordError" class="alert alert-error mt-3" style="display: none;">
+                        <span class="material-symbols-outlined">error</span>
+                        <span id="passwordErrorText"></span>
+                    </div>
+
+                    <!-- Password Success Message -->
+                    <div id="passwordSuccess" class="alert alert-success mt-3" style="display: none;">
+                        <span class="material-symbols-outlined">check_circle</span>
+                        Password updated successfully!
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+</body>
+</html>
