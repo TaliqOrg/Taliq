@@ -1,50 +1,8 @@
-/* --- CSS Variables --- */
-:root {
-    --bg-main: #f7f9fb;
-    --surface: #ffffff;
-    --surface-low: #f2f4f6;
-    --surface-xlow: #e2e8f0e4;
-
-    --primary: #059669;
-    --primary-hover: #047857;
-    --on-primary: #ffffff;
-
-    --text-main: #191c1e;
-    --text-muted: #434655;
-
-    --font-heading: 'Manrope', sans-serif;
-    --font-body: 'Inter', sans-serif;
-
-    --border-radius-lg: 0.75rem;
-}
-
-/* --- Resets --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--font-body);
-    color: var(--text-main);
-    background-color: var(--surface);
-    /* overflow-x: hidden; */
-}
-
-a {
-    /* remove underlines */
-    text-decoration: none;
-    color: inherit;
-}
-
-/* --- split main tag (flexbox) --- */
 .split-layout {
     display: flex;
     align-items: center;
 }
 
-/* ---------- Login Area ---------- */
 .login-pane {
     flex: 1;
     /* take all the space */
@@ -72,56 +30,10 @@ a {
     color: var(--text-muted);
 }
 
-/* ---------- Form Elements (flexbox) ---------- */
 .login-form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-}
-
-/* form fields container (flexbox) */
-.input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-/* fields' labels */
-.input-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--text-main);
-}
-
-/* used in form text fields */
-.input-wrapper {
-    position: relative;
-    /* to add input icons */
-    display: flex;
-    align-items: center;
-}
-
-/* for icons in the text fields */
-.input-icon {
-    position: absolute;
-    left: 1rem;
-    color: var(--text-muted);
-    font-size: 1.3rem;
-    pointer-events: none;
-}
-
-/* input field */
-.form-input {
-    width: 100%;
-    padding: 1rem 1rem 1rem 3rem;
-    /* left padding to push text */
-    border: 2px solid var(--surface-xlow);
-    background-color: var(--surface);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--text-main);
-    border-radius: var(--border-radius-lg);
-    resize: none;
 }
 
 /* --- Remember me & Forgot Password --- */
@@ -142,14 +54,6 @@ a {
     cursor: pointer;
 }
 
-/* Remember me checkbox */
-.checkbox {
-    width: 1rem;
-    height: 1rem;
-    cursor: pointer;
-    color: var(--primary);
-}
-
 /* for Forgot Password/Terms/Policy links */
 .forgot-link {
     font-size: 0.9rem;
@@ -161,48 +65,7 @@ a {
     text-decoration: underline;
 }
 
-/* --- Error Message --- */
-.error-message {
-    display: none;
-    background-color: #fee;
-    color: #c33;
-    padding: 1rem;
-    border-radius: var(--border-radius-lg);
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-}
 
-.error-message.show {
-    display: block;
-}
-
-/* --- Form submit button --- */
-.btn-submit {
-    width: 100%;
-    padding: 1rem;
-    border: none;
-    border-radius: var(--border-radius-lg);
-
-    background-color: var(--primary);
-    color: var(--on-primary);
-
-    font-family: var(--font-heading);
-    font-size: 1rem;
-    font-weight: 700;
-
-    cursor: pointer;
-}
-
-.btn-submit:hover {
-    background-color: var(--primary-hover);
-}
-
-.btn-submit:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-/* ---------- Signup/Login Prompt Link ---------- */
 
 /* signup text under login/signup form */
 .signup-prompt {

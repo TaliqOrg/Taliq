@@ -64,4 +64,66 @@ class AuthController {
             'message' => 'Logged out successfully'
         ];
     }
+    
+    public function register($firstName, $lastName, $email, $password, $phoneNumber = null) {
+        $firstName = sanitize_input($firstName);
+        $lastName = sanitize_input($lastName);
+        $email = sanitize_input($email);
+        
+        if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
+            return [
+                'success' => false,
+                'message' => 'All fields are required'
+            ];
+        }
+        
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return [
+                'success' => false,
+                'message' => 'Invalid email format'
+            ];
+        }
+        
+        if (strlen($password) < 6) {
+            return [
+                'success' => false,
+                'message' => 'Password must be at least 6 characters long'
+            ];
+        }
+        
+        if ($this->userModel->emailExists($email)) {
+            return [
+                'success' => false,
+                'message' => 'Email already registered'
+            ];
+        }
+        
+        $userId = $this->userModel->create($firstName, $lastName, $email, $password, $phoneNumber);
+        
+        if ($userId) {
+            $_SESSION['user_id'] = $userId;
+            $_SESSION['first_name'] = $firstName;
+            $_SESSION['last_name'] = $lastName;
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = 'user';
+            
+            return [
+                'success' => true,
+                'message' => 'Registration successful',
+                'redirect' => '/pages/user/user_home.html',
+                'user' => [
+                    'id' => $userId,
+                    'first_name' => $firstName,
+                    'last_name' => $lastName,
+                    'email' => $email,
+                    'role' => 'user'
+                ]
+            ];
+        }
+        
+        return [
+            'success' => false,
+            'message' => 'Registration failed. Please try again.'
+        ];
+    }
 }

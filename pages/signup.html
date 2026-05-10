@@ -15,41 +15,16 @@
         rel="stylesheet">
 
     <!-- Global Stylings -->
+    <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/welcome_page.css">
     <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/components.js"></script>
+    <script src="../js/auth.js"></script>
 </head>
 
 <body>
 
-
-    <header class="main-header">
-
-        <!-- Naviation Bar -->
-        <nav class="container nav-container">
-
-            <!-- website's Name -->
-            <a href="welcome_page.html" class="logo">Taliq</a>
-
-            <!-- Search Bar -->
-            <div class="nav-search">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="Search courses..." class="search-input">
-            </div>
-
-            <!-- navigation links -->
-            <div class="desktop-nav">
-                <a href="explore.html" class="nav-link">Explore</a>
-                <a href="contact.html" class="nav-link">Contact Us</a>
-                <a href="login.html" class="nav-link nav-login">Log in</a>
-                <a href="signup.html" class="nav-link nav-signup">Sign up</a>
-            </div>
-
-            <!-- shopping cart button -->
-            <a href="user/cart.html" class="cart-btn" style="margin: 1rem;">
-                <span class="material-symbols-outlined">shopping_cart</span>
-                <span class="cart-badge"></span> </a>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
 
 
     <main class="split-layout">
@@ -63,7 +38,10 @@
                 <br>
 
                 <!-- Form Section -->
-                <form action="user/user_home.html" class="login-form">
+                <form id="registerForm" class="login-form">
+
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="error-message"></div>
 
                     <!-- Full Name Field -->
                     <div class="input-group">
@@ -107,13 +85,13 @@
                     <div class="form-options">
                         <label class="remember-me">
                             <input type="checkbox" class="checkbox" required>
-                            <span>I agree to the <a href="#" class="forgot-link">Terms</a> & <a href="#"
+                            <span>I agree to the <a href="terms-of-service.html" class="forgot-link">Terms</a> & <a href="privacy-policy.html"
                                     class="forgot-link">Privacy Policy</a></span>
                         </label>
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn-submit">Sign Up</button>
+                    <button type="submit" class="btn-submit" id="registerBtn">Sign Up</button>
 
                 </form>
 
@@ -131,6 +109,8 @@
         </div>
 
     </main>
+
+    <div id="footer-placeholder"></div>
 
 </body>
 </html>
