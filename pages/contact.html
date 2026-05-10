@@ -13,52 +13,20 @@
       rel="stylesheet"
     />
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
     <link rel="stylesheet" href="../css/welcome_page.css" />
     <link rel="stylesheet" href="../css/user_home.css" />
     <link rel="stylesheet" href="../css/login.css" />
     <link rel="stylesheet" href="../css/contact.css" />
+    <script src="../js/auth.js"></script>
+    <script src="../js/components.js"></script>
   </head>
 
   <body>
     <!-- Navbar -->
-    <header class="main-header">
-      <nav class="container nav-container">
-        <!-- Logo -->
-        <a href="user/user_home.html" class="logo">Taliq</a>
-
-        <!-- Search Bar -->
-        <div class="nav-search">
-          <span class="material-symbols-outlined search-icon">search</span>
-          <input
-            type="text"
-            placeholder="Search courses..."
-            class="search-input"
-          />
-        </div>
-
-        <!-- Navigation Links -->
-        <div class="desktop-nav">
-          <a href="user/user_home.html" class="nav-link">Dashboard</a>
-          <a href="explore.html" class="nav-link">Explore</a>
-          <a href="contact.html" class="nav-link active">Contact Us</a>
-
-          <a
-            href="user/profile.html"
-            class="nav-link"
-            style="display: flex; align-items: center; gap: 0.25rem"
-          >
-            <span class="material-symbols-outlined">account_circle</span> My
-            Account
-          </a>
-
-          <!-- shopping cart button -->
-          <a href="user/cart.html" class="cart-btn" style="margin: 1rem">
-            <span class="material-symbols-outlined">shopping_cart</span>
-            <span class="cart-badge"></span>
-          </a>
-        </div>
-      </nav>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main class="container py-custom contact-main">
       <div class="login-pane">
@@ -123,11 +91,8 @@
           </form>
         </div>
       </div>
-      <div class="contact-img">
-        <img
-          src="../images/contact_illustration_clean.png"
-          alt="Contact Us Illustration"
-        />
+      <div class="contact-map">
+        <div id="map" style="height: 400px; width: 100%; border-radius: 8px;"></div>
         <div class="contact-method">
           <a
             href="https://www.google.com/maps/place/College+of+Computer+Science+and+Information+Technology/@26.3948879,50.1957014,17z/data=!3m1!4b1!4m6!3m5!1s0x3e49ef811304efab:0xe664343a49ebbf2b!8m2!3d26.3948879!4d50.1957014!16s%2Fg%2F1q5bxv2b_?entry=ttu&g_ep=EgoyMDI2MDQyNi4wIKXMDSoASAFQAw%3D%3D"
@@ -144,5 +109,17 @@
         </div>
       </div>
     </main>
+    <div id="footer-placeholder"></div>
+    
+    <script>
+      const map = L.map('map').setView([26.3948879, 50.1957014], 16);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19
+      }).addTo(map);
+      
+      const marker = L.marker([26.3948879, 50.1957014]).addTo(map);
+      marker.bindPopup('<b>CCSIT</b><br>Building A11, Imam Abdulrahman bin Faisal University').openPopup();
+    </script>
   </body>
 </html>
