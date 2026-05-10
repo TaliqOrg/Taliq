@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchCourses(NumberOfCourseToDisplay=0) {
-    // Call PHP API
-    fetch('/taliq/api/courses.php')
+    const apiPath = window.location.pathname.includes('/user/') 
+        ? '../../api/courses.php' 
+        : '../api/courses.php';
+    
+    fetch(apiPath)
         .then(response => response.json())
         .then(data => {
             const container = document.getElementById('course-container');
