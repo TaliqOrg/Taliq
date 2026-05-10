@@ -13,6 +13,17 @@ class Course {
         return $stmt;
     }
 
+    public function GetCourseById($CourseId,$CourseType) {
+    //  Determine which table to query
+        $table = ($CourseType == 'course') ? "Course" : "Workshop";
+        $idColumn = ($CourseType == 'course') ? "CourseId" : "WorkshopId";
+
+        $query = "SELECT * FROM $table WHERE $idColumn = ? LIMIT 1";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([$CourseId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
 
 }
 
