@@ -16,6 +16,10 @@
     <!-- Global Styling -->
     <link rel="stylesheet" href="../../css/welcome_page.css">
     <link rel="stylesheet" href="../../css/user_home.css">
+
+    <script src="../../js/courses.js"></script>
+
+
     
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
@@ -144,105 +148,8 @@
             </div>
 
             <!-- A grid container to display course cards as links -->
-            <div class="product-grid">
+            <div class="product-grid" id="course-container" data-limit="4">
 
-                <!-- Product Card 1 -->
-                <a href="../course_details.html" class="product-card">
-
-                    <!-- image container -->
-                    <div class="card-image-container">
-                        <img src="../../images/data_mastery_and_analysis.png" alt="Data Science Course" class="card-img">
-
-                        <!-- a badge for Online/On-Site -->
-                        <span class="badge badge-online">Online</span>
-                    </div>
-
-                    <!-- container for course info -->
-                    <div class="card-content">
-
-                        <h3 class="card-title">Data Mastery & Analysis</h3>
-
-                        <!-- Rating info -->
-                        <div class="rating">
-
-                            <!-- A star icon -->
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">4.9</span> <!--average score-->
-                            <span class="rating-count">(1.2k)</span> <!--total number of ratings-->
-                        </div>
-
-                        <!-- price & action info -->
-                        <div class="card-footer">
-                            <span class="price">450 SAR</span>
-                            <button class="add-cart-btn">
-                                <span class="material-symbols-outlined">add_shopping_cart</span>
-                            </button>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Product Card 2 -->
-                <a href="../course_details.html" class="product-card">
-                    <div class="card-image-container">
-                        <img src="../../images/leadership_in_practice.png" alt="Business Workshop" class="card-img">
-                        <span class="badge badge-onsite">On-site</span>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Leadership In Practice</h3>
-                        <div class="rating">
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">4.8</span>
-                            <span class="rating-count">(850)</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">850 SAR</span>
-                            <button class="add-cart-btn"><span
-                                    class="material-symbols-outlined">add_shopping_cart</span></button>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Product Card 3 -->
-                <a href="../course_details.html" class="product-card">
-                    <div class="card-image-container">
-                        <img src="../../images/software_architecture.png" alt="Tech Fundamentals" class="card-img">
-                        <span class="badge badge-online">Online</span>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Software Architecture</h3>
-                        <div class="rating">
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">5.0</span>
-                            <span class="rating-count">(430)</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">590 SAR</span>
-                            <button class="add-cart-btn"><span
-                                    class="material-symbols-outlined">add_shopping_cart</span></button>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Product Card 4 -->
-                <a href="../course_details.html" class="product-card">
-                    <div class="card-image-container">
-                        <img src="../../images/human-centric_design.png" alt="Creative Design" class="card-img">
-                        <span class="badge badge-onsite">On-site</span>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Human-Centric Design</h3>
-                        <div class="rating">
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">4.7</span>
-                            <span class="rating-count">(2.1k)</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">720 SAR</span>
-                            <button class="add-cart-btn"><span
-                                    class="material-symbols-outlined">add_shopping_cart</span></button>
-                        </div>
-                    </div>
-                </a>
             </div>
 
             <!-- A container to show "View All Courses" button -->
