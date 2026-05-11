@@ -68,6 +68,13 @@ class Cart {
         return true;
     }
 
+    // Update the quantity of a specific cart item in DB
+    public function updateQuantity($cartItemId, $quantity) {
+        $sql = "UPDATE CartItem SET Quantity = :qty WHERE CartItemId = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':qty' => $quantity, ':id' => $cartItemId]);
+    }
+
     // Get all cart items from DB with course/workshop info
     public function getItems($userId) {
         $cartId = $this->getOrCreateCart($userId);

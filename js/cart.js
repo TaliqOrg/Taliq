@@ -109,9 +109,19 @@ function renderCartItem(item) {
                 <div>
                     <h3 class="card-title cart-item-title">${item.Title}</h3>
                     <span class="badge ${badgeClass} cart-badge-static">${badgeText}</span>
-                    <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
-                        Qty: ${item.Quantity}
-                    </p>
+
+                    <!-- Quantity controls -->
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem;">
+                        <button onclick="updateCartItem(${item.CartItemId}, ${item.Quantity - 1})"
+                            class="cart-btn" title="Decrease quantity">
+                            <span class="material-symbols-outlined">remove</span>
+                        </button>
+                        <span style="font-weight: 600; min-width: 1.5rem; text-align: center;">${item.Quantity}</span>
+                        <button onclick="updateCartItem(${item.CartItemId}, ${item.Quantity + 1})"
+                            class="cart-btn" title="Increase quantity">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="card-footer cart-item-actions">
@@ -122,6 +132,47 @@ function renderCartItem(item) {
             </div>
         </div>
     `;
+}
+
+// Send a quantity update to the server and refresh the cart display
+async function updateCartItem(cartItemId, newQty) {
+    if (newQty < 1) return; // minimum is 1, delete handles removal
+
+    try {
+        const response = await fetch('/taleeq/Taliq/api/cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action:       'update',
+                cart_item_id: cartItemId,
+                quantity:     newQty
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Re-render the updated items and totals
+            const container     = document.getElementById('cart-items-container');
+            const originalPrice = document.getElementById('cart-original-price');
+            const totalPrice    = document.getElementById('cart-total-price');
+
+            let html = '';
+            result.items.forEach(function(item) {
+                html += renderCartItem(item);
+            });
+            container.innerHTML = html;
+
+            const total = parseFloat(result.total).toFixed(2);
+            if (originalPrice) originalPrice.textContent = total + ' SAR';
+            if (totalPrice)    totalPrice.textContent    = total + ' SAR';
+
+            updateCartBadge(result.count);
+        }
+
+    } catch (error) {
+        console.error('Error updating cart item:', error);
+    }
 }
 
 // Fetch cart items from the server and display them on the cart page
