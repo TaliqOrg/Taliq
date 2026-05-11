@@ -320,12 +320,80 @@ async function loadCartItems() {
     }
 }
 
+// Build the HTML for one item in the checkout summary
+function renderCheckoutItem(item) {
+    const subtotal = parseFloat(item.Subtotal).toFixed(2);
+    return `
+        <div class="summary-item">
+            <span class="summary-item-name">${item.Quantity}x ${item.Title}</span>
+            <span class="summary-item-price">${subtotal} SAR</span>
+        </div>
+    `;
+}
+
+// Load the checkout page: fill in user info and order summary
+async function loadCheckoutPage() {
+    const itemsContainer = document.getElementById('checkout-items-container');
+    const originalPrice  = document.getElementById('checkout-original-price');
+    const totalPrice     = document.getElementById('checkout-total-price');
+
+    if (!itemsContainer) return;
+
+    try {
+        // Load cart items
+        const cartResponse = await fetch('/taleeq/Taliq/api/cart.php?action=items');
+        const cartResult   = await cartResponse.json();
+
+        if (!cartResult.success || cartResult.items.length === 0) {
+            // Cart is empty — send back to cart page
+            window.location.href = 'cart.html';
+            return;
+        }
+
+        // Render order summary items
+        let html = '';
+        cartResult.items.forEach(function(item) {
+            html += renderCheckoutItem(item);
+        });
+        itemsContainer.innerHTML = html;
+
+        // Update totals
+        const total = parseFloat(cartResult.total).toFixed(2);
+        if (originalPrice) originalPrice.textContent = total + ' SAR';
+        if (totalPrice)    totalPrice.textContent    = total + ' SAR';
+
+        updateCartBadge(cartResult.count);
+
+        // Pre-fill billing form with the logged-in user's info
+        const session = await checkSession();
+        if (session.authenticated) {
+            const nameInput  = document.getElementById('billingName');
+            const emailInput = document.getElementById('billingEmail');
+            if (nameInput)  nameInput.value  = session.user.first_name + ' ' + session.user.last_name;
+            if (emailInput) emailInput.value = session.user.email;
+        }
+
+    } catch (error) {
+        console.error('Error loading checkout page:', error);
+    }
+}
+
+// Placeholder for the buy logic (will be implemented in feat/buy)
+function completePurchase() {
+    alert('Purchase logic coming soon!');
+}
+
 // Load the cart badge when the page loads
 document.addEventListener('DOMContentLoaded', function () {
     loadCartBadge();
 
-    // If we are on the cart page, load the items
+    // Cart page
     if (document.getElementById('cart-items-container')) {
         loadCartItems();
+    }
+
+    // Checkout page
+    if (document.getElementById('checkout-items-container')) {
+        loadCheckoutPage();
     }
 });
