@@ -1,1 +1,57 @@
 <?php
+
+require_once '../controllers/CartController.php';
+
+header('Content-Type: application/json');
+
+$cartController = new CartController();
+$method = $_SERVER['REQUEST_METHOD'];
+
+// ── GET ──────────────────────────────────────────────────────────────────────
+if ($method === 'GET') {
+    $action = $_GET['action'] ?? '';
+
+    if ($action === 'count') {
+        // Return how many items are in the cart (used for the header badge)
+        json_response(['success' => true, 'count' => $cartController->getCount()]);
+
+    } else {
+        json_response(['success' => false, 'message' => 'Invalid action'], 400);
+    }
+
+// ── POST ─────────────────────────────────────────────────────────────────────
+} elseif ($method === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!$data) {
+        json_response(['success' => false, 'message' => 'Invalid data'], 400);
+    }
+
+    $action = $data['action'] ?? '';
+
+    if ($action === 'add') {
+        // User must be logged in
+        if (!isset($_SESSION['user_id'])) {
+            json_response([
+                'success'  => false,
+                'message'  => 'Please log in to add items to your cart',
+                'redirect' => '/taleeq/Taliq/pages/login.html'
+            ], 401);
+        }
+
+        $userId     = $_SESSION['user_id'];
+        $courseId   = $data['course_id']   ?? null;
+        $workshopId = $data['workshop_id'] ?? null;
+        $price      = $data['price']       ?? 0;
+        $quantity   = (int)($data['quantity'] ?? 1);
+
+        $result = $cartController->addToCart($userId, $courseId, $workshopId, $price, $quantity);
+        json_response($result, $result['success'] ? 200 : 400);
+
+    } else {
+        json_response(['success' => false, 'message' => 'Invalid action'], 400);
+    }
+
+} else {
+    json_response(['success' => false, 'message' => 'Method not allowed'], 405);
+}

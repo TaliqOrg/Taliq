@@ -59,6 +59,11 @@ async function updateHeaderFooter() {
     }
     
     updateUserInfo(user);
+
+    // Update the cart badge if cart.js is loaded on this page
+    if (typeof loadCartBadge === 'function') {
+        loadCartBadge();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {

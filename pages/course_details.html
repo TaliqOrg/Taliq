@@ -19,6 +19,7 @@
     <script src="../js/auth.js"></script>
     <script src="../js/components.js"></script>
     <script src="../js/courses.js"></script>
+    <script src="../js/cart.js"></script>
 </head>
 
 <body>
@@ -212,10 +213,13 @@
                                 class="quantity-input">
                         </div>
 
-                        <a href="user/cart.html" class="btn btn-primary btn-full">
+                        <button id="addToCartBtn" class="btn btn-primary btn-full" onclick="
+                            var qty = parseInt(document.getElementById('quantity').value) || 1;
+                            addToCart(1, null, 450, qty);
+                        ">
                             <span class="material-symbols-outlined">add_shopping_cart</span>
                             Add to Cart
-                        </a>
+                        </button>
 
                         <button class="btn btn-outline btn-full">
                             <span class="material-symbols-outlined">favorite_border</span>

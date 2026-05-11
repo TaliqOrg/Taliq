@@ -2,6 +2,7 @@
     require_once '../config/constants.php';
     require_once '../config/database.php';
     require_once '../models/User.php';
+    require_once '../controllers/CartController.php';
     require_once '../includes/functions.php';
 
 class AuthController {
@@ -29,7 +30,11 @@ class AuthController {
             $_SESSION['last_name'] = $user['LastName'];
             $_SESSION['email'] = $user['Email'];
             $_SESSION['role'] = $user['Role'];
-            
+
+            // Load the user's cart from DB into the session
+            $cartController = new CartController();
+            $cartController->syncToSession($user['UserId']);
+
             if ($user['Role'] === 'admin') {
                 $redirectUrl = '/pages/admin/admin_home.html';
             } else {
