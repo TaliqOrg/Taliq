@@ -378,9 +378,50 @@ async function loadCheckoutPage() {
     }
 }
 
-// Placeholder for the buy logic (will be implemented in feat/buy)
-function completePurchase() {
-    alert('Purchase logic coming soon!');
+// Complete the purchase — validate form, send to API, redirect on success
+async function completePurchase() {
+    const billingName  = document.getElementById('billingName').value.trim();
+    const billingEmail = document.getElementById('billingEmail').value.trim();
+    const cardName     = document.getElementById('cardName').value.trim();
+    const cardNumber   = document.getElementById('cardNumber').value.trim();
+    const cardExpiry   = document.getElementById('cardExpiry').value.trim();
+    const cardCvc      = document.getElementById('cardCvc').value.trim();
+
+    // Basic validation — all fields must be filled
+    if (!billingName || !billingEmail || !cardName || !cardNumber || !cardExpiry || !cardCvc) {
+        alert('Please fill in all fields before completing your purchase.');
+        return;
+    }
+
+    const confirmBtn = document.getElementById('confirmPayBtn');
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = 'Processing...';
+
+    try {
+        const response = await fetch('/taleeq/Taliq/api/orders.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'buy' })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Clear the badge and redirect to user home
+            updateCartBadge(0);
+            window.location.href = '/taleeq/Taliq/pages/user/user_home.html';
+        } else {
+            alert(result.message || 'Purchase failed. Please try again.');
+            confirmBtn.disabled = false;
+            confirmBtn.innerHTML = '<span class="material-symbols-outlined">lock</span> Confirm & Pay';
+        }
+
+    } catch (error) {
+        console.error('Error completing purchase:', error);
+        alert('Something went wrong. Please try again.');
+        confirmBtn.disabled = false;
+        confirmBtn.innerHTML = '<span class="material-symbols-outlined">lock</span> Confirm & Pay';
+    }
 }
 
 // Load the cart badge when the page loads
