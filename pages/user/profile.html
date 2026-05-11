@@ -8,36 +8,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/welcome_page.css">
     <link rel="stylesheet" href="../../css/profile.css">
+
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/components.js"></script>
+    <script src="../../js/profile.js"></script>
 </head>
 <body>
-
-    <header class="main-header">
-        <nav class="container nav-container">
-            <a href="user_home.html" class="logo">Taliq</a>
-
-            <div class="nav-search">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="Search courses..." class="search-input">
-            </div>
-
-            <div class="desktop-nav">
-                <a href="user_home.html" class="nav-link">Dashboard</a>
-                <a href="../explore.html" class="nav-link">Explore</a>
-                <a href="../contact.html" class="nav-link">Contact Us</a>
-
-                <a href="profile.html" class="nav-link active" style="display: flex; align-items: center; gap: 0.25rem;">
-                    <span class="material-symbols-outlined">account_circle</span> My Account
-                </a>
-
-                <a href="cart.html" class="cart-btn" style="margin: 1rem;">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                    <span class="cart-badge"></span>
-                </a>
-            </div>
-        </nav>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main>
 
@@ -59,31 +39,31 @@
                     </div>
 
                     <nav class="profile-nav">
-                        <a href="#personal-info" class="profile-nav-link active">
+                        <a href="#" data-tab="gamification" class="profile-nav-link active">
+                            <span class="material-symbols-outlined">emoji_events</span>
+                            Gamification
+                        </a>
+                        <a href="#" data-tab="personal-info" class="profile-nav-link">
                             <span class="material-symbols-outlined">person</span>
                             Personal Information
                         </a>
-                        <a href="#my-courses" class="profile-nav-link">
+                        <a href="#" data-tab="my-courses" class="profile-nav-link">
                             <span class="material-symbols-outlined">school</span>
                             My Courses
                         </a>
-                        <a href="#certificates" class="profile-nav-link">
+                        <a href="#" data-tab="certificates" class="profile-nav-link">
                             <span class="material-symbols-outlined">workspace_premium</span>
                             Certificates
                         </a>
-                        <a href="#wishlist" class="profile-nav-link">
+                        <a href="#" data-tab="wishlist" class="profile-nav-link">
                             <span class="material-symbols-outlined">favorite</span>
                             Wishlist
                         </a>
-                        <a href="#orders" class="profile-nav-link">
+                        <a href="#" data-tab="orders" class="profile-nav-link">
                             <span class="material-symbols-outlined">receipt_long</span>
                             Order History
                         </a>
-                        <a href="#settings" class="profile-nav-link">
-                            <span class="material-symbols-outlined">settings</span>
-                            Settings
-                        </a>
-                        <a href="../welcome_page.html" class="profile-nav-link logout">
+                        <a href="#" onclick="logout(); return false;" class="profile-nav-link logout">
                             <span class="material-symbols-outlined">logout</span>
                             Logout
                         </a>
@@ -92,8 +72,8 @@
 
                 <div class="profile-content">
 
-                    <!-- Gamification Stats Section -->
-                    <section class="content-section">
+                    <!-- Gamification Tab -->
+                    <section id="gamification" class="content-section tab-content active">
                         <div class="gamification-stats">
                             <div class="stat-card points-card">
                                 <div class="stat-icon">
@@ -115,15 +95,6 @@
                             </div>
                             <div class="stat-card">
                                 <div class="stat-icon">
-                                    <span class="material-symbols-outlined">emoji_events</span>
-                                </div>
-                                <div class="stat-details">
-                                    <p class="stat-label">Achievements</p>
-                                    <h3 class="stat-value">12</h3>
-                                </div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-icon">
                                     <span class="material-symbols-outlined">local_fire_department</span>
                                 </div>
                                 <div class="stat-details">
@@ -133,55 +104,68 @@
                             </div>
                         </div>
 
-                        <!-- Recent Achievements -->
-                        <div class="achievements-section">
-                            <h3 class="content-heading">Recent Achievements</h3>
-                            <div class="achievements-list">
-                                <div class="achievement-item unlocked">
-                                    <div class="achievement-badge">
-                                        <span class="material-symbols-outlined">star</span>
+                        <!-- Account Level System -->
+                        <div class="level-section">
+                            <h3 class="content-heading">Account Level</h3>
+                            <div class="level-container">
+                                <div class="current-level">
+                                    <div class="level-badge">
+                                        <span class="material-symbols-outlined">emoji_events</span>
                                     </div>
-                                    <div class="achievement-info">
-                                        <h4 class="achievement-name">Course Completed</h4>
-                                        <p class="achievement-desc">Completed "Leadership In Practice"</p>
-                                        <p class="achievement-points">+500 points</p>
-                                    </div>
-                                </div>
-                                <div class="achievement-item unlocked">
-                                    <div class="achievement-badge">
-                                        <span class="material-symbols-outlined">star</span>
-                                    </div>
-                                    <div class="achievement-info">
-                                        <h4 class="achievement-name">Lesson Master</h4>
-                                        <p class="achievement-desc">Completed 10 lessons in a row</p>
-                                        <p class="achievement-points">+100 points</p>
+                                    <div class="level-info">
+                                        <h4 class="level-title">Knowledge Seeker</h4>
+                                        <p class="level-description">Level 2 - Keep learning to reach the next level!</p>
                                     </div>
                                 </div>
-                                <div class="achievement-item unlocked">
-                                    <div class="achievement-badge">
-                                        <span class="material-symbols-outlined">star</span>
+                                <div class="level-progress">
+                                    <div class="level-progress-bar">
+                                        <div class="level-progress-fill" style="width: 49%;"></div>
                                     </div>
-                                    <div class="achievement-info">
-                                        <h4 class="achievement-name">Week Warrior</h4>
-                                        <p class="achievement-desc">7-day learning streak</p>
-                                        <p class="achievement-points">+50 points</p>
-                                    </div>
+                                    <p class="level-progress-text">2,450 / 5,000 points to next level</p>
                                 </div>
-                                <div class="achievement-item locked">
-                                    <div class="achievement-badge">
-                                        <span class="material-symbols-outlined">star</span>
+                                <div class="levels-grid">
+                                    <div class="level-item completed">
+                                        <div class="level-item-badge">
+                                            <span class="material-symbols-outlined">emoji_events</span>
+                                        </div>
+                                        <div class="level-item-info">
+                                            <h5 class="level-item-name">Course Hunter</h5>
+                                            <p class="level-item-points">0 - 1,000 points</p>
+                                        </div>
                                     </div>
-                                    <div class="achievement-info">
-                                        <h4 class="achievement-name">Course Champion</h4>
-                                        <p class="achievement-desc">Complete 5 courses</p>
-                                        <p class="achievement-points">+1000 points</p>
+                                    <div class="level-item current">
+                                        <div class="level-item-badge">
+                                            <span class="material-symbols-outlined">emoji_events</span>
+                                        </div>
+                                        <div class="level-item-info">
+                                            <h5 class="level-item-name">Knowledge Seeker</h5>
+                                            <p class="level-item-points">1,001 - 5,000 points</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-item locked">
+                                        <div class="level-item-badge">
+                                            <span class="material-symbols-outlined">emoji_events</span>
+                                        </div>
+                                        <div class="level-item-info">
+                                            <h5 class="level-item-name">Learning Master</h5>
+                                            <p class="level-item-points">5,001 - 10,000 points</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-item locked">
+                                        <div class="level-item-badge">
+                                            <span class="material-symbols-outlined">emoji_events</span>
+                                        </div>
+                                        <div class="level-item-info">
+                                            <h5 class="level-item-name">Elite Scholar</h5>
+                                            <p class="level-item-points">10,001+ points</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    <section id="personal-info" class="content-section">
+                    <section id="personal-info" class="content-section tab-content">
                         <div class="section-header-profile">
                             <h2 class="section-title-profile">Personal Information</h2>
                             <button class="btn-edit">
@@ -218,7 +202,7 @@
                         </div>
                     </section>
 
-                    <section id="my-courses" class="content-section">
+                    <section id="my-courses" class="content-section tab-content">
                         <div class="section-header-profile">
                             <h2 class="section-title-profile">My Enrolled Courses</h2>
                             <a href="../explore.html" class="btn-link">Browse More</a>
@@ -272,7 +256,7 @@
                         </div>
                     </section>
 
-                    <section id="certificates" class="content-section">
+                    <section id="certificates" class="content-section tab-content">
                         <div class="section-header-profile">
                             <h2 class="section-title-profile">My Certificates</h2>
                         </div>
@@ -312,13 +296,13 @@
                         </div>
                     </section>
 
-                    <section id="wishlist" class="content-section">
+                    <section id="wishlist" class="content-section tab-content">
                         <div class="section-header-profile">
                             <h2 class="section-title-profile">My Wishlist</h2>
                         </div>
 
                         <div class="product-grid">
-                            <a href="../course_details.html" class="product-card">
+                            <a href="../course_details.html" class="card">
                                 <div class="card-image-container">
                                     <img src="../../images/human-centric_design.png" alt="Design Course" class="card-img">
                                     <span class="badge badge-onsite">On-site</span>
@@ -339,7 +323,7 @@
                                 </div>
                             </a>
 
-                            <a href="../course_details.html" class="product-card">
+                            <a href="../course_details.html" class="card">
                                 <div class="card-image-container">
                                     <img src="../../images/ai_and_machine_learning.png" alt="AI Course" class="card-img">
                                     <span class="badge badge-online">Online</span>
@@ -362,7 +346,7 @@
                         </div>
                     </section>
 
-                    <section id="orders" class="content-section">
+                    <section id="orders" class="content-section tab-content">
                         <div class="section-header-profile">
                             <h2 class="section-title-profile">Order History</h2>
                         </div>
@@ -433,23 +417,7 @@
 
     </main>
 
-    <footer class="main-footer">
-        <div class="container footer-container">
-            <div class="footer-brand">
-                <div class="footer-logo">Taliq</div>
-            </div>
-
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="contact.html">Contact Us</a>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>© 2026 Taliq. All rights reserved.</p>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
 </body>
 </html>

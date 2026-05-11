@@ -18,42 +18,18 @@
         rel="stylesheet">
 
     <!-- Global Stylesheet -->
+    <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/welcome_page.css">
 
 
+    <script src="../js/auth.js"></script>
+    <script src="../js/components.js"></script>
 </head>
 
 <body>
 
-    <header class="main-header">
+    <div id="header-placeholder"></div>
 
-        <!-- Naviation Bar -->
-        <nav class="container nav-container">
-
-            <!-- website's Name -->
-            <a href="welcome_page.html" class="logo">Taliq </a>
-
-            <!-- Search Bar -->
-            <div class="nav-search">
-                <span class="material-symbols-outlined search-icon">search</span>
-                <input type="text" placeholder="Search courses..." class="search-input">
-            </div>
-
-            <!-- navigation links -->
-            <div class="desktop-nav">
-                <a href="welcome_page.html" class="nav-link">Home</a>
-                <a href="explore.html" class="nav-link">Explore</a>
-                <a href="contact.html" class="nav-link">Contact Us</a>
-                <a href="login.html" class="nav-link nav-login">Log in</a>
-                <a href="signup.html" class="nav-link nav-signup">Sign up</a>
-
-                <!-- shopping cart button -->
-                <a href="pages/user/cart.html" class="cart-btn" style="margin: 1rem;">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                    <span class="cart-badge"></span> </a>
-            </div>
-        </nav>
-    </header>
 
     <main>
 
@@ -109,7 +85,6 @@
 
             <!-- A grid container to display course cards as links -->
             <div class="product-grid" id="course-container" data-limit="4">
-
             </div>
 
             <!-- A container to show "View All Courses" button -->
@@ -119,51 +94,23 @@
 
         </section>
 
-        <!-- Newsletter sign-up section -->
+        <!-- cta sign-up section -->
         <section class="container pb-custom">
 
-            <div class="newsletter-card">
-                <h2 class="newsletter-title">Start your journey today</h2>
+            <div class="cta-card">
+                <h2 class="cta-title">Start your journey today</h2>
 
-                <p class="newsletter-subtitle">Join thousands of students and professionals who are leveling up their
+                <p class="cta-subtitle">Join thousands of students and professionals who are leveling up their
                     careers with Taliq courses.</p>
 
-                <!-- input field and submit button -->
-                <div class="newsletter-form">
-                    <input type="email" placeholder="Enter your email" class="newsletter-input">
-                    <button class="btn btn-subscribe">Subscribe</button>
-                </div>
+                <!-- Sign up button -->
+                <a href="signup.html" class="btn btn-subscribe">Sign Up Now</a>
             </div>
         </section>
 
     </main>
 
-    <footer class="main-footer">
-
-        <!-- A container for footer content -->
-        <div class="container footer-container">
-            <!-- the brand logo + short description -->
-            <div class="footer-brand">
-                <div class="footer-logo">Taliq</div>
-            </div>
-
-            <!-- footer navigation links -->
-            <div class="footer-links">
-
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="contact.html">Contact Us</a>
-
-            </div>
-
-        </div>
-
-        <!-- copyright container -->
-        <div class="footer-bottom">
-            <p>© 2026 Taliq. All rights reserved.</p>
-        </div>
-
-    </footer>
+    <div id="footer-placeholder"></div>
 
 </body>
 

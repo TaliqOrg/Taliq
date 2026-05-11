@@ -7,20 +7,18 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once "../config/database.php";
 include_once '../models/Course.php';
 
-$database = (new Database())->getConnection();
-$modelCourse = new Course($database);
+$modelCourse = new Course($pdo);
 
 
 $stmt = $modelCourse->GetAllPublishedCourses();
 $num = $stmt->rowCount();
 
 
-//echo $num;
 //display all courses in database in home screen
 if ($num > 0) {
     $course_arr["records"] = array();
 
-    while ($row = $stmt->fetch()) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
         $course_item = array(
             "CourseId" => $CourseId,

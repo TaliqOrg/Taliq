@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Session</title>
+</head>
+<body>
+    <h1>Session Test</h1>
+    <div id="result"></div>
+    
+    <script>
+        async function testSession() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>Testing session...</p>';
+            
+            try {
+                const response = await fetch('/taleeq/Taliq/api/check_session.php');
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h2>Session Check Result:</h2>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                    <p><strong>Authenticated:</strong> ${data.authenticated ? 'Yes ✅' : 'No ❌'}</p>
+                    ${data.user ? `
+                        <p><strong>User:</strong> ${data.user.first_name} ${data.user.last_name}</p>
+                        <p><strong>Email:</strong> ${data.user.email}</p>
+                        <p><strong>Role:</strong> ${data.user.role}</p>
+                    ` : ''}
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h2>Error:</h2>
+                    <p style="color: red;">${error.message}</p>
+                    <pre>${error.stack}</pre>
+                `;
+            }
+        }
+        
+        testSession();
+    </script>
+</body>
+</html>
