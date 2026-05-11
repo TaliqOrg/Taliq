@@ -15,6 +15,14 @@ if ($method === 'GET') {
         // Return how many items are in the cart (used for the header badge)
         json_response(['success' => true, 'count' => $cartController->getCount()]);
 
+    } elseif ($action === 'items') {
+        // Return all cart items with subtotals and total
+        if (!isset($_SESSION['user_id'])) {
+            json_response(['success' => false, 'message' => 'Not authenticated'], 401);
+        }
+        $result = $cartController->getCartItems($_SESSION['user_id']);
+        json_response($result);
+
     } else {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
     }
