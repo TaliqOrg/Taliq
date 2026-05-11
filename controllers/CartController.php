@@ -18,8 +18,10 @@ class CartController {
             return ['success' => false, 'message' => 'No item specified'];
         }
 
-        if ($price <= 0) {
-            return ['success' => false, 'message' => 'Invalid price'];
+        // Always fetch price from DB — never trust what the frontend sends
+        $price = $this->cartModel->getPriceFromDB($courseId, $workshopId);
+        if (!$price) {
+            return ['success' => false, 'message' => 'Item not found'];
         }
 
         if ($quantity < 1) $quantity = 1;
@@ -58,7 +60,7 @@ class CartController {
 
     // Delete one item from the cart, then sync the session
     public function deleteItem($userId, $cartItemId) {
-        $this->cartModel->deleteItem($cartItemId);
+        $this->cartModel->deleteItem($cartItemId, $userId);
         $this->syncToSession($userId);
         return $this->getCartItems($userId);
     }
@@ -68,7 +70,7 @@ class CartController {
         if ($quantity < 1) $quantity = 1;
         if ($quantity > 10) $quantity = 10;
 
-        $this->cartModel->updateQuantity($cartItemId, $quantity);
+        $this->cartModel->updateQuantity($cartItemId, $quantity, $userId);
         $this->syncToSession($userId);
 
         return $this->getCartItems($userId);

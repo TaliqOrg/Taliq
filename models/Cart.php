@@ -76,18 +76,35 @@ class Cart {
         return $stmt->execute([':cart_id' => $cartId]);
     }
 
-    // Delete one item from the cart in DB
-    public function deleteItem($cartItemId) {
-        $sql = "DELETE FROM CartItem WHERE CartItemId = :id";
+    // Delete one item from the cart in DB — only if it belongs to this user's cart
+    public function deleteItem($cartItemId, $userId) {
+        $cartId = $this->getOrCreateCart($userId);
+        $sql = "DELETE FROM CartItem WHERE CartItemId = :id AND CartId = :cart_id";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([':id' => $cartItemId]);
+        return $stmt->execute([':id' => $cartItemId, ':cart_id' => $cartId]);
     }
 
-    // Update the quantity of a specific cart item in DB
-    public function updateQuantity($cartItemId, $quantity) {
-        $sql = "UPDATE CartItem SET Quantity = :qty WHERE CartItemId = :id";
+    // Update the quantity of a specific cart item in DB — only if it belongs to this user's cart
+    public function updateQuantity($cartItemId, $quantity, $userId) {
+        $cartId = $this->getOrCreateCart($userId);
+        $sql = "UPDATE CartItem SET Quantity = :qty WHERE CartItemId = :id AND CartId = :cart_id";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute([':qty' => $quantity, ':id' => $cartItemId]);
+        return $stmt->execute([':qty' => $quantity, ':id' => $cartItemId, ':cart_id' => $cartId]);
+    }
+
+    // Fetch the real price of an item from the DB — never trust the frontend
+    public function getPriceFromDB($courseId, $workshopId) {
+        if ($courseId) {
+            $sql = "SELECT Price FROM Course WHERE CourseId = :id LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':id' => $courseId]);
+        } else {
+            $sql = "SELECT Price FROM Workshop WHERE WorkshopId = :id LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':id' => $workshopId]);
+        }
+        $row = $stmt->fetch();
+        return $row ? $row['Price'] : null;
     }
 
     // Get all cart items from DB with course/workshop info
