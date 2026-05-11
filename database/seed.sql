@@ -22,11 +22,11 @@ INSERT INTO Category (Name, Description, CreatedAt) VALUES
 
 -- Insert sample courses
 INSERT INTO Course (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished, CreatedAt) VALUES
-(1, 'Introduction to Machine Learning', 'Learn the fundamentals of machine learning and AI', 99.99, 40.5, 'beginner', 'English', '/images/ai_and_machine_learning.png', 1, NOW()),
-(2, 'Microservices Architecture', 'Build scalable applications with microservices', 149.99, 30.0, 'intermediate', 'English', '/images/software_architecture.png', 1, NOW()),
-(3, 'Data Visualization with Python', 'Create stunning visualizations with Python libraries', 79.99, 25.0, 'beginner', 'English', '/images/data_mastery_and_analysis.png', 1, NOW()),
-(4, 'Digital Marketing Masterclass', 'Complete guide to digital marketing', 129.99, 35.0, 'intermediate', 'English', '/images/digital_marketing.png', 1, NOW()),
-(5, 'Leadership in Practice', 'Develop your leadership skills', 89.99, 20.0, 'beginner', 'English', '/images/leadership_in_practice.png', 1, NOW());
+(1, 'Introduction to Machine Learning', 'Learn the fundamentals of machine learning and AI', 99.99, 40.5, 'beginner', 'English', 'taleeq/Taliq/images/ai_and_machine_learning.png', 1, NOW()),
+(2, 'Microservices Architecture', 'Build scalable applications with microservices', 149.99, 30.0, 'intermediate', 'English', 'taleeq/Taliq/images/software_architecture.png', 1, NOW()),
+(3, 'Data Visualization with Python', 'Create stunning visualizations with Python libraries', 79.99, 25.0, 'beginner', 'English', 'taleeq/Taliq/images/data_mastery_and_analysis.png', 1, NOW()),
+(4, 'Digital Marketing Masterclass', 'Complete guide to digital marketing', 129.99, 35.0, 'intermediate', 'English', 'taleeq/Taliq/images/digital_marketing.png', 1, NOW()),
+(5, 'Leadership in Practice', 'Develop your leadership skills', 89.99, 20.0, 'beginner', 'English', 'taleeq/Taliq/images/leadership_in_practice.png', 1, NOW());
 
 -- Insert sample lessons for first course
 INSERT INTO Lesson (CourseId, Title, Description, ContentType, ContentUrl, OrderNumber, DurationMinutes, CreatedAt) VALUES
