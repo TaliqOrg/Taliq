@@ -43,6 +43,24 @@ class CartController {
         $_SESSION['cart'] = $items;
     }
 
+    // Get all cart items with subtotals and grand total
+    public function getCartItems($userId) {
+        $items = $this->cartModel->getItems($userId);
+
+        $total = 0;
+        foreach ($items as &$item) {
+            $item['Subtotal'] = $item['UnitPrice'] * $item['Quantity'];
+            $total += $item['Subtotal'];
+        }
+
+        return [
+            'success' => true,
+            'items'   => $items,
+            'total'   => $total,
+            'count'   => $this->getCount()
+        ];
+    }
+
     // Get total number of items in the cart (reads from session — fast)
     public function getCount() {
         if (!isset($_SESSION['cart'])) return 0;
