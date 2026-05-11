@@ -1,13 +1,10 @@
 <?php
 
-require_once '../config/constants.php';
-require_once '../config/database.php';
-require_once '../models/Cart.php';
-require_once '../includes/functions.php';
+require_once '../controllers/CartController.php';
 
 header('Content-Type: application/json');
 
-$cart = new Cart();
+$cartController = new CartController();
 $method = $_SERVER['REQUEST_METHOD'];
 
 // ── GET ──────────────────────────────────────────────────────────────────────
@@ -16,7 +13,7 @@ if ($method === 'GET') {
 
     if ($action === 'count') {
         // Return how many items are in the cart (used for the header badge)
-        json_response(['success' => true, 'count' => $cart->getCount()]);
+        json_response(['success' => true, 'count' => $cartController->getCount()]);
 
     } else {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
@@ -42,31 +39,14 @@ if ($method === 'GET') {
             ], 401);
         }
 
-        $userId    = $_SESSION['user_id'];
-        $courseId  = $data['course_id']   ?? null;
-        $workshopId= $data['workshop_id'] ?? null;
-        $price     = $data['price']       ?? 0;
-        $quantity  = (int)($data['quantity'] ?? 1);
+        $userId     = $_SESSION['user_id'];
+        $courseId   = $data['course_id']   ?? null;
+        $workshopId = $data['workshop_id'] ?? null;
+        $price      = $data['price']       ?? 0;
+        $quantity   = (int)($data['quantity'] ?? 1);
 
-        // Must have either a course or a workshop
-        if (!$courseId && !$workshopId) {
-            json_response(['success' => false, 'message' => 'No item specified'], 400);
-        }
-
-        if ($price <= 0) {
-            json_response(['success' => false, 'message' => 'Invalid price'], 400);
-        }
-
-        if ($quantity < 1) $quantity = 1;
-        if ($quantity > 10) $quantity = 10;
-
-        $cart->addItem($userId, $courseId, $workshopId, $price, $quantity);
-
-        json_response([
-            'success' => true,
-            'message' => 'Item added to cart!',
-            'count'   => $cart->getCount()
-        ]);
+        $result = $cartController->addToCart($userId, $courseId, $workshopId, $price, $quantity);
+        json_response($result, $result['success'] ? 200 : 400);
 
     } else {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
