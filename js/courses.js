@@ -30,7 +30,7 @@ function fetchCourses(NumberOfCourseToDisplay=0) {
 
                     // Create the HTML for one course card
                     const courseCard = `
-                       <a href="course_details.html?id=${course.CourseId}&type=${course.CourseType}" class="product-card">
+                       <a href="course_details.html?CourseId=${course.CourseId}&CourseType=${course.CourseType}" class="product-card">
                             <div class="card-image-container">
                             <img class="card-img" src="${course.ThumbnailUrl || '/taleeq/Taliq/images/placeholder.png'}" alt="${course.Title}">
                                 <span class="badge ${badgeClass}">${PlaceOfCourse}</span>
@@ -41,8 +41,8 @@ function fetchCourses(NumberOfCourseToDisplay=0) {
                                 
                                 <div class="rating">
                                     <span class="material-symbols-outlined star-icon">star</span>
-                                    <span class="rating-score">4.9</span>
-                                    <span class="rating-count">(1.2k)</span>
+                                    <span class="rating-score">${parseFloat(course.AverageRating).toFixed(1)}</span>
+                                    <span class="rating-count">(${course.RatingCount} rating)</span>
                                 </div>
 
                                 <div class="card-footer">

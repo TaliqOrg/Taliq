@@ -18,8 +18,9 @@
     
     <script src="../js/auth.js"></script>
     <script src="../js/components.js"></script>
-    <script src="../js/courses.js"></script>
     <script src="../js/cart.js"></script>
+    <script src="../js/CourseDetails.js"></script>
+    <script src="../js/courses.js"></script>
 </head>
 
 <body>
@@ -45,22 +46,21 @@
 
                 <div class="course-main">
                     <div class="course-hero">
-                        <img src="../images/data_mastery_and_analysis.png" alt="Data Science Course"
-                            class="course-hero-img">
-                        <span class="badge badge-online course-badge">Online</span>
+                        <img id="course-hero-img" src="../images/data_mastery_and_analysis.png" alt="Data Science Course" class="course-hero-img">
+                        <span id="CourseType" class="badge badge-online course-badge" >Online</span>
                     </div>
 
                     <div class="course-header">
-                        <h1 class="course-title">Data Mastery & Analysis</h1>
+                        <h1 class="course-title" id="Course-Title"></h1>
                         <div class="course-meta">
                             <div class="rating" style="margin-bottom: 0;">
                                 <span class="material-symbols-outlined star-icon">star</span>
-                                <span class="rating-score">4.9</span>
-                                <span class="rating-count">(1,234 ratings)</span>
+                                <span class="rating-score" id="average-Rating"></span>
+                                <span class="rating-count" id="Rating-Count"></span>
                             </div>
-                            <span class="course-students">
+                            <span class="course-students" >
                                 <span class="material-symbols-outlined">group</span>
-                                5,678 students enrolled
+                                <span id="EnrolledAmount"></span>
                             </span>
                         </div>
                     </div>
@@ -70,74 +70,44 @@
                             <span class="material-symbols-outlined info-icon">schedule</span>
                             <div>
                                 <p class="info-label">Duration</p>
-                                <p class="info-value">40 hours</p>
+                                <p class="info-value" id="Duration Time"></p>
                             </div>
                         </div>
                         <div class="info-item">
                             <span class="material-symbols-outlined info-icon">signal_cellular_alt</span>
                             <div>
                                 <p class="info-label">Level</p>
-                                <p class="info-value">Intermediate</p>
+                                <p class="info-value" id="Course-Level"></p>
                             </div>
                         </div>
                         <div class="info-item">
                             <span class="material-symbols-outlined info-icon">language</span>
                             <div>
                                 <p class="info-label">Language</p>
-                                <p class="info-value">English</p>
+                                <p class="info-value" id="courseLanguage"></p>
                             </div>
                         </div>
                         <div class="info-item">
                             <span class="material-symbols-outlined info-icon">workspace_premium</span>
                             <div>
                                 <p class="info-label">Certificate</p>
-                                <p class="info-value">Yes</p>
+                                <p class="info-value" id="HasCert"></p>
                             </div>
                         </div>
                     </div>
 
                     <div class="course-section">
                         <h2 class="section-heading">About This Course</h2>
-                        <p class="course-description">
-                            Master the fundamentals of data analysis and visualization with this comprehensive course.
-                            Learn to work with large datasets, perform statistical analysis, and create compelling
-                            visualizations that tell a story. This course covers Python, Pandas, NumPy, and popular
-                            visualization libraries like Matplotlib and Seaborn.
-                        </p>
-                        <p class="course-description">
-                            Whether you're looking to advance your career in data science or simply want to make
-                            data-driven decisions in your current role, this course will provide you with the
-                            essential skills and knowledge you need to succeed.
+                        <p class="course-description" id="course-description">
+
                         </p>
                     </div>
 
                     <div class="course-section">
                         <h2 class="section-heading">What You'll Learn</h2>
-                        <div class="learning-outcomes">
-                            <div class="outcome-item">
-                                <span class="material-symbols-outlined outcome-icon">check_circle</span>
-                                <span>Understand core data analysis concepts and methodologies</span>
-                            </div>
-                            <div class="outcome-item">
-                                <span class="material-symbols-outlined outcome-icon">check_circle</span>
-                                <span>Work with Python libraries like Pandas and NumPy</span>
-                            </div>
-                            <div class="outcome-item">
-                                <span class="material-symbols-outlined outcome-icon">check_circle</span>
-                                <span>Create professional data visualizations</span>
-                            </div>
-                            <div class="outcome-item">
-                                <span class="material-symbols-outlined outcome-icon">check_circle</span>
-                                <span>Perform statistical analysis and hypothesis testing</span>
-                            </div>
-                            <div class="outcome-item">
-                                <span class="material-symbols-outlined outcome-icon">check_circle</span>
-                                <span>Clean and preprocess real-world datasets</span>
-                            </div>
-                            <div class="outcome-item">
-                                <span class="material-symbols-outlined outcome-icon">check_circle</span>
-                                <span>Build end-to-end data analysis projects</span>
-                            </div>
+
+                        <div class="learning-outcomes" id="learning-outcomes-container">
+
                         </div>
                     </div>
 
@@ -191,12 +161,7 @@
 
                     <div class="course-section">
                         <h2 class="section-heading">Requirements</h2>
-                        <ul class="requirements-list">
-                            <li>Basic understanding of programming concepts</li>
-                            <li>Familiarity with mathematics and statistics (helpful but not required)</li>
-                            <li>A computer with internet connection</li>
-                            <li>Willingness to learn and practice</li>
-                        </ul>
+                            <div id="RequirementToLearn"></div>
                     </div>
 
                 </div>
@@ -204,7 +169,7 @@
                 <aside class="course-sidebar">
                     <div class="purchase-card">
                         <div class="price-section">
-                            <span class="price-large">450 SAR</span>
+                            <span class="price-large" id="ItemPrice"></span>
                         </div>
 
                         <div class="quantity-section">
@@ -238,7 +203,7 @@
                             <div class="includes-list">
                                 <div class="includes-item">
                                     <span class="material-symbols-outlined">play_circle</span>
-                                    <span>40 hours on-demand video</span>
+                                    <span id="Course Duration and location">40 hours on-demand video</span>
                                 </div>
                                 <div class="includes-item">
                                     <span class="material-symbols-outlined">article</span>
@@ -256,9 +221,8 @@
                                     <span class="material-symbols-outlined">phone_android</span>
                                     <span>Access on mobile and desktop</span>
                                 </div>
-                                <div class="includes-item">
-                                    <span class="material-symbols-outlined">workspace_premium</span>
-                                    <span>Certificate of completion</span>
+                                <div class="includes-item" id="CertIncluded">
+
                                 </div>
                             </div>
                         </div>
@@ -286,90 +250,8 @@
                 <p class="section-subtitle">Students also viewed these courses</p>
             </div>
 
-            <div class="product-grid">
-                <a href="course_details.html" class="card">
-                    <div class="card-image-container">
-                        <img src="../images/software_architecture.png" alt="Tech Course" class="card-img">
-                        <span class="badge badge-online">Online</span>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Software Architecture</h3>
-                        <div class="rating">
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">5.0</span>
-                            <span class="rating-count">(430)</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">590 SAR</span>
-                            <button class="add-cart-btn">
-                                <span class="material-symbols-outlined">add_shopping_cart</span>
-                            </button>
-                        </div>
-                    </div>
-                </a>
+            <div class="product-grid" id="course-container" data-limit="4">
 
-                <a href="course_details.html" class="card">
-                    <div class="card-image-container">
-                        <img src="../images/ai_and_machine_learning.png" alt="AI Course" class="card-img">
-                        <span class="badge badge-online">Online</span>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">AI & Machine Learning</h3>
-                        <div class="rating">
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">5.0</span>
-                            <span class="rating-count">(2.3k)</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">890 SAR</span>
-                            <button class="add-cart-btn">
-                                <span class="material-symbols-outlined">add_shopping_cart</span>
-                            </button>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="course_details.html" class="card">
-                    <div class="card-image-container">
-                        <img src="../images/financial_analysis_and_planning.png" alt="Finance Course" class="card-img">
-                        <span class="badge badge-online">Online</span>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Financial Analysis & Planning</h3>
-                        <div class="rating">
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">4.8</span>
-                            <span class="rating-count">(1.5k)</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">650 SAR</span>
-                            <button class="add-cart-btn">
-                                <span class="material-symbols-outlined">add_shopping_cart</span>
-                            </button>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="course_details.html" class="card">
-                    <div class="card-image-container">
-                        <img src="../images/human-centric_design.png" alt="Design Course" class="card-img">
-                        <span class="badge badge-onsite">On-site</span>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">Human-Centric Design</h3>
-                        <div class="rating">
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">4.7</span>
-                            <span class="rating-count">(2.1k)</span>
-                        </div>
-                        <div class="card-footer">
-                            <span class="price">720 SAR</span>
-                            <button class="add-cart-btn">
-                                <span class="material-symbols-outlined">add_shopping_cart</span>
-                            </button>
-                        </div>
-                    </div>
-                </a>
             </div>
         </section>
 

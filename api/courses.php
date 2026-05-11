@@ -5,38 +5,14 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once "../config/database.php";
-include_once '../models/Course.php';
+include_once '../controllers/CourseController.php';
 
-$modelCourse = new Course($pdo);
+$controller = new CourseController($pdo);
 
-
-$stmt = $modelCourse->GetAllPublishedCourses();
-$num = $stmt->rowCount();
-
-
-//display all courses in database in home screen
-if ($num > 0) {
-    $course_arr["records"] = array();
-
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        extract($row);
-        $course_item = array(
-            "CourseId" => $CourseId,
-            "Title" => $Title,
-            "Description" => html_entity_decode($Description),
-            "Price" => $Price,
-            "ThumbnailUrl" => $ThumbnailUrl,
-            "CourseType" => $CourseType
-        );
-        $course_arr["records"][] = $course_item;
-    }
-    echo json_encode($course_arr);
-
+if (isset($_GET['CourseId']) && isset($_GET['CourseType'])) {
+    $controller->getCourseDetails($_GET['CourseId'], $_GET['CourseType']);
 }
-else {
-    http_response_code(404);
-    echo json_encode(array("message" => "Record not found."));
+else{
+    $controller->getAllCourses();
 }
-
-?>
 
