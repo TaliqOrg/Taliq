@@ -1,3 +1,13 @@
+// Escape HTML special characters before inserting DB data into innerHTML
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 // Add an item to the cart
 // courseId: the course ID (or null if it's a workshop)
 // workshopId: the workshop ID (or null if it's a course)
@@ -104,10 +114,10 @@ function renderCartItem(item) {
         <div class="past-purchases-container cart-item" data-item-id="${item.CartItemId}">
             <div class="purchased-courses-container">
                 <div class="card-image-container cart-img-wrapper">
-                    <img src="${thumbnail}" alt="${item.Title}" class="card-img">
+                    <img src="${thumbnail}" alt="${escapeHtml(item.Title)}" class="card-img">
                 </div>
                 <div>
-                    <h3 class="card-title cart-item-title">${item.Title}</h3>
+                    <h3 class="card-title cart-item-title">${escapeHtml(item.Title)}</h3>
                     <span class="badge ${badgeClass} cart-badge-static">${badgeText}</span>
 
                     <!-- Quantity controls -->
@@ -325,7 +335,7 @@ function renderCheckoutItem(item) {
     const subtotal = parseFloat(item.Subtotal).toFixed(2);
     return `
         <div class="summary-item">
-            <span class="summary-item-name">${item.Quantity}x ${item.Title}</span>
+            <span class="summary-item-name">${item.Quantity}x ${escapeHtml(item.Title)}</span>
             <span class="summary-item-price">${subtotal} SAR</span>
         </div>
     `;
