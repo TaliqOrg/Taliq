@@ -56,6 +56,22 @@ if ($method === 'GET') {
         $result = $cartController->addToCart($userId, $courseId, $workshopId, $price, $quantity);
         json_response($result, $result['success'] ? 200 : 400);
 
+    } elseif ($action === 'delete') {
+        // Delete one item from the cart
+        if (!isset($_SESSION['user_id'])) {
+            json_response(['success' => false, 'message' => 'Not authenticated'], 401);
+        }
+
+        $userId     = $_SESSION['user_id'];
+        $cartItemId = $data['cart_item_id'] ?? null;
+
+        if (!$cartItemId) {
+            json_response(['success' => false, 'message' => 'No item specified'], 400);
+        }
+
+        $result = $cartController->deleteItem($userId, $cartItemId);
+        json_response($result);
+
     } elseif ($action === 'update') {
         // Update quantity of a cart item
         if (!isset($_SESSION['user_id'])) {

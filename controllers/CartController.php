@@ -43,6 +43,13 @@ class CartController {
         $_SESSION['cart'] = $items;
     }
 
+    // Delete one item from the cart, then sync the session
+    public function deleteItem($userId, $cartItemId) {
+        $this->cartModel->deleteItem($cartItemId);
+        $this->syncToSession($userId);
+        return $this->getCartItems($userId);
+    }
+
     // Update the quantity of an item, then sync the session
     public function updateItem($userId, $cartItemId, $quantity) {
         if ($quantity < 1) $quantity = 1;
