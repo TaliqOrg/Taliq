@@ -68,6 +68,13 @@ class Cart {
         return true;
     }
 
+    // Delete one item from the cart in DB
+    public function deleteItem($cartItemId) {
+        $sql = "DELETE FROM CartItem WHERE CartItemId = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':id' => $cartItemId]);
+    }
+
     // Update the quantity of a specific cart item in DB
     public function updateQuantity($cartItemId, $quantity) {
         $sql = "UPDATE CartItem SET Quantity = :qty WHERE CartItemId = :id";

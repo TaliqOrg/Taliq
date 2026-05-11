@@ -126,7 +126,7 @@ function renderCartItem(item) {
             </div>
             <div class="card-footer cart-item-actions">
                 <span class="price">${subtotal} SAR</span>
-                <button class="cart-btn" title="Remove Item">
+                <button onclick="deleteCartItem(${item.CartItemId})" class="cart-btn" title="Remove Item">
                     <span class="material-symbols-outlined">delete</span>
                 </button>
             </div>
@@ -172,6 +172,60 @@ async function updateCartItem(cartItemId, newQty) {
 
     } catch (error) {
         console.error('Error updating cart item:', error);
+    }
+}
+
+// Remove one item from the cart and refresh the display
+async function deleteCartItem(cartItemId) {
+    try {
+        const response = await fetch('/taleeq/Taliq/api/cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action:       'delete',
+                cart_item_id: cartItemId
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const container     = document.getElementById('cart-items-container');
+            const originalPrice = document.getElementById('cart-original-price');
+            const totalPrice    = document.getElementById('cart-total-price');
+
+            // If cart is now empty show the empty state
+            if (result.items.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <span class="material-symbols-outlined" style="font-size: 4rem; color: var(--text-muted);">shopping_cart</span>
+                        <h3 style="margin: 1rem 0 0.5rem;">Your cart is empty</h3>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Explore our courses and add something you like!</p>
+                        <a href="../explore.html" class="btn btn-primary">Explore Courses</a>
+                    </div>
+                `;
+                if (originalPrice) originalPrice.textContent = '0.00 SAR';
+                if (totalPrice)    totalPrice.textContent    = '0.00 SAR';
+                updateCartBadge(0);
+                return;
+            }
+
+            // Re-render remaining items
+            let html = '';
+            result.items.forEach(function(item) {
+                html += renderCartItem(item);
+            });
+            container.innerHTML = html;
+
+            const total = parseFloat(result.total).toFixed(2);
+            if (originalPrice) originalPrice.textContent = total + ' SAR';
+            if (totalPrice)    totalPrice.textContent    = total + ' SAR';
+
+            updateCartBadge(result.count);
+        }
+
+    } catch (error) {
+        console.error('Error deleting cart item:', error);
     }
 }
 
