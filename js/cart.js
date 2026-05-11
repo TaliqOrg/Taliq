@@ -175,6 +175,43 @@ async function updateCartItem(cartItemId, newQty) {
     }
 }
 
+// Empty the entire cart
+async function emptyCart() {
+    if (!confirm('Are you sure you want to remove all items from your cart?')) return;
+
+    try {
+        const response = await fetch('/taleeq/Taliq/api/cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'empty' })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const container     = document.getElementById('cart-items-container');
+            const originalPrice = document.getElementById('cart-original-price');
+            const totalPrice    = document.getElementById('cart-total-price');
+
+            container.innerHTML = `
+                <div style="text-align: center; padding: 3rem;">
+                    <span class="material-symbols-outlined" style="font-size: 4rem; color: var(--text-muted);">shopping_cart</span>
+                    <h3 style="margin: 1rem 0 0.5rem;">Your cart is empty</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Explore our courses and add something you like!</p>
+                    <a href="../explore.html" class="btn btn-primary">Explore Courses</a>
+                </div>
+            `;
+
+            if (originalPrice) originalPrice.textContent = '0.00 SAR';
+            if (totalPrice)    totalPrice.textContent    = '0.00 SAR';
+            updateCartBadge(0);
+        }
+
+    } catch (error) {
+        console.error('Error emptying cart:', error);
+    }
+}
+
 // Remove one item from the cart and refresh the display
 async function deleteCartItem(cartItemId) {
     try {

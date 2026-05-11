@@ -23,7 +23,13 @@
 
     <main>
 
-        <h1 class="container mt-custom" style="margin-bottom: 1.5rem;">Your Cart</h1>
+        <div class="container mt-custom" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+            <h1>Your Cart</h1>
+            <button onclick="emptyCart()" class="btn btn-outline" style="display: flex; align-items: center; gap: 0.4rem; color: #dc2626; border-color: #dc2626;">
+                <span class="material-symbols-outlined">delete_sweep</span>
+                Empty Cart
+            </button>
+        </div>
 
         <section class="container pb-custom">
 
