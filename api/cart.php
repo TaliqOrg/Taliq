@@ -56,6 +56,15 @@ if ($method === 'GET') {
         $result = $cartController->addToCart($userId, $courseId, $workshopId, $price, $quantity);
         json_response($result, $result['success'] ? 200 : 400);
 
+    } elseif ($action === 'empty') {
+        // Empty the entire cart
+        if (!isset($_SESSION['user_id'])) {
+            json_response(['success' => false, 'message' => 'Not authenticated'], 401);
+        }
+
+        $result = $cartController->emptyCart($_SESSION['user_id']);
+        json_response($result);
+
     } elseif ($action === 'delete') {
         // Delete one item from the cart
         if (!isset($_SESSION['user_id'])) {

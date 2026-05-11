@@ -43,6 +43,19 @@ class CartController {
         $_SESSION['cart'] = $items;
     }
 
+    // Empty the entire cart, then clear the session
+    public function emptyCart($userId) {
+        $this->cartModel->emptyCart($userId);
+        $_SESSION['cart'] = [];
+
+        return [
+            'success' => true,
+            'items'   => [],
+            'total'   => 0,
+            'count'   => 0
+        ];
+    }
+
     // Delete one item from the cart, then sync the session
     public function deleteItem($userId, $cartItemId) {
         $this->cartModel->deleteItem($cartItemId);

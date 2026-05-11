@@ -68,6 +68,14 @@ class Cart {
         return true;
     }
 
+    // Delete ALL items from the user's cart in DB
+    public function emptyCart($userId) {
+        $cartId = $this->getOrCreateCart($userId);
+        $sql = "DELETE FROM CartItem WHERE CartId = :cart_id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':cart_id' => $cartId]);
+    }
+
     // Delete one item from the cart in DB
     public function deleteItem($cartItemId) {
         $sql = "DELETE FROM CartItem WHERE CartItemId = :id";
