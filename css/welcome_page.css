@@ -1,97 +1,3 @@
-
-
-
-
-/* --- CSS Variables (IMPORTANT) --- */
-:root {
-    --bg-main: #f7f9fb;
-    --surface: #ffffff;
-    --surface-low: #f2f4f6;
-    --surface-hover: #e6e8ea;
-
-    --primary: #059669;
-    --primary-hover: #047857;
-    --primary-container: #10b981;
-    --on-primary: #ffffff;
-
-    --text-main: #191c1e;
-    --text-muted: #434655;
-
-    --secondary-container: #d1fae5;
-    --on-secondary-container: #065f46;
-
-    --badge-onsite: #505f76;
-    --error: #ba1a1a;
-
-    --font-heading: 'Manrope', sans-serif;
-    --font-body: 'Inter', sans-serif;
-
-    --border-radius-lg: 1rem;
-    --border-radius-xl: 2rem;
-
-    --nav-padding: 0.5rem 1.25rem;
-    --nav-border-radius: 0.5rem;
-}
-
-/* --- Resets --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-body);
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    /* Ensures footer sticks to bottom */
-}
-
-/* Removes underlines from links */
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-hr {
-    background-color: var(--surface-low);
-}
-
-/* --- Utility Classes --- */
-
-
-/* horizontal padding */
-.container {
-    padding: 0 2rem;
-}
-
-.text-primary {
-    color: var(--primary);
-}
-
-
-.mt-custom {
-    margin-top: 1.5rem;
-}
-
-/* vertical padding */
-.py-custom {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-
-.pb-custom {
-    padding-bottom: 5rem;
-}
-
 /* ---------- Header & Navigation ---------- */
 .main-header {
     background-color: var(--surface);
@@ -287,41 +193,6 @@ hr {
 }
 
 
-/* Buttons */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    border-radius: 0.75rem;
-    font-weight: 600;
-    font-size: 1.125rem;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-primary {
-    background-color: var(--primary-container);
-    color: var(--on-primary);
-}
-
-.btn-primary:hover {
-    background-color: var(--primary);
-}
-
-/* color on hover */
-
-.btn-outline {
-    background-color: var(--surface);
-    color: var(--primary);
-    border: 1px solid rgba(115, 118, 134, 0.2);
-}
-
-.btn-outline:hover {
-    background-color: var(--surface-hover);
-}
-
-
 /* ---------- Products Grid ---------- */
 
 /* bottom margin */
@@ -354,20 +225,6 @@ hr {
     gap: 0.5rem;
 }
 
-/* used for each course card */
-.product-card {
-    display: inline-block;
-    background-color: var(--surface);
-    border-radius: var(--border-radius-lg);
-    overflow: hidden;
-    border: 4px solid transparent;
-    border-radius: 1.5rem;
-}
-
-.product-card:hover {
-    background-color: var(--surface-hover);
-}
-
 /* customize container for image and its badge */
 .card-image-container {
     position: relative; /* to set badge above it */
@@ -382,17 +239,6 @@ hr {
     height: 100%;
     object-fit: cover;
     border-radius: 1rem;
-}
-
-/* badge on image in course card */
-.badge {
-    position: absolute; /* position on top of image */
-    top: 0.75rem;
-    left: 0.75rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.75rem;
-    font-weight: 700;
 }
 
 /* for online badge */
@@ -480,27 +326,13 @@ hr {
     color: var(--on-primary);
 }
 
-/*
-for "View All Courses" button
-under course cards
-*/
 .view-all-container {
     text-align: center;
     margin-top: 4rem;
 }
 
-
-.btn-secondary {
-    background-color: var(--surface-low);
-    color: var(--text-main);
-}
-
-.btn-secondary:hover {
-    background-color: #eceef0;
-}
-
-/* --- Newsletter Section --- */
-.newsletter-card {
+/* --- cta Section --- */
+.cta-card {
     background: var(--primary-container);
     border-radius: 2.5rem;
     padding: 3rem 1rem;
@@ -508,44 +340,20 @@ under course cards
     color: var(--on-primary);
 }
 
-.newsletter-title {
+.cta-title {
     font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
 }
 
-.newsletter-subtitle {
+.cta-subtitle {
     color: #c0f4dc;
     font-size: 1.125rem;
     margin: 0 auto 2.5rem auto;
     max-width: 600px;
 }
 
-
-.newsletter-form {
-    display: flex;
-    max-width: 500px;
-    margin: 0 auto;
-    gap: 1rem;
-}
-
-/* newsletter field */
-.newsletter-input {
-    flex: 1;
-    padding: 1rem 1.5rem;
-    border-radius: 0.75rem;
-    border: 2px solid transparent;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    outline: none;
-}
-
-.newsletter-input:focus {
-    border: 2px solid var(--on-secondary-container);
-}
-
-/* for newsletter button "Subscribe" */
 .btn-subscribe {
     background-color: var(--surface);
     color: var(--primary-container);
@@ -637,16 +445,12 @@ under course cards
         font-size: 1.5rem;
     }
 
-    .newsletter-title {
+    .cta-title {
         font-size: 1.75rem;
     }
 
     .welcome-buttons {
         justify-content: center;
-    }
-
-    .newsletter-form {
-        flex-direction: column;
     }
 
     .btn-subscribe {

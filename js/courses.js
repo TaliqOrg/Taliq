@@ -36,29 +36,22 @@ function fetchCourses(NumberOfCourseToDisplay=0) {
                                 <span class="badge ${badgeClass}">${PlaceOfCourse}</span>
                             </div>
                             
-                            <div>
-                            <h3 class="card-title" >${course.Title}</h3>
-                            
-                            <div class="rating">
-
-                            <!-- A star icon -->
-                            <span class="material-symbols-outlined star-icon">star</span>
-                            <span class="rating-score">4.9</span> <!--average score-->
-                            <span class="rating-count">(1.2k)</span> <!--total number of ratings-->
-                        </div>
-
-                             <!-- price & action info -->
-                        <div class="card-footer">
-                            <span class="price">${course.Price} SAR</span>
-                            <button class="add-cart-btn">
-                                <span class="material-symbols-outlined">add_shopping_cart</span>
-                            </button>
-                        </div>
-                        
-                        
-                            </div>
+                            <div class="card-content">
+                                <h3 class="card-title">${course.Title}</h3>
                                 
-                            
+                                <div class="rating">
+                                    <span class="material-symbols-outlined star-icon">star</span>
+                                    <span class="rating-score">4.9</span>
+                                    <span class="rating-count">(1.2k)</span>
+                                </div>
+
+                                <div class="card-footer">
+                                    <span class="price">${course.Price} SAR</span>
+                                    <button class="add-cart-btn">
+                                        <span class="material-symbols-outlined">add_shopping_cart</span>
+                                    </button>
+                                </div>
+                            </div>
                     `;
                     // Add this card to the container
                     container.innerHTML += courseCard;

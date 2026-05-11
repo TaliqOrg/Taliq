@@ -23,6 +23,16 @@ if ($method === 'POST') {
         $result = $authController->login($email, $password);
         json_response($result, $result['success'] ? 200 : 401);
         
+    } elseif ($action === 'register') {
+        $firstName = $data['first_name'] ?? '';
+        $lastName = $data['last_name'] ?? '';
+        $email = $data['email'] ?? '';
+        $password = $data['password'] ?? '';
+        $phoneNumber = $data['phone_number'] ?? null;
+        
+        $result = $authController->register($firstName, $lastName, $email, $password, $phoneNumber);
+        json_response($result, $result['success'] ? 201 : 400);
+        
     } elseif ($action === 'logout') {
         $result = $authController->logout();
         json_response($result);

@@ -12,11 +12,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
+    <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/welcome_page.css">
     <link rel="stylesheet" href="../css/course_details.css">
+    
     <script src="../js/auth.js"></script>
     <script src="../js/components.js"></script>
     <script src="../js/courses.js"></script>
+    <script src="../js/cart.js"></script>
 </head>
 
 <body>
@@ -210,10 +213,13 @@
                                 class="quantity-input">
                         </div>
 
-                        <a href="user/cart.html" class="btn btn-primary btn-full">
+                        <button id="addToCartBtn" class="btn btn-primary btn-full" onclick="
+                            var qty = parseInt(document.getElementById('quantity').value) || 1;
+                            addToCart(1, null, 450, qty);
+                        ">
                             <span class="material-symbols-outlined">add_shopping_cart</span>
                             Add to Cart
-                        </a>
+                        </button>
 
                         <button class="btn btn-outline btn-full">
                             <span class="material-symbols-outlined">favorite_border</span>
@@ -281,7 +287,7 @@
             </div>
 
             <div class="product-grid">
-                <a href="course_details.html" class="product-card">
+                <a href="course_details.html" class="card">
                     <div class="card-image-container">
                         <img src="../images/software_architecture.png" alt="Tech Course" class="card-img">
                         <span class="badge badge-online">Online</span>
@@ -302,7 +308,7 @@
                     </div>
                 </a>
 
-                <a href="course_details.html" class="product-card">
+                <a href="course_details.html" class="card">
                     <div class="card-image-container">
                         <img src="../images/ai_and_machine_learning.png" alt="AI Course" class="card-img">
                         <span class="badge badge-online">Online</span>
@@ -323,7 +329,7 @@
                     </div>
                 </a>
 
-                <a href="course_details.html" class="product-card">
+                <a href="course_details.html" class="card">
                     <div class="card-image-container">
                         <img src="../images/financial_analysis_and_planning.png" alt="Finance Course" class="card-img">
                         <span class="badge badge-online">Online</span>
@@ -344,7 +350,7 @@
                     </div>
                 </a>
 
-                <a href="course_details.html" class="product-card">
+                <a href="course_details.html" class="card">
                     <div class="card-image-container">
                         <img src="../images/human-centric_design.png" alt="Design Course" class="card-img">
                         <span class="badge badge-onsite">On-site</span>
