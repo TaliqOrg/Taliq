@@ -43,6 +43,17 @@ class CartController {
         $_SESSION['cart'] = $items;
     }
 
+    // Update the quantity of an item, then sync the session
+    public function updateItem($userId, $cartItemId, $quantity) {
+        if ($quantity < 1) $quantity = 1;
+        if ($quantity > 10) $quantity = 10;
+
+        $this->cartModel->updateQuantity($cartItemId, $quantity);
+        $this->syncToSession($userId);
+
+        return $this->getCartItems($userId);
+    }
+
     // Get all cart items with subtotals and grand total
     public function getCartItems($userId) {
         $items = $this->cartModel->getItems($userId);
