@@ -18,6 +18,7 @@
     
     <script src="../js/auth.js"></script>
     <script src="../js/components.js"></script>
+    <script src="../js/wishlist.js"></script>
     <script src="../js/cart.js"></script>
     <script src="../js/CourseDetails.js"></script>
     <script src="../js/courses.js"></script>
@@ -37,7 +38,7 @@
                 <span class="material-symbols-outlined">chevron_right</span>
                 <a href="explore.html">Explore</a>
                 <span class="material-symbols-outlined">chevron_right</span>
-                <span>Data Mastery & Analysis</span>
+                <span id="breadcrumb-title">Loading...</span>
             </div>
         </section>
 
@@ -46,8 +47,8 @@
 
                 <div class="course-main">
                     <div class="course-hero">
-                        <img id="course-hero-img" src="../images/data_mastery_and_analysis.png" alt="Data Science Course" class="course-hero-img">
-                        <span id="CourseType" class="badge badge-online course-badge" >Online</span>
+                        <img id="course-hero-img" src="" alt="" class="course-hero-img">
+                        <span id="CourseType" class="badge course-badge"></span>
                     </div>
 
                     <div class="course-header">
@@ -113,49 +114,8 @@
 
                     <div class="course-section">
                         <h2 class="section-heading">Course Content</h2>
-                        <div class="curriculum">
-                            <div class="curriculum-item">
-                                <div class="curriculum-header">
-                                    <span class="material-symbols-outlined">expand_more</span>
-                                    <h3 class="curriculum-title">Introduction to Data Analysis</h3>
-                                    <span class="curriculum-info">5 lessons • 3h 20m</span>
-                                </div>
-                            </div>
-                            <div class="curriculum-item">
-                                <div class="curriculum-header">
-                                    <span class="material-symbols-outlined">expand_more</span>
-                                    <h3 class="curriculum-title">Python Fundamentals for Data Science</h3>
-                                    <span class="curriculum-info">8 lessons • 5h 45m</span>
-                                </div>
-                            </div>
-                            <div class="curriculum-item">
-                                <div class="curriculum-header">
-                                    <span class="material-symbols-outlined">expand_more</span>
-                                    <h3 class="curriculum-title">Working with Pandas</h3>
-                                    <span class="curriculum-info">10 lessons • 7h 30m</span>
-                                </div>
-                            </div>
-                            <div class="curriculum-item">
-                                <div class="curriculum-header">
-                                    <span class="material-symbols-outlined">expand_more</span>
-                                    <h3 class="curriculum-title">Data Visualization</h3>
-                                    <span class="curriculum-info">7 lessons • 4h 50m</span>
-                                </div>
-                            </div>
-                            <div class="curriculum-item">
-                                <div class="curriculum-header">
-                                    <span class="material-symbols-outlined">expand_more</span>
-                                    <h3 class="curriculum-title">Statistical Analysis</h3>
-                                    <span class="curriculum-info">9 lessons • 6h 15m</span>
-                                </div>
-                            </div>
-                            <div class="curriculum-item">
-                                <div class="curriculum-header">
-                                    <span class="material-symbols-outlined">expand_more</span>
-                                    <h3 class="curriculum-title">Final Project</h3>
-                                    <span class="curriculum-info">3 lessons • 2h 30m</span>
-                                </div>
-                            </div>
+                        <div class="curriculum" id="curriculum-container">
+                            
                         </div>
                     </div>
 
@@ -186,9 +146,9 @@
                             Add to Cart
                         </button>
 
-                        <button class="btn btn-outline btn-full">
-                            <span class="material-symbols-outlined">favorite_border</span>
-                            Add to Wishlist
+                        <button id="wishlistBtn" class="btn btn-outline btn-full wishlist-detail-btn" onclick="toggleWishlistFromDetail()">
+                            <span class="material-symbols-outlined" id="wishlistIcon">favorite_border</span>
+                            <span id="wishlistText">Add to Wishlist</span>
                         </button>
 
                         <div class="help-purchasing-section">
@@ -203,7 +163,7 @@
                             <div class="includes-list">
                                 <div class="includes-item">
                                     <span class="material-symbols-outlined">play_circle</span>
-                                    <span id="Course Duration and location">40 hours on-demand video</span>
+                                    <span id="Course Duration and location"></span>
                                 </div>
                                 <div class="includes-item">
                                     <span class="material-symbols-outlined">article</span>
@@ -229,14 +189,10 @@
 
                         <div class="share-section">
                             <h3 class="share-title">Share this course:</h3>
-                            <div class="share-buttons">
-                                <button class="share-btn">
-                                    <span class="material-symbols-outlined">share</span>
-                                </button>
-                                <button class="share-btn">
-                                    <span class="material-symbols-outlined">link</span>
-                                </button>
-                            </div>
+                            <button class="share-btn-copy" id="copyLinkBtn" onclick="copyCourseLinkToClipboard()">
+                                <span class="material-symbols-outlined">link</span>
+                                <span>Copy Link</span>
+                            </button>
                         </div>
                     </div>
                 </aside>

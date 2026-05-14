@@ -1,67 +1,107 @@
 <?php
-include_once '../models/Course.php';
+
+require_once '../config/constants.php';
+require_once '../config/database.php';
+require_once '../models/Course.php';
+require_once '../includes/functions.php';
 
 class CourseController {
-    private $modelCourse;
+    private $courseModel;
 
-    public function __construct($pdo) {
-        $this->modelCourse = new Course($pdo);
+    public function __construct() {
+        $this->courseModel = new Course();
     }
 
-    // Method to handle fetching ALL courses
-    public function getAllCourses() {
-        $stmt = $this->modelCourse->GetAllPublishedCourses();
-        $num = $stmt->rowCount();
+    public function getAll($limit = 0) {
+        $courses = $this->courseModel->getAllPublished();
 
-        if ($num > 0) {
-            $course_arr["records"] = array();
-
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                extract($row);
-                $course_item = array(
-                    "CourseId" => $CourseId,
-                    "Title" => $Title,
-                    "Description" => html_entity_decode($Description),
-                    "Price" => $Price,
-                    "ThumbnailUrl" => $ThumbnailUrl,
-                    "CourseType" => $CourseType,
-                    "AverageRating" => $AverageRating,
-                    "RatingCount" => $RatingCount,
-                );
-                $course_arr["records"][] = $course_item;
-            }
-            http_response_code(200);
-            echo json_encode($course_arr);
-        } else {
-            http_response_code(404);
-            echo json_encode(array("message" => "Record not found."));
+        if ($limit > 0) {
+            $courses = array_slice($courses, 0, $limit);
         }
+
+        return [
+            'success' => true,
+            'records' => $courses,
+            'count'   => count($courses)
+        ];
     }
 
-    public function getCourseDetails($CourseId = 1, $CourseType = "course") {
-        $DataAboutCourse = $this->modelCourse->GetCourseById($CourseId, $CourseType);
+    public function getById($courseId, $courseType) {
+        if (empty($courseId) || empty($courseType)) {
+            return [
+                'success' => false,
+                'message' => 'Course ID and type are required'
+            ];
+        }
 
-        extract($DataAboutCourse);
-        $CourseDetails = array(
-            "CourseId" => $CourseId,
-            "Title" => $Title,
-            "Description" => html_entity_decode($Description),
-            "Price" => $Price,
-            "ThumbnailUrl" => $ThumbnailUrl,
-            "Requirements" => $Requirements,
-            "AverageRating" => $AverageRating,
-            "RatingCount" => $RatingCount,
-            "EnrollmentCount" => $EnrollmentCount,
-            "DurationHours" => $DurationHours,
-            "Level" => $Level,
-            "Language" => $Language,
-            "HasCertificate" => $HasCertificate,
-            "LearningOutcomes" => $LearningOutcomes,
+        if (!in_array($courseType, ['course', 'workshop'])) {
+            return [
+                'success' => false,
+                'message' => 'Invalid course type'
+            ];
+        }
 
-        );
-        http_response_code(200);
-        echo json_encode($CourseDetails);
+        $course = $this->courseModel->getById($courseId, $courseType);
+
+        if ($course) {
+            $course['Description'] = html_entity_decode($course['Description']);
+            return [
+                'success' => true,
+                'course'  => $course
+            ];
+        }
+
+        return [
+            'success' => false,
+            'message' => 'Course not found'
+        ];
     }
 
+    public function getByIds($ids) {
+        if (empty($ids)) {
+            return [
+                'success' => false,
+                'message' => 'No IDs provided'
+            ];
+        }
+        
+        $courses = $this->courseModel->getByIds($ids);
+        
+        return [
+            'success' => true,
+            'records' => $courses,
+            'count' => count($courses)
+        ];
+    }
+
+    public function getWithLessons($courseId, $courseType) {
+        if (empty($courseId) || empty($courseType)) {
+            return [
+                'success' => false,
+                'message' => 'Course ID and type are required'
+            ];
+        }
+
+        if (!in_array($courseType, ['course', 'workshop'])) {
+            return [
+                'success' => false,
+                'message' => 'Invalid course type'
+            ];
+        }
+
+        $course = $this->courseModel->getByIdWithLessons($courseId, $courseType);
+
+        if ($course) {
+            $course['Description'] = html_entity_decode($course['Description']);
+            return [
+                'success' => true,
+                'course'  => $course
+            ];
+        }
+
+        return [
+            'success' => false,
+            'message' => 'Course not found'
+        ];
+    }
 }
-?>

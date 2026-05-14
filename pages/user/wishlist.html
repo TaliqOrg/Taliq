@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Taliq</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/welcome_page.css">
+    <link rel="stylesheet" href="../../css/user_home.css">
+    <link rel="stylesheet" href="../../css/explore.css">
+
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/components.js"></script>
+    <script src="../../js/wishlist.js"></script>
+    <script src="../../js/cart.js"></script>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main>
+
+        <div class="container mt-custom">
+            <div class="page-header">
+                <h1>My Wishlist</h1>
+                <p class="text-muted">Courses you've saved for later</p>
+            </div>
+        </div>
+
+        <section class="container pb-custom">
+            <div id="wishlist-container" class="wishlist-container">
+                <p style="color: var(--text-muted);">Loading your wishlist...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWishlistItems();
+        });
+    </script>
+
+</body>
+</html>

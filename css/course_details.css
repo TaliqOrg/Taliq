@@ -328,15 +328,10 @@
     margin-bottom: 1rem;
 }
 
-.share-buttons {
-    display: flex;
-    gap: 0.75rem;
-}
-
-.share-btn {
-    flex: 1;
-    padding: 0.75rem;
-    border: 2px solid var(--surface-low);
+.share-btn-copy {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    border: 2px solid var(--primary);
     border-radius: 0.5rem;
     background-color: var(--surface);
     color: var(--primary);
@@ -344,11 +339,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
 }
 
-.share-btn:hover {
-    background-color: var(--surface-hover);
-    border-color: var(--primary);
+.share-btn-copy:hover {
+    background-color: var(--primary);
+    color: var(--on-primary);
+}
+
+.share-btn-copy .material-symbols-outlined {
+    font-size: 1.25rem;
 }
 
 .help-purchasing-section {

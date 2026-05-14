@@ -35,6 +35,42 @@ class Order {
         ]);
     }
 
+    // Create enrollment for a course
+    public function createEnrollment($userId, $courseId) {
+        // Check if already enrolled
+        $sql = "SELECT EnrollmentId FROM Enrollment WHERE UserId = :user_id AND CourseId = :course_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':user_id' => $userId, ':course_id' => $courseId]);
+        
+        if ($stmt->fetch()) {
+            return false; // Already enrolled
+        }
+        
+        $sql = "INSERT INTO Enrollment (UserId, CourseId, CompletionStatus)
+                VALUES (:user_id, :course_id, 'not_started')";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':user_id' => $userId, ':course_id' => $courseId]);
+        return true;
+    }
+
+    // Create workshop registration
+    public function createWorkshopRegistration($userId, $workshopId) {
+        // Check if already registered
+        $sql = "SELECT WorkshopRegistrationId FROM WorkshopRegistration WHERE UserId = :user_id AND WorkshopId = :workshop_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':user_id' => $userId, ':workshop_id' => $workshopId]);
+        
+        if ($stmt->fetch()) {
+            return false; // Already registered
+        }
+        
+        $sql = "INSERT INTO WorkshopRegistration (UserId, WorkshopId, AttendanceStatus)
+                VALUES (:user_id, :workshop_id, 'registered')";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':user_id' => $userId, ':workshop_id' => $workshopId]);
+        return true;
+    }
+
     // Get all orders for a user (for past purchases)
     public function getOrdersByUser($userId) {
         $sql = "SELECT o.OrderId, o.TotalAmount, o.Status, o.OrderDate,

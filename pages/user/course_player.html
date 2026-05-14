@@ -19,6 +19,8 @@
 
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
+    <script src="../../js/progress_sync.js"></script>
+    <script src="../../js/course_player.js" defer></script>
 </head>
 
 <body>
@@ -31,7 +33,6 @@
             </div>
             <h3 class="points-title">Lesson Complete!</h3>
             <p class="points-message">You earned <strong>+50 points</strong></p>
-            <div class="points-total">Total Points: 2,450</div>
             <button class="btn btn-primary btn-small" onclick="closePointsNotification()">Continue</button>
         </div>
     </div>
@@ -70,72 +71,25 @@
                             <h1 class="lesson-title">Introduction to Data Analysis</h1>
                             <p class="lesson-meta">Lesson 1 of 42 • 15 minutes</p>
                         </div>
-                        <button class="btn-icon-large" title="Mark as Complete" onclick="showPointsNotification()">
+                        <button class="btn-icon-large" id="markCompleteBtn" title="Mark as Complete">
                             <span class="material-symbols-outlined">check_circle</span>
                         </button>
                     </div>
 
-                    <!-- Tabs -->
-                    <div class="lesson-tabs">
-                        <button class="tab-btn active">Overview</button>
-                        <button class="tab-btn">Resources</button>
-                        <button class="tab-btn">Notes</button>
-                        <button class="tab-btn">Q&A</button>
-                    </div>
-
-                    <!-- Tab Content -->
-                    <div class="tab-content">
-                        <div class="tab-pane active">
-                            <h3 class="content-heading">About This Lesson</h3>
-                            <p class="content-text">
-                                Welcome to the first lesson of Data Mastery & Analysis! In this introductory lesson,
-                                we'll explore the fundamental concepts of data analysis and why it's become such a
-                                critical skill in today's data-driven world.
-                            </p>
-                            <p class="content-text">
-                                You'll learn about the data analysis lifecycle, common tools and techniques, and
-                                how data analysis is applied across different industries. By the end of this lesson,
-                                you'll have a solid understanding of what data analysis entails and what you can
-                                expect to learn throughout this course.
-                            </p>
-
-                            <h3 class="content-heading">What You'll Learn</h3>
-                            <ul class="content-list">
-                                <li>The definition and importance of data analysis</li>
-                                <li>Key stages of the data analysis process</li>
-                                <li>Common tools used by data analysts</li>
-                                <li>Real-world applications of data analysis</li>
-                                <li>Career opportunities in data analysis</li>
-                            </ul>
-
-                            <h3 class="content-heading">Downloadable Resources</h3>
-                            <div class="resource-list">
-                                <a href="#" class="resource-item">
-                                    <span class="material-symbols-outlined">description</span>
-                                    <div>
-                                        <p class="resource-name">Lesson 1 Slides.pdf</p>
-                                        <p class="resource-size">2.4 MB</p>
-                                    </div>
-                                    <span class="material-symbols-outlined">download</span>
-                                </a>
-                                <a href="#" class="resource-item">
-                                    <span class="material-symbols-outlined">code</span>
-                                    <div>
-                                        <p class="resource-name">Sample Dataset.csv</p>
-                                        <p class="resource-size">856 KB</p>
-                                    </div>
-                                    <span class="material-symbols-outlined">download</span>
-                                </a>
-                            </div>
+                    <!-- Lesson Overview -->
+                    <div class="lesson-overview">
+                        <h3 class="content-heading">About This Lesson</h3>
+                        <div class="lesson-description" id="lessonDescription">
+                            <p class="content-text">Loading lesson description...</p>
                         </div>
                     </div>
 
                     <!-- Navigation Buttons -->
                     <div class="lesson-navigation">
-                        <button class="btn btn-outline" disabled>
+                        <button class="btn btn-outline" id="prevLessonBtn" disabled>
                             <span class="material-symbols-outlined">arrow_back</span> Previous Lesson
                         </button>
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" id="nextLessonBtn">
                             Next Lesson <span class="material-symbols-outlined">arrow_forward</span>
                         </button>
                     </div>
@@ -263,24 +217,6 @@
         </div>
 
     </main>
-
-    <script>
-        function showPointsNotification() {
-            const notification = document.getElementById('pointsNotification');
-            notification.style.display = 'flex';
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 10);
-        }
-
-        function closePointsNotification() {
-            const notification = document.getElementById('pointsNotification');
-            notification.classList.remove('show');
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 300);
-        }
-    </script>
 
 </body>
 

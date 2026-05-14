@@ -137,3 +137,43 @@ a {
     gap: 0.5rem;
     align-items: center;
 }
+
+/* Empty state for user home sections */
+.empty-state-small {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: var(--surface);
+    border-radius: var(--border-radius-lg);
+    width: 100%;
+}
+
+.empty-state-small .material-symbols-outlined {
+    font-size: 2.5rem;
+    color: var(--text-muted);
+}
+
+.empty-state-small h4 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 0.25rem 0;
+}
+
+.empty-state-small p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.loading-text {
+    color: var(--text-muted);
+    padding: 2rem;
+}
+
+.error-text {
+    color: var(--error);
+    padding: 2rem;
+}
