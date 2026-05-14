@@ -117,33 +117,6 @@
     background-color: var(--surface-hover);
 }
 
-/* cart button link */
-.cart-btn {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    position: relative;
-    /* using relative to add red dot */
-}
-
-.cart-btn:hover {
-    color: var(--primary);
-}
-
-/* customizing the red dot */
-.cart-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 8px;
-    height: 8px;
-    background-color: var(--error);
-    border-radius: 50%;
-}
-
 /* ---------- Welcome Section (used grid layout) ---------- */
 
 /* main conatiner */
@@ -219,10 +192,8 @@
 /* a grid container for cards */
 .product-grid {
     display: grid;
-
-    /*  fit cards based on screen size */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 445px));
+    gap: 1rem;
 }
 
 /* customize container for image and its badge */

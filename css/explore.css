@@ -158,6 +158,12 @@
     cursor: not-allowed;
 }
 
+.pagination-ellipsis {
+    padding: 0.5rem 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
 @media (max-width: 968px) {
     .explore-layout {
         grid-template-columns: 1fr;

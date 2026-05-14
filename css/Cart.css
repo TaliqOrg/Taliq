@@ -1,5 +1,40 @@
 /* --- Cart Page Specific Styles --- */
 
+/* Cart page header with title and empty button */
+.cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+/* Empty cart button */
+.btn-empty-cart {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 2px solid var(--surface-low);
+    border-radius: var(--border-radius-md);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-empty-cart:hover {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border-color: #dc2626;
+}
+
+.btn-empty-cart .material-symbols-outlined {
+    font-size: 1.2rem;
+}
+
 /* Main split layout (75% / 25%) */
 .cart-layout {
     align-items: flex-start;

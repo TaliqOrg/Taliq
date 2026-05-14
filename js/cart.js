@@ -105,9 +105,8 @@ function showCartMessage(message, type) {
 function renderCartItem(item) {
     const badgeClass = item.Type === 'course' ? 'badge-online' : 'badge-onsite';
     const badgeText  = item.Type === 'course' ? 'Online' : 'On-site';
-    const thumbnail  = item.ThumbnailUrl
-        ? '../../images/' + item.ThumbnailUrl
-        : '../../images/placeholder.png';
+    const placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTJlOGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNiIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIEltYWdlPC90ZXh0Pjwvc3ZnPg==';
+    const thumbnail  = item.ThumbnailUrl || placeholder;
     const subtotal = parseFloat(item.Subtotal).toFixed(2);
 
     return `
@@ -417,6 +416,11 @@ async function completePurchase() {
         const result = await response.json();
 
         if (result.success) {
+            // Save purchased items to cookie for "Recent Purchases" section
+            if (result.purchased_items && result.purchased_items.length > 0) {
+                saveRecentPurchases(result.purchased_items);
+            }
+            
             // Clear the badge and redirect to user home
             updateCartBadge(0);
             window.location.href = '/taleeq/Taliq/pages/user/user_home.html';
@@ -432,6 +436,56 @@ async function completePurchase() {
         confirmBtn.disabled = false;
         confirmBtn.innerHTML = '<span class="material-symbols-outlined">lock</span> Confirm & Pay';
     }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// RECENT PURCHASES COOKIE HELPERS
+// ══════════════════════════════════════════════════════════════════════════════
+
+function getRecentPurchasesCookie() {
+    const cookie = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('recent_purchases='));
+    
+    if (cookie) {
+        try {
+            return JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+        } catch (e) {
+            return [];
+        }
+    }
+    return [];
+}
+
+function setRecentPurchasesCookie(purchases) {
+    // Keep only last 10 purchases, expires in 30 days
+    const limitedPurchases = purchases.slice(0, 10);
+    const expires = new Date();
+    expires.setDate(expires.getDate() + 30);
+    document.cookie = `recent_purchases=${encodeURIComponent(JSON.stringify(limitedPurchases))}; expires=${expires.toUTCString()}; path=/`;
+}
+
+function saveRecentPurchases(newItems) {
+    const existing = getRecentPurchasesCookie();
+    
+    // Add new items to front, avoiding duplicates
+    newItems.forEach(item => {
+        // Remove if already exists
+        const index = existing.findIndex(p => 
+            p.courseId === item.courseId && p.workshopId === item.workshopId
+        );
+        if (index > -1) {
+            existing.splice(index, 1);
+        }
+        // Add to front with timestamp
+        existing.unshift({
+            courseId: item.courseId,
+            workshopId: item.workshopId,
+            timestamp: Date.now()
+        });
+    });
+    
+    setRecentPurchasesCookie(existing);
 }
 
 // Load the cart badge when the page loads
