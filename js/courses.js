@@ -19,7 +19,7 @@ document.getElementById('add-course-form')?.addEventListener('submit', async (e)
         
         if (result.success) {
             alert('Course and Image Added successfully!');
-            window.location.href = 'manage_courses.html';
+            e.target.reset(); // Clear the form
         } else {
             alert('Error: ' + result.message);
         }

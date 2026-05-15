@@ -22,7 +22,6 @@
 
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
-    <script src="../../js/manage_courses.js"></script>
 </head>
 
 <body>
@@ -37,10 +36,10 @@
                     <span class="material-symbols-outlined">arrow_back</span> Back to Dashboard
                 </a>
                 <h1 class="section-title">Manage Courses & Workshops</h1>
+                <p class="section-subtitle">View, edit, and manage curriculum for all platform offerings.</p>
             </div>
         </section>
 
-        <!-- Available Courses -->
         <section class="container pb-custom">
 
             <!-- Toolbar -->
@@ -68,7 +67,110 @@
             </div>
 
             <!-- List of Courses -->
-            <div class="admin-list-container"></div>
+            <div class="admin-list-container">
+
+                <!-- A Draft Course -->
+                <div class="admin-list-card">
+                    <img src="../../images/digital_marketing.png" alt="Course Thumbnail" class="admin-card-img">
+
+                    <div class="admin-card-info">
+                        <h3 class="admin-card-title">
+                            Digital Marketing
+                            <span class="badge-draft">Draft</span>
+                        </h3>
+                        <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Business</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">payments</span> 380
+                                SAR</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">library_books</span> 0
+                                Lessons</span>
+                        </div>
+
+                    </div>
+                    <div class="admin-card-actions">
+                        <a href="edit_course_details.html" class="action-btn" title="Edit Metadata">
+                            <span class="material-symbols-outlined">edit</span> Edit Course
+                        </a>
+                        <a href="course_curriculum.html" class="action-btn primary" title="Manage Lessons">
+                            <span class="material-symbols-outlined">view_list</span> Curriculum
+                        </a>
+                        <button class="action-btn danger" title="Delete Course">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- A Published Course -->
+                <div class="admin-list-card">
+                    <img src="../../images/data_mastery_and_analysis.png" alt="Course Thumbnail" class="admin-card-img">
+
+                    <div class="admin-card-info">
+                        <h3 class="admin-card-title">
+                            Data Mastery & Analysis
+                            <span class="badge-published">Published</span>
+                        </h3>
+                        <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span> Data
+                                Science</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">payments</span> 450
+                                SAR</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">library_books</span> 32
+                                Lessons</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">group</span> 1,234
+                                Enrolled</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-card-actions">
+                        <a href="edit_course_details.html" class="action-btn" title="Edit Metadata">
+                            <span class="material-symbols-outlined">edit</span> Edit Course
+                        </a>
+                        <a href="course_curriculum.html" class="action-btn primary" title="Manage Lessons">
+                            <span class="material-symbols-outlined">view_list</span> Curriculum
+                        </a>
+                        <button class="action-btn danger" title="Delete Course">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- A Published Workshop -->
+                <div class="admin-list-card">
+                    <img src="../../images/leadership_in_practice.png" alt="Workshop Thumbnail" class="admin-card-img">
+
+                    <div class="admin-card-info">
+                        <h3 class="admin-card-title">
+                            Leadership In Practice (Workshop)
+                            <span class="badge-published">Published</span>
+                        </h3>
+                        <div class="admin-card-meta">
+                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
+                                Business</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">payments</span> 850
+                                SAR</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">event</span> 3 Upcoming
+                                Sessions</span>
+                            <span class="meta-item"><span class="material-symbols-outlined">location_on</span> Riyadh
+                                HQ</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-card-actions">
+                        <a href="edit_course_details.html" class="action-btn" title="Edit Metadata">
+                            <span class="material-symbols-outlined">edit</span> Edit Course
+                        </a>
+
+                        <button class="action-btn primary" title="Manage Workshop Sessions">
+                            <span class="material-symbols-outlined">calendar_month</span> Sessions
+                        </button>
+                        <button class="action-btn danger" title="Delete Workshop">
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
         </section>
 
     </main>
