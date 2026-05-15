@@ -9,33 +9,39 @@ class Course {
     }
 
     public function getAllPublished() {
-        $sql = "SELECT 
-                    CourseId, 
-                    Title, 
-                    Description, 
-                    Price, 
-                    ThumbnailUrl, 
+        $sql = "SELECT
+                    CourseId,
+                    Title,
+                    Description,
+                    Price,
+                    ThumbnailUrl,
                     AverageRating,
                     RatingCount,
-                    'course' AS CourseType, 
-                    CreatedAt 
-                FROM Course 
-                WHERE IsPublished = 1 
-                UNION ALL 
-                SELECT 
-                    WorkshopId AS CourseId, 
-                    Title, 
-                    Description, 
-                    Price, 
-                    ThumbnailUrl, 
+                    Level,
+                    Language,
+                    CategoryId,
+                    'course' AS CourseType,
+                    CreatedAt
+                FROM Course
+                WHERE IsPublished = 1
+                UNION ALL
+                SELECT
+                    WorkshopId AS CourseId,
+                    Title,
+                    Description,
+                    Price,
+                    ThumbnailUrl,
                     AverageRating,
                     RatingCount,
-                    'workshop' AS CourseType, 
-                    CreatedAt 
-                FROM Workshop 
-                WHERE IsPublished = 1 
+                    Level,
+                    Language,
+                    CategoryId,
+                    'workshop' AS CourseType,
+                    CreatedAt
+                FROM Workshop
+                WHERE IsPublished = 1
                 ORDER BY CreatedAt DESC";
-        
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -52,12 +58,11 @@ class Course {
     }
 
     public function getByIds($items) {
-        // Items format: [{courseId: X, workshopId: Y}, ...]
         $courses = [];
-        
+
         foreach ($items as $item) {
             if (!empty($item['courseId'])) {
-                $sql = "SELECT CourseId, Title, ThumbnailUrl, 'course' AS CourseType 
+                $sql = "SELECT CourseId, Title, ThumbnailUrl, 'course' AS CourseType
                         FROM Course WHERE CourseId = :id";
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([':id' => $item['courseId']]);
@@ -65,7 +70,7 @@ class Course {
                 if ($course) $courses[] = $course;
             }
             if (!empty($item['workshopId'])) {
-                $sql = "SELECT WorkshopId AS CourseId, Title, ThumbnailUrl, 'workshop' AS CourseType 
+                $sql = "SELECT WorkshopId AS CourseId, Title, ThumbnailUrl, 'workshop' AS CourseType
                         FROM Workshop WHERE WorkshopId = :id";
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([':id' => $item['workshopId']]);
@@ -73,7 +78,7 @@ class Course {
                 if ($workshop) $courses[] = $workshop;
             }
         }
-        
+
         return $courses;
     }
 
@@ -168,18 +173,17 @@ class Course {
 
     public function getByIdWithLessons($courseId, $courseType) {
         $course = $this->getById($courseId, $courseType);
-        
+
         if ($course && $courseType === 'course') {
-            $sql = "SELECT LessonId, Title, Duration, SortOrder 
-                    FROM Lesson 
-                    WHERE CourseId = :course_id 
+            $sql = "SELECT LessonId, Title, Duration, SortOrder
+                    FROM Lesson
+                    WHERE CourseId = :course_id
                     ORDER BY SortOrder ASC";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':course_id' => $courseId]);
             $course['lessons'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-        
+
         return $course;
     }
 }
-
