@@ -81,6 +81,20 @@ if ($method === 'GET') {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
     }
 
+} elseif ($method === 'POST') {
+    if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+        json_response(['success' => false, 'message' => 'Unauthorized'], 401);
+    }
+
+    $action = $_POST['action'] ?? '';
+
+    if ($action === 'create') {
+        $result = $courseController->addCourse($_POST, $_FILES);
+        json_response($result, $result['success'] ? 201 : 400);
+    } else {
+        json_response(['success' => false, 'message' => 'Invalid action'], 400);
+    }
+
 } else {
     json_response(['success' => false, 'message' => 'Method not allowed'], 405);
 }
