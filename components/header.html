@@ -1,7 +1,7 @@
 <header class="main-header">
     <nav class="container nav-container">
         <!-- Logo -->
-        <a href="#" id="headerLogo" class="logo">Taliq</a>
+        <a href="/taleeq/Taliq/pages/welcome_page.html" id="headerLogo" class="logo">Taliq</a>
 
         <!-- Search Bar (for logged-in users only) -->
         <div class="nav-search" id="headerSearch" style="display: none;">
@@ -11,7 +11,7 @@
 
         <!-- Navigation Links -->
         <div class="desktop-nav" id="headerNav">
-            <!-- Visitor Links (default) -->
+            <!-- Visitor Links -->
             <div id="visitorLinks">
                 <a href="/taleeq/Taliq/pages/welcome_page.html" class="nav-link">Home</a>
                 <a href="/taleeq/Taliq/pages/explore.html" class="nav-link">Explore</a>
@@ -19,26 +19,27 @@
                 <a href="/taleeq/Taliq/pages/login.html" class="nav-login nav-link">Log In</a>
             </div>
 
-            <!-- User Links (hidden by default) -->
+            <!-- User Links  -->
             <div id="userLinks" style="display: none;">
                 <a href="/taleeq/Taliq/pages/user/user_home.html" class="nav-link">Dashboard</a>
                 <a href="/taleeq/Taliq/pages/explore.html" class="nav-link">Explore</a>
                 <a href="/taleeq/Taliq/pages/contact.html" class="nav-link">Contact Us</a>
-                
-                <a href="/taleeq/Taliq/pages/user/profile.html" class="nav-link" style="display: flex; align-items: center; gap: 0.25rem;">
-                    <span class="material-symbols-outlined">account_circle</span> 
+
+                <a href="/taleeq/Taliq/pages/user/profile.html" class="nav-link"
+                    style="display: flex; align-items: center; gap: 0.25rem;">
+                    <span class="material-symbols-outlined">account_circle</span>
                     <span data-user-name>My Account</span>
                 </a>
-                
+
                 <a href="/taleeq/Taliq/pages/user/cart.html" class="cart-btn" style="margin: 1rem;">
                     <span class="material-symbols-outlined">shopping_cart</span>
                     <span class="cart-badge"></span>
                 </a>
-                
+
                 <a href="#" onclick="logout(); return false;" class="nav-link" style="color: #dc2626;">Logout</a>
             </div>
 
-            <!-- Admin Links (hidden by default) -->
+            <!-- Admin Links -->
             <div id="adminLinks" style="display: none;">
                 <a href="/taleeq/Taliq/pages/admin/admin_home.html" class="nav-link">Dashboard</a>
                 <a href="/taleeq/Taliq/pages/admin/manage_users.html" class="nav-link">Users</a>
@@ -49,7 +50,7 @@
                     <span class="material-symbols-outlined">shield_person</span> 
                     <span data-user-name>Admin</span>
                 </a>
-                
+
                 <a href="#" onclick="logout(); return false;" class="nav-login nav-link">Log out</a>
             </div>
         </div>
