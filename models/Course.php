@@ -9,39 +9,14 @@ class Course {
     }
 
     public function getAllPublished() {
-        $sql = "SELECT
-                    CourseId,
-                    Title,
-                    Description,
-                    Price,
-                    ThumbnailUrl,
-                    AverageRating,
-                    RatingCount,
-                    Level,
-                    Language,
-                    CategoryId,
-                    'course' AS CourseType,
-                    CreatedAt
+        $sql = "SELECT CourseId, Title, Description, Price, ThumbnailUrl, AverageRating, RatingCount, Level, Language, CategoryId, 'course' AS CourseType, CreatedAt
                 FROM Course
                 WHERE IsPublished = 1
                 UNION ALL
-                SELECT
-                    WorkshopId AS CourseId,
-                    Title,
-                    Description,
-                    Price,
-                    ThumbnailUrl,
-                    AverageRating,
-                    RatingCount,
-                    Level,
-                    Language,
-                    CategoryId,
-                    'workshop' AS CourseType,
-                    CreatedAt
+                SELECT WorkshopId AS CourseId, Title, Description, Price, ThumbnailUrl, AverageRating, RatingCount, Level, Language, CategoryId, 'workshop' AS CourseType, CreatedAt
                 FROM Workshop
                 WHERE IsPublished = 1
                 ORDER BY CreatedAt DESC";
-
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -50,7 +25,6 @@ class Course {
     public function getById($courseId, $courseType) {
         $table = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
-
         $sql = "SELECT * FROM {$table} WHERE {$idColumn} = :id AND IsPublished = 1 LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':id' => $courseId]);
@@ -59,36 +33,30 @@ class Course {
 
     public function getByIds($items) {
         $courses = [];
-
         foreach ($items as $item) {
             if (!empty($item['courseId'])) {
-                $sql = "SELECT CourseId, Title, ThumbnailUrl, 'course' AS CourseType
-                        FROM Course WHERE CourseId = :id";
+                $sql = "SELECT CourseId, Title, ThumbnailUrl, 'course' AS CourseType FROM Course WHERE CourseId = :id";
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([':id' => $item['courseId']]);
                 $course = $stmt->fetch(PDO::FETCH_ASSOC);
                 if ($course) $courses[] = $course;
             }
             if (!empty($item['workshopId'])) {
-                $sql = "SELECT WorkshopId AS CourseId, Title, ThumbnailUrl, 'workshop' AS CourseType
-                        FROM Workshop WHERE WorkshopId = :id";
+                $sql = "SELECT WorkshopId AS CourseId, Title, ThumbnailUrl, 'workshop' AS CourseType FROM Workshop WHERE WorkshopId = :id";
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([':id' => $item['workshopId']]);
                 $workshop = $stmt->fetch(PDO::FETCH_ASSOC);
                 if ($workshop) $courses[] = $workshop;
             }
         }
-
         return $courses;
     }
 
     public function getAllForAdmin() {
-        $sql = "SELECT CourseId, Title, Price, ThumbnailUrl, IsPublished,
-                       'course' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
+        $sql = "SELECT CourseId, Title, Price, ThumbnailUrl, IsPublished, 'course' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
                 FROM Course
                 UNION ALL
-                SELECT WorkshopId AS CourseId, Title, Price, ThumbnailUrl, IsPublished,
-                       'workshop' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
+                SELECT WorkshopId AS CourseId, Title, Price, ThumbnailUrl, IsPublished, 'workshop' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
                 FROM Workshop
                 ORDER BY CreatedAt DESC";
         $stmt = $this->db->prepare($sql);
@@ -111,15 +79,7 @@ class Course {
         $thumbSql = $thumbnailUrl ? ', ThumbnailUrl = :thumbnail_url' : '';
 
         $sql = "UPDATE {$table}
-                SET Title         = :title,
-                    CategoryId    = :category_id,
-                    Description   = :description,
-                    Price         = :price,
-                    DurationHours = :duration_hours,
-                    Level         = :level,
-                    Language      = :language,
-                    IsPublished   = :is_published
-                    {$thumbSql}
+                SET Title = :title, CategoryId = :category_id, Description = :description, Price = :price, DurationHours = :duration_hours, Level = :level, Language = :language, IsPublished = :is_published {$thumbSql}
                 WHERE {$idColumn} = :id";
 
         $params = [
@@ -187,96 +147,3 @@ class Course {
         return $course;
     }
 }
-
-
-
-<?php 
-
-    class Course {
-        /**
-         * @var PDO $conn The database connection object
-        */
-        private $conn;
-        
-        /**
-         * @var string $table_name The name of the database table
-         */
-        private $table_name = "Course";
-
-        // constrcutor 
-        public function __construct() {
-            global $pdo;
-            $this->conn = $pdo;
-        }
-
-        /**
-         * Creates a new course record in the database.
-         *
-         * @param array $data An associative array containing sanitized course details
-         * @return bool Returns true if the database insertion was successful, false otherwise.
-         */
-        public function create($data) {
-
-            $query = "INSERT INTO " . $this->table_name . "
-                (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished)
-                VALUES
-                (:category_id, :title, :description, :price, :duration_hours, :level, :language, :thumbnail_url, :is_published)
-            ";
-
-            // prepare & bind params
-            $statement = $this->conn->prepare($query);
-            
-            $statement->bindParam(':category_id', $data['CategoryId']);
-            $statement->bindParam(':title', $data['Title']);
-            $statement->bindParam(':description', $data['Description']);
-            $statement->bindParam(':price', $data['Price']);
-            $statement->bindParam(':duration_hours', $data['DurationHours']);
-            $statement->bindParam(':level', $data['Level']);
-            $statement->bindParam(':language', $data['Language']);
-            $statement->bindParam(':thumbnail_url', $data['Thumbnail']);
-            $statement->bindParam(':is_published', $data['IsPublished'], PDO::PARAM_INT);
-
-            // execute query & check if successful
-            if ($statement->execute()) {
-                return true;
-            }
-            return false;
-        }
-
-        public function getAll() {
-
-            $query = "SELECT * FROM " . $this->table_name;
-
-            $statement = $this->conn->prepare($query);
-            $statement->execute();
-
-            return $statement->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-        public function getById($id) {
-            $query = "SELECT * FROM " . $this->table_name . " WHERE CourseId = :id LIMIT 1";
-            $statement = $this->conn->prepare($query);
-            $statement->bindParam(':id', $id, PDO::PARAM_INT);
-            $statement->execute();
-            return $statement->fetch(PDO::FETCH_ASSOC);
-        }
-
-        public function delete($id) {
-    
-            $query = "DELETE FROM " . $this->table_name . " WHERE CourseId = :id";
-            
-            $statement = $this->conn->prepare($query);
-            $statement->bindParam(':id', $id, PDO::PARAM_INT);
-            
-            // Execute and return true if successful
-            if ($statement->execute()) {
-                return true;
-            }
-            return false;
-        }
-
-        
-    }
-
-
-?>
