@@ -326,9 +326,13 @@ class CoursePlayer {
             if (data.success) {
                 this.currentLesson.IsCompleted = true;
                 this.updateCompleteButton(true);
-                
+
                 const pointsAwarded = data.points_awarded || 50;
-                this.showSuccessNotification(`Lesson Complete! +${pointsAwarded} points`);
+                if (data.certificate_issued) {
+                    this.showSuccessNotification('Course Complete! Certificate earned!');
+                } else {
+                    this.showSuccessNotification(`Lesson Complete! +${pointsAwarded} points`);
+                }
                 
                 // Refresh progress and points using sync module
                 if (window.progressSync) {
