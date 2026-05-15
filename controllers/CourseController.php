@@ -74,6 +74,38 @@ class CourseController {
         ];
     }
 
+    public function addCourse($postData, $fileData) {
+        $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language'];
+        foreach ($required as $field) {
+            if (empty($postData[$field])) {
+                return ['success' => false, 'message' => "$field is required"];
+            }
+        }
+
+        $thumbnailUrl = null;
+        if (!empty($fileData['ThumbnailImage']['name'])) {
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            $ext = strtolower(pathinfo($fileData['ThumbnailImage']['name'], PATHINFO_EXTENSION));
+            if (!in_array($ext, $allowed)) {
+                return ['success' => false, 'message' => 'Invalid image type. Allowed: jpg, jpeg, png, gif, webp'];
+            }
+            $uploadDir = __DIR__ . '/../uploads/';
+            $filename  = uniqid('course_') . '.' . $ext;
+            if (!move_uploaded_file($fileData['ThumbnailImage']['tmp_name'], $uploadDir . $filename)) {
+                return ['success' => false, 'message' => 'Failed to upload image'];
+            }
+            $thumbnailUrl = '/Taliq/uploads/' . $filename;
+        }
+
+        $courseId = $this->courseModel->createCourse($postData, $thumbnailUrl);
+
+        if ($courseId) {
+            return ['success' => true, 'message' => 'Course created successfully', 'course_id' => $courseId];
+        }
+
+        return ['success' => false, 'message' => 'Failed to create course'];
+    }
+
     public function getWithLessons($courseId, $courseType) {
         if (empty($courseId) || empty($courseType)) {
             return [

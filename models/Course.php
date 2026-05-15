@@ -77,6 +77,28 @@ class Course {
         return $courses;
     }
 
+    public function createCourse($data, $thumbnailUrl) {
+        $sql = "INSERT INTO Course
+                    (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished)
+                VALUES
+                    (:category_id, :title, :description, :price, :duration_hours, :level, :language, :thumbnail_url, :is_published)";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':category_id'    => $data['CategoryId'],
+            ':title'          => $data['Title'],
+            ':description'    => $data['Description'],
+            ':price'          => $data['Price'],
+            ':duration_hours' => $data['DurationHours'],
+            ':level'          => strtolower($data['Level']),
+            ':language'       => $data['Language'],
+            ':thumbnail_url'  => $thumbnailUrl,
+            ':is_published'   => !empty($data['IsPublished']) ? 1 : 0,
+        ]);
+
+        return $this->db->lastInsertId();
+    }
+
     public function getByIdWithLessons($courseId, $courseType) {
         $course = $this->getById($courseId, $courseType);
         

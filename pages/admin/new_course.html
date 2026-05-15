@@ -1,144 +1,261 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create New Course</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../../css/global.css">
-    <link rel="stylesheet" href="../../css/welcome_page.css">
-    <link rel="stylesheet" href="../../css/login.css">
-    <link rel="stylesheet" href="../../css/admin_home.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../css/global.css" />
+    <link rel="stylesheet" href="../../css/welcome_page.css" />
+    <link rel="stylesheet" href="../../css/login.css" />
+    <link rel="stylesheet" href="../../css/admin_home.css" />
 
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
-</head>
-<body>
-    
+    <script src="../../js/admin_course.js"></script>
+  </head>
+  <body>
     <div id="header-placeholder"></div>
 
     <main>
-        <section class="container mt-custom">
-            <div style="max-width: 900px; margin: 0 auto; width: 100%;">
-                <a href="manage_courses.html" class="back-link">
-                    <span class="material-symbols-outlined">arrow_back</span> Back to Manage Courses
-                </a>
+      <section class="container mt-custom">
+        <div style="max-width: 900px; margin: 0 auto; width: 100%">
+          <a href="manage_courses.html" class="back-link">
+            <span class="material-symbols-outlined">arrow_back</span> Back to
+            Manage Courses
+          </a>
 
-                <h1 class="login-title" style="margin-bottom: 0.5rem;">Create New Course</h1>
-                <p class="login-subtitle" style="margin-bottom: 2.5rem;">Add a new course curriculum to the platform.</p>
+          <h1 class="login-title" style="margin-bottom: 0.5rem">
+            Create New Course
+          </h1>
+          <p class="login-subtitle" style="margin-bottom: 2.5rem">
+            Add a new course curriculum to the platform.
+          </p>
+        </div>
+      </section>
+
+      <section class="container pb-custom">
+        <div
+          class="login-content"
+          style="max-width: 900px; margin: 0 auto; width: 100%"
+        >
+          <div
+            id="form-message"
+            style="
+              display: none;
+              padding: 0.75rem 1rem;
+              border-radius: 8px;
+              margin-bottom: 1rem;
+              font-size: 0.9rem;
+            "
+          ></div>
+
+          <form id="new-course-form" class="login-form">
+            <!-- Title and Category -->
+            <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap">
+              <div class="input-group admin-Manage-Item-small">
+                <label class="input-label" for="title">Course Title *</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon"
+                    >title</span
+                  >
+                  <input
+                    type="text"
+                    id="title"
+                    name="Title"
+                    placeholder="e.g., Advanced Data Science"
+                    class="form-input"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="input-group admin-Manage-Item-small">
+                <label class="input-label" for="category">Category *</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon"
+                    >category</span
+                  >
+                  <select
+                    id="category"
+                    name="CategoryId"
+                    class="form-input"
+                    required
+                  >
+                    <option value="" disabled selected>
+                      Select a category
+                    </option>
+                    <option value="1">Data Science</option>
+                    <option value="2">Business & Management</option>
+                    <option value="3">Technology & Programming</option>
+                    <option value="4">Design & Creativity</option>
+                  </select>
+                </div>
+              </div>
             </div>
-        </section>
 
-        <section class="container pb-custom">
-            <div class="login-content" style="max-width: 900px; margin: 0 auto; width: 100%;">
-                
-                <form action="admin_home.html" method="" class="login-form">
-                    
-                    <!-- Title and Category -->
-                    <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap;">
-                        <div class="input-group admin-Manage-Item-small">
-                            <label class="input-label" for="title">Course Title *</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-outlined input-icon">title</span>
-                                <input type="text" id="title" name="Title" placeholder="e.g., Advanced Data Science" class="form-input" required>
-                            </div>
-                        </div>
-                        <div class="input-group admin-Manage-Item-small">
-                            <label class="input-label" for="category">Category *</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-outlined input-icon">category</span>
-                                <select id="category" name="CategoryId" class="form-input" required>
-                                    <option value="" disabled selected>Select a category</option>
-                                    <option value="1">Data Science</option>
-                                    <option value="2">Business & Management</option>
-                                    <option value="3">Technology & Programming</option>
-                                    <option value="4">Design & Creativity</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="input-group">
-                        <label class="input-label" for="description">Description *</label>
-                        <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon" style="top: 1rem;">description</span>
-                            <textarea id="description" name="Description" placeholder="Enter course description..." class="form-input" style="height: 120px; resize: vertical; padding-top: 1rem; padding-left: 3rem;" required></textarea>
-                        </div>
-                    </div>
-
-                    <!-- Price & Duration & Level -->
-                    <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap;">
-                        <div class="input-group admin-Manage-Item-Large">
-                            <label class="input-label" for="price">Price (SAR) *</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-outlined input-icon">payments</span>
-                                <input type="number" id="price" name="Price" placeholder="0.00" min="0" step="0.01" class="form-input" required>
-                            </div>
-                        </div>
-                        <div class="input-group admin-Manage-Item-Large">
-                            <label class="input-label" for="duration">Duration (Hours) *</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-outlined input-icon">schedule</span>
-                                <input type="number" id="duration" name="DurationHours" placeholder="e.g., 10" min="1" class="form-input" required>
-                            </div>
-                        </div>
-                        <div class="input-group admin-Manage-Item-Large">
-                            <label class="input-label" for="level">Level *</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-outlined input-icon">school</span>
-                                <select id="level" name="Level" class="form-input" required>
-                                    <option value="" disabled selected>Select level</option>
-                                    <option value="Beginner">Beginner</option>
-                                    <option value="Intermediate">Intermediate</option>
-                                    <option value="Advanced">Advanced</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Thumbnail and Language -->
-                    <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap;">
-                        <div class="input-group" style="flex: 2; min-width: 300px;">
-                            <label class="input-label" for="thumbnail">Thumbnail Image *</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-outlined input-icon">image</span>
-                                <input type="file" id="thumbnail" name="ThumbnailImage" class="form-input" accept="image/*" required>
-                            </div>
-                        </div>
-                        <div class="input-group admin-Manage-Item-Large">
-                            <label class="input-label" for="language">Language *</label>
-                            <div class="input-wrapper">
-                                <span class="material-symbols-outlined input-icon">language</span>
-                                <select id="language" name="Language" class="form-input" required>
-                                    <option value="" disabled selected>Select language</option>
-                                    <option value="Arabic">Arabic</option>
-                                    <option value="English">English</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-options" style="justify-content: flex-start; margin-top: 0.5rem;">
-                        <label class="remember-me" for="isPublished">
-                            <input type="checkbox" id="isPublished" name="IsPublished" value="true" class="checkbox">
-                            <span>Publish immediately</span>
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn-submit" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
-                        <span class="material-symbols-outlined">save</span>
-                        Save Course
-                    </button>
-
-                </form>
-
+            <!-- Description -->
+            <div class="input-group">
+              <label class="input-label" for="description">Description *</label>
+              <div class="input-wrapper">
+                <span
+                  class="material-symbols-outlined input-icon"
+                  style="top: 1rem"
+                  >description</span
+                >
+                <textarea
+                  id="description"
+                  name="Description"
+                  placeholder="Enter course description..."
+                  class="form-input"
+                  style="
+                    height: 120px;
+                    resize: vertical;
+                    padding-top: 1rem;
+                    padding-left: 3rem;
+                  "
+                  required
+                ></textarea>
+              </div>
             </div>
-        </section>
+
+            <!-- Price & Duration & Level -->
+            <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap">
+              <div class="input-group admin-Manage-Item-Large">
+                <label class="input-label" for="price">Price (SAR) *</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon"
+                    >payments</span
+                  >
+                  <input
+                    type="number"
+                    id="price"
+                    name="Price"
+                    placeholder="0.00"
+                    min="0"
+                    step="0.01"
+                    class="form-input"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="input-group admin-Manage-Item-Large">
+                <label class="input-label" for="duration"
+                  >Duration (Hours) *</label
+                >
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon"
+                    >schedule</span
+                  >
+                  <input
+                    type="number"
+                    id="duration"
+                    name="DurationHours"
+                    placeholder="e.g., 10"
+                    min="1"
+                    class="form-input"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="input-group admin-Manage-Item-Large">
+                <label class="input-label" for="level">Level *</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon"
+                    >school</span
+                  >
+                  <select id="level" name="Level" class="form-input" required>
+                    <option value="" disabled selected>Select level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thumbnail and Language -->
+            <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap">
+              <div class="input-group" style="flex: 2; min-width: 300px">
+                <label class="input-label" for="thumbnail"
+                  >Thumbnail Image *</label
+                >
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon"
+                    >image</span
+                  >
+                  <input
+                    type="file"
+                    id="thumbnail"
+                    name="ThumbnailImage"
+                    class="form-input"
+                    accept="image/*"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="input-group admin-Manage-Item-Large">
+                <label class="input-label" for="language">Language *</label>
+                <div class="input-wrapper">
+                  <span class="material-symbols-outlined input-icon"
+                    >language</span
+                  >
+                  <select
+                    id="language"
+                    name="Language"
+                    class="form-input"
+                    required
+                  >
+                    <option value="" disabled selected>Select language</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="English">English</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="form-options"
+              style="justify-content: flex-start; margin-top: 0.5rem"
+            >
+              <label class="remember-me" for="isPublished">
+                <input
+                  type="checkbox"
+                  id="isPublished"
+                  name="IsPublished"
+                  value="true"
+                  class="checkbox"
+                />
+                <span>Publish immediately</span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              id="submit-btn"
+              class="btn-submit"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+              "
+            >
+              <span class="material-symbols-outlined">save</span>
+              Save Course
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
-
-</body>
+  </body>
 </html>
