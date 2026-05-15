@@ -239,8 +239,8 @@ class Profile {
         $stmt->execute([':user_id' => $userId]);
         $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        // Also get workshop registrations
-        $sql = "SELECT 
+        // Also get workshop registrations with next upcoming session date
+        $sql = "SELECT
                     wr.WorkshopRegistrationId as EnrollmentId,
                     CASE WHEN wr.AttendanceStatus = 'attended' THEN 100 ELSE 0 END as ProgressPercentage,
                     CASE WHEN wr.AttendanceStatus = 'attended' THEN 'completed' ELSE 'registered' END as CompletionStatus,
@@ -250,7 +250,9 @@ class Profile {
                     w.Title,
                     w.ThumbnailUrl,
                     w.DurationHours,
-                    'workshop' as ItemType
+                    'workshop' as ItemType,
+                    (SELECT MIN(ws.SessionDate) FROM WorkshopSession ws
+                     WHERE ws.WorkshopId = w.WorkshopId AND ws.SessionDate >= CURDATE()) as NextSessionDate
                 FROM WorkshopRegistration wr
                 JOIN Workshop w ON wr.WorkshopId = w.WorkshopId
                 WHERE wr.UserId = :user_id

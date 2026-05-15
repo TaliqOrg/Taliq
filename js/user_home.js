@@ -46,17 +46,39 @@ async function loadContinueLearning() {
 
 function createContinueLearningCard(course) {
     const placeholder = '../../images/placeholder-course.png';
-    const thumbnail = course.ThumbnailUrl || placeholder;
-    const progress = Math.round(course.ProgressPercentage || 0);
-    const itemId = course.CourseId || course.WorkshopId;
-    const itemType = course.ItemType;
-    const badgeClass = itemType === 'course' ? 'badge-online' : 'badge-onsite';
-    const badgeText = itemType === 'course' ? 'Online' : 'On-site';
-    
-    const linkUrl = itemType === 'course' 
-        ? `course_player.html?course_id=${itemId}` 
+    const thumbnail   = course.ThumbnailUrl || placeholder;
+    const itemId      = course.CourseId || course.WorkshopId;
+    const itemType    = course.ItemType;
+    const badgeClass  = itemType === 'course' ? 'badge-online' : 'badge-onsite';
+    const badgeText   = itemType === 'course' ? 'Online' : 'On-site';
+    const linkUrl     = itemType === 'course'
+        ? `course_player.html?course_id=${itemId}`
         : `../course_details.html?id=${itemId}&type=workshop`;
-    
+
+    let bottomSection;
+    if (itemType === 'workshop') {
+        const dateText = course.NextSessionDate
+            ? new Date(course.NextSessionDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+            : 'Registered';
+        bottomSection = `
+            <div style="margin-top:0.75rem; display:flex; align-items:center; justify-content:space-between;">
+                <span style="font-size:0.85rem; color:var(--on-surface-variant);">
+                    <span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;">event</span>
+                    ${dateText}
+                </span>
+                <span style="font-size:0.8rem; font-weight:600; color:var(--primary);">View Details →</span>
+            </div>`;
+    } else {
+        const progress = Math.round(course.ProgressPercentage || 0);
+        bottomSection = `
+            <div class="progress-container" style="margin-top:0.75rem;">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width:${progress}%;"></div>
+                </div>
+                <span class="progress-text">${progress}% Complete</span>
+            </div>`;
+    }
+
     return `
         <a href="${linkUrl}" class="card" data-course-id="${itemId}">
             <div class="card-image-container">
@@ -65,15 +87,9 @@ function createContinueLearningCard(course) {
             </div>
             <div class="card-content">
                 <h3 class="card-title">${course.Title}</h3>
-                <div class="progress-container" style="margin-top: 0.75rem;">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: ${progress}%;"></div>
-                    </div>
-                    <span class="progress-text">${progress}% Complete</span>
-                </div>
+                ${bottomSection}
             </div>
-        </a>
-    `;
+        </a>`;
 }
 
 // ══════════════════════════════════════════════════════════════════════════════

@@ -105,19 +105,66 @@ function populateCourseDetails() {
                     breadcrumbTitle.innerText = course.Title;
                 }
 
-                // Load curriculum if it's a course (not workshop)
+                // Load curriculum for courses, sessions for workshops
                 if (type === 'course') {
                     loadCourseCurriculum(id);
                 } else {
-                    const curriculumContainer = document.getElementById('curriculum-container');
-                    if (curriculumContainer) {
-                        curriculumContainer.innerHTML = '<p class="content-text">Workshop details and schedule will be provided upon registration.</p>';
-                    }
+                    loadWorkshopSessions(id);
                 }
 
             })
             .catch(error => console.error('Error fetching details:', error));
     }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// LOAD WORKSHOP SESSIONS
+// ══════════════════════════════════════════════════════════════════════════════
+
+function loadWorkshopSessions(workshopId) {
+    const container = document.getElementById('curriculum-container');
+    if (!container) return;
+
+    fetch(`/taleeq/Taliq/api/workshops.php?action=sessions&workshop_id=${workshopId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success || !data.sessions || data.sessions.length === 0) {
+                container.innerHTML = '<p class="content-text">No sessions scheduled yet.</p>';
+                return;
+            }
+
+            const rows = data.sessions.map(session => {
+                const date     = new Date(session.SessionDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const start    = session.StartTime ? session.StartTime.slice(0, 5) : '';
+                const end      = session.EndTime   ? session.EndTime.slice(0, 5)   : '';
+                const time     = start && end ? `${start} – ${end}` : start || '—';
+                const location = session.Location || '—';
+                const seats    = session.AvailableSeats != null ? session.AvailableSeats + ' seats available' : '';
+
+                return `
+                    <div class="curriculum-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <span class="material-symbols-outlined" style="vertical-align:middle;font-size:1.1rem;">event</span>
+                                ${date}
+                            </h3>
+                            <span class="section-meta">${time}</span>
+                        </div>
+                        <ul class="lesson-list">
+                            <li class="lesson-item">
+                                <span class="material-symbols-outlined lesson-icon">location_on</span>
+                                <span class="lesson-title">${location}</span>
+                                <span class="lesson-duration">${seats}</span>
+                            </li>
+                        </ul>
+                    </div>`;
+            }).join('');
+
+            container.innerHTML = rows;
+        })
+        .catch(() => {
+            container.innerHTML = '<p class="content-text">Unable to load sessions at this time.</p>';
+        });
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
