@@ -77,6 +77,73 @@ class Course {
         return $courses;
     }
 
+    public function getAllForAdmin() {
+        $sql = "SELECT CourseId, Title, Price, ThumbnailUrl, IsPublished,
+                       'course' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
+                FROM Course
+                UNION ALL
+                SELECT WorkshopId AS CourseId, Title, Price, ThumbnailUrl, IsPublished,
+                       'workshop' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
+                FROM Workshop
+                ORDER BY CreatedAt DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getByIdForAdmin($courseId, $courseType) {
+        $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
+        $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
+        $sql  = "SELECT * FROM {$table} WHERE {$idColumn} = :id LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':id' => $courseId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateCourse($courseId, $courseType, $data, $thumbnailUrl) {
+        $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
+        $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
+        $thumbSql = $thumbnailUrl ? ', ThumbnailUrl = :thumbnail_url' : '';
+
+        $sql = "UPDATE {$table}
+                SET Title         = :title,
+                    CategoryId    = :category_id,
+                    Description   = :description,
+                    Price         = :price,
+                    DurationHours = :duration_hours,
+                    Level         = :level,
+                    Language      = :language,
+                    IsPublished   = :is_published
+                    {$thumbSql}
+                WHERE {$idColumn} = :id";
+
+        $params = [
+            ':title'          => $data['Title'],
+            ':category_id'    => $data['CategoryId'],
+            ':description'    => $data['Description'],
+            ':price'          => $data['Price'],
+            ':duration_hours' => $data['DurationHours'],
+            ':level'          => strtolower($data['Level']),
+            ':language'       => $data['Language'],
+            ':is_published'   => !empty($data['IsPublished']) ? 1 : 0,
+            ':id'             => $courseId,
+        ];
+        if ($thumbnailUrl) {
+            $params[':thumbnail_url'] = $thumbnailUrl;
+        }
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($params);
+    }
+
+    public function deleteCourse($courseId, $courseType) {
+        $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
+        $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
+        $sql  = "DELETE FROM {$table} WHERE {$idColumn} = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':id' => $courseId]);
+    }
+
     public function createCourse($data, $thumbnailUrl) {
         $sql = "INSERT INTO Course
                     (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished)

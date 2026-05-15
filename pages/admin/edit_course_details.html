@@ -23,6 +23,8 @@
 
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/admin_edit_course.js"></script>
 </head>
 
 <body>
@@ -50,23 +52,24 @@
                         <span class="material-symbols-outlined text-primary">edit_document</span> Update Information
                     </h3>
 
-                    <!-- Form with existing database values -->
-                    <form action="manage_courses.html" class="form-group-list">
+                    <div id="form-message" style="display:none; padding:0.75rem 1rem; border-radius:8px; margin-bottom:1rem; font-size:0.9rem;"></div>
+
+                    <form id="edit-course-form" class="form-group-list">
 
                         <!-- Title & Category -->
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="checkout-label" for="title">Course Title</label>
-                                <input type="text" id="title" name="Title" class="checkout-input"
-                                    value="Data Mastery & Analysis" required>
+                                <input type="text" id="title" name="Title" class="checkout-input" required>
                             </div>
                             <div class="form-col">
                                 <label class="checkout-label" for="category">Category</label>
                                 <select id="category" name="CategoryId" class="checkout-input" required>
-                                    <option value="1">Technology</option>
-                                    <option value="2">Business</option>
-                                    <option value="3">Design</option>
-                                    <option value="4" selected>Data Science</option>
+                                    <option value="" disabled selected>Select a category</option>
+                                    <option value="1">Data Science</option>
+                                    <option value="2">Business &amp; Management</option>
+                                    <option value="3">Technology &amp; Programming</option>
+                                    <option value="4">Design &amp; Creativity</option>
                                 </select>
                             </div>
                         </div>
@@ -74,21 +77,18 @@
                         <!-- Description -->
                         <div>
                             <label class="checkout-label" for="description">Description</label>
-                            <textarea id="description" name="Description" class="checkout-input" rows="5"
-                                required>Master the fundamentals of data analysis and visualization with this comprehensive course. Learn to work with large datasets, perform statistical analysis, and create compelling visualizations that tell a story.</textarea>
+                            <textarea id="description" name="Description" class="checkout-input" rows="5" required></textarea>
                         </div>
 
                         <!-- Price & Duration -->
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="checkout-label" for="price">Price in SAR</label>
-                                <input type="number" id="price" name="Price" step="0.01" class="checkout-input"
-                                    value="450.00" required>
+                                <input type="number" id="price" name="Price" step="0.01" class="checkout-input" required>
                             </div>
                             <div class="form-col">
                                 <label class="checkout-label" for="duration">Duration (Hours)</label>
-                                <input type="number" id="duration" name="DurationHours" class="checkout-input"
-                                    value="40" required>
+                                <input type="number" id="duration" name="DurationHours" class="checkout-input" required>
                             </div>
                         </div>
 
@@ -97,15 +97,17 @@
                             <div class="form-col">
                                 <label class="checkout-label" for="level">Level</label>
                                 <select id="level" name="Level" class="checkout-input" required>
+                                    <option value="" disabled selected>Select level</option>
                                     <option value="Beginner">Beginner</option>
-                                    <option value="Intermediate" selected>Intermediate</option>
+                                    <option value="Intermediate">Intermediate</option>
                                     <option value="Advanced">Advanced</option>
                                 </select>
                             </div>
                             <div class="form-col">
                                 <label class="checkout-label" for="language">Language</label>
                                 <select id="language" name="Language" class="checkout-input" required>
-                                    <option value="English" selected>English</option>
+                                    <option value="" disabled selected>Select language</option>
+                                    <option value="English">English</option>
                                     <option value="Arabic">Arabic</option>
                                 </select>
                             </div>
@@ -114,8 +116,7 @@
                         <!-- Thumbnail -->
                         <div>
                             <label class="checkout-label" for="thumbnail">Thumbnail Image</label>
-                            <input type="file" id="thumbnail" name="Thumbnail" class="checkout-input"
-                                value="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80">
+                            <input type="file" id="thumbnail" name="ThumbnailImage" class="checkout-input" accept="image/*">
                         </div>
 
                         <!-- Published Status -->
@@ -135,7 +136,7 @@
                         <!-- Action Buttons -->
                         <div class="form-actions">
                             <a href="manage_courses.html" class="btn btn-outline">Cancel</a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" id="submit-btn" class="btn btn-primary">
                                 <span class="material-symbols-outlined">save</span> Save Changes
                             </button>
                         </div>
