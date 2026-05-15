@@ -26,6 +26,23 @@ class Cart {
         return $this->db->lastInsertId();
     }
 
+    // Check if the user has already paid for and registered in a workshop
+    public function isWorkshopAlreadyPurchased($userId, $workshopId) {
+        $sql = "SELECT 1 FROM WorkshopRegistration WHERE UserId = :user_id AND WorkshopId = :workshop_id LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':user_id' => $userId, ':workshop_id' => $workshopId]);
+        return (bool)$stmt->fetch();
+    }
+
+    // Check if the workshop is already sitting in the user's active cart
+    public function isWorkshopInCart($userId, $workshopId) {
+        $cartId = $this->getOrCreateCart($userId);
+        $sql = "SELECT 1 FROM CartItem WHERE CartId = :cart_id AND WorkshopId = :workshop_id LIMIT 1";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':cart_id' => $cartId, ':workshop_id' => $workshopId]);
+        return (bool)$stmt->fetch();
+    }
+
     // Add or update an item in the DB
     public function addItem($userId, $courseId, $workshopId, $price, $quantity) {
         $cartId = $this->getOrCreateCart($userId);
