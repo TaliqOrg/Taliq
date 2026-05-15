@@ -6,15 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Curriculum - Admin</title>
 
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
-    <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
-    <!-- Global Styling -->
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/welcome_page.css">
     <link rel="stylesheet" href="../../css/user_home.css">
@@ -24,6 +21,7 @@
 
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
+    <script src="../../js/course_curriculum.js"></script>
 </head>
 
 <body>
@@ -31,100 +29,36 @@
     <div id="header-placeholder"></div>
 
     <main>
-        <!-- Page Header & Back Button -->
         <section class="container mt-custom">
             <div class="section-header">
                 <a href="manage_courses.html" class="back-link">
                     <span class="material-symbols-outlined">arrow_back</span> Back to Manage Courses
                 </a>
                 <h1 class="section-title">Manage Curriculum</h1>
-                <p class="section-subtitle">Editing lessons for: <strong>Data Mastery & Analysis</strong></p>
+                <p class="section-subtitle">Editing lessons for: <strong id="course-title-display">Loading...</strong>
+                </p>
             </div>
         </section>
 
-        <!-- Curriculum Manager Layout -->
         <section class="container pb-custom">
             <div class="curriculum-layout">
 
-                <!-- Left Side: Existing Lessons List -->
                 <div class="curriculum-list-section">
-
                     <h3>Current Lessons</h3>
 
-                    <!-- Lesson 1 -->
-                    <div class="lesson-item">
-                        <div class="drag-handle" title="Drag to reorder">
-                            <span class="material-symbols-outlined">drag_indicator</span>
-                        </div>
-                        <div class="lesson-icon-wrapper icon-video">
-                            <span class="material-symbols-outlined">play_circle</span>
-                        </div>
-                        <div class="lesson-details">
-                            <h4 class="lesson-title">1. Introduction to Data Analysis</h4>
-                            <div class="lesson-meta">
-                                <span><span class="material-symbols-outlined">schedule</span> 15 mins</span>
-                                <span>Video</span>
-                            </div>
-                        </div>
-                        <div class="lesson-actions">
-                            <a href="edit_course_details.html" class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined">edit</span></a>
-                            <button class="btn-icon-small danger" title="Delete Lesson"><span class="material-symbols-outlined">delete</span></button>
-                        </div>
+                    <div id="lessons-container">
+                        <p style="padding: 1rem; color: #6b7280;">Loading lessons...</p>
                     </div>
-
-                    <!-- Lesson 2 -->
-                    <div class="lesson-item">
-                        <div class="drag-handle" title="Drag to reorder">
-                            <span class="material-symbols-outlined">drag_indicator</span>
-                        </div>
-                        <div class="lesson-icon-wrapper icon-video">
-                            <span class="material-symbols-outlined">play_circle</span>
-                        </div>
-                        <div class="lesson-details">
-                            <h4 class="lesson-title">2. Setting up Python and Pandas</h4>
-                            <div class="lesson-meta">
-                                <span><span class="material-symbols-outlined">schedule</span> 25 mins</span>
-                                <span>Video</span>
-                            </div>
-                        </div>
-                        <div class="lesson-actions">
-                            <a href="edit_course_details.html" class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined">edit</span></a>
-                            <button class="btn-icon-small danger" title="Delete Lesson"><span class="material-symbols-outlined">delete</span></button>
-                        </div>
-                    </div>
-
-                    <!-- Lesson 3 -->
-                    <div class="lesson-item">
-                        <div class="drag-handle" title="Drag to reorder">
-                            <span class="material-symbols-outlined">drag_indicator</span>
-                        </div>
-                        <div class="lesson-icon-wrapper icon-document">
-                            <span class="material-symbols-outlined">article</span>
-                        </div>
-                        <div class="lesson-details">
-                            <h4 class="lesson-title">3. Pandas Functions Cheat Sheet</h4>
-                            <div class="lesson-meta">
-                                <span><span class="material-symbols-outlined">schedule</span> 10 mins</span>
-                                <span>Document / PDF</span>
-                            </div>
-                        </div>
-                        <div class="lesson-actions">
-                            <a href="edit_course_details.html" class="btn-icon-small" title="Edit Lesson"><span class="material-symbols-outlined">edit</span></a>
-                            <button class="btn-icon-small danger" title="Delete Lesson"><span class="material-symbols-outlined">delete</span></button>
-                        </div>
-                    </div>
-
                 </div>
 
-                <!-- Right Side: Add New Lesson Form -->
                 <div class="curriculum-form-section">
                     <div class="checkout-card">
                         <h3 class="checkout-card-title">
                             <span class="material-symbols-outlined text-primary">add_box</span> Add New Lesson
                         </h3>
 
-                        <!-- Form mapped to the 'Lesson' database table -->
-                        <form action="#" class="form-group-list">
+                        <form id="lesson-form" class="form-group-list">
+                            <input type="hidden" id="lessonId" name="LessonId">
 
                             <div>
                                 <label class="checkout-label" for="lessonTitle">Lesson Title</label>
@@ -142,14 +76,14 @@
                                 <div class="form-col">
                                     <label class="checkout-label" for="contentType">Content Type</label>
                                     <select id="contentType" name="ContentType" class="checkout-input" required>
-                                        <option value="Video">Video</option>
-                                        <option value="Document">Document (PDF/Article)</option>
-                                        <option value="Quiz">Quiz</option>
+                                        <option value="video">Video</option>
+                                        <option value="document">Document (PDF/Article)</option>
+                                        <option value="quiz">Quiz</option>
                                     </select>
                                 </div>
                                 <div class="form-col">
                                     <label class="checkout-label" for="duration">Duration (Minutes)</label>
-                                    <input type="number" id="duration" name="DurationMinutes" class="checkout-input"
+                                    <input type="number" id="duration" name="Duration" class="checkout-input"
                                         placeholder="e.g., 15" required>
                                 </div>
                             </div>
@@ -162,15 +96,15 @@
 
                             <div>
                                 <label class="checkout-label" for="orderNum">Order Number</label>
-                                <input type="number" id="orderNum" name="OrderNumber" class="checkout-input" value="4"
+                                <input type="number" id="orderNum" name="SortOrder" class="checkout-input" value="1"
                                     required>
                             </div>
 
                             <hr class="summary-divider">
 
-                            <a href="manage_courses.html" class="btn btn-primary btn-full">
+                            <button type="submit" class="btn btn-primary btn-full">
                                 <span class="material-symbols-outlined">save</span> Save Lesson
-                            </a>
+                            </button>
 
                         </form>
                     </div>

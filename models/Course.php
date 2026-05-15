@@ -132,10 +132,12 @@ class Course {
     }
 
     public function getByIdWithLessons($courseId, $courseType) {
+        
         $course = $this->getById($courseId, $courseType);
 
         if ($course && $courseType === 'course') {
-            $sql = "SELECT LessonId, Title, Duration, SortOrder
+
+            $sql = "SELECT LessonId, Title, Description, ContentType, ContentUrl, Duration, SortOrder
                     FROM Lesson
                     WHERE CourseId = :course_id
                     ORDER BY SortOrder ASC";
