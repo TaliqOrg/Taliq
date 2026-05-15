@@ -1,6 +1,7 @@
 <?php
 
 class Lesson {
+
     private $db;
 
     public function __construct() {
@@ -48,6 +49,7 @@ class Lesson {
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
 
     public function getLessonById($lessonId, $userId = null) {
         $sql = "SELECT 
@@ -228,4 +230,71 @@ class Lesson {
         
         return array_values($grouped);
     }
+
+    public function createLesson($data) {
+
+        $sql = "INSERT INTO Lesson (CourseId, SectionTitle, Title, Description, ContentType, ContentUrl, Duration, SortOrder)
+                VALUES (:course_id, :section_title, :title, :description, :content_type, :content_url, :duration, :sort_order)";
+        
+        $stmt = $this->db->prepare($sql);
+
+        return $stmt->execute([
+            ':course_id'     => $data['course_id'],
+            ':section_title' => $data['SectionTitle'] ?? 'General',
+            ':title'         => $data['Title'],
+            ':description'   => $data['Description'],
+            ':content_type'  => strtolower($data['ContentType']),
+            ':content_url'   => $data['ContentUrl'],
+            ':duration'      => $data['Duration'] ?? 0,
+            ':sort_order'    => $data['SortOrder'] ?? 0
+        ]);
+    }
+
+    public function deleteLesson($lessonId) {
+
+        $sql = "DELETE FROM Lesson WHERE LessonId = :lesson_id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':lesson_id' => $lessonId]);
+
+    }
+
+
+    public function updateLesson($data) {
+        $sql = "UPDATE Lesson 
+                SET SectionTitle = :section_title, Title = :title, Description = :description, 
+                    ContentType = :content_type, ContentUrl = :content_url, Duration = :duration, SortOrder = :sort_order
+                WHERE LessonId = :lesson_id";
+        
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            ':lesson_id'     => $data['LessonId'],
+            ':section_title' => $data['SectionTitle'] ?? 'General',
+            ':title'         => $data['Title'],
+            ':description'   => $data['Description'],
+            ':content_type'  => strtolower($data['ContentType']),
+            ':content_url'   => $data['ContentUrl'],
+            ':duration'      => $data['Duration'] ?? 0,
+            ':sort_order'    => $data['SortOrder'] ?? 0
+        ]);
+    }
+
+
+    public function updateLessonOrders($orders) {
+        $this->db->beginTransaction();
+        try {
+            $stmt = $this->db->prepare("UPDATE Lesson SET SortOrder = :sort_order WHERE LessonId = :lesson_id");
+            foreach ($orders as $order) {
+                $stmt->execute([
+                    ':sort_order' => $order['sort_order'],
+                    ':lesson_id'  => $order['lesson_id']
+                ]);
+            }
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            return false;
+        }
+    }
+
 }
