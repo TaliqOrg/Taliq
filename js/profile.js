@@ -441,8 +441,7 @@ function createCertificateCard(cert) {
 }
 
 function downloadCertificate(certId) {
-    // TODO: Implement certificate download
-    showToast('Certificate download coming soon!', 'info');
+    window.open(`/taleeq/Taliq/pages/certificate.html?cert_id=${certId}`, '_blank');
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
