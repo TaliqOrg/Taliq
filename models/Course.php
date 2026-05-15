@@ -20,12 +20,12 @@
             $this->conn = $pdo;
         }
 
-    /**
-     * Creates a new course record in the database.
-     *
-     * @param array $data An associative array containing sanitized course details
-     * @return bool Returns true if the database insertion was successful, false otherwise.
-     */
+        /**
+         * Creates a new course record in the database.
+         *
+         * @param array $data An associative array containing sanitized course details
+         * @return bool Returns true if the database insertion was successful, false otherwise.
+         */
         public function create($data) {
 
             $query = "INSERT INTO " . $this->table_name . "
@@ -54,6 +54,40 @@
             return false;
         }
 
+        public function getAll() {
+
+            $query = "SELECT * FROM " . $this->table_name;
+
+            $statement = $this->conn->prepare($query);
+            $statement->execute();
+
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        public function getById($id) {
+            $query = "SELECT * FROM " . $this->table_name . " WHERE CourseId = :id LIMIT 1";
+            $statement = $this->conn->prepare($query);
+            $statement->bindParam(':id', $id, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public function delete($id) {
+    
+            $query = "DELETE FROM " . $this->table_name . " WHERE CourseId = :id";
+            
+            $statement = $this->conn->prepare($query);
+            $statement->bindParam(':id', $id, PDO::PARAM_INT);
+            
+            // Execute and return true if successful
+            if ($statement->execute()) {
+                return true;
+            }
+            return false;
+        }
+
+        
     }
+
 
 ?>
