@@ -33,6 +33,7 @@ async function updateHeaderFooter() {
         if (userLinks) userLinks.style.display = 'none';
         if (adminLinks) adminLinks.style.display = 'none';
         if (headerSearch) headerSearch.style.display = 'none';
+        if (headerLogo) headerLogo.href = '/taleeq/Taliq/pages/welcome_page.html';
         if (footerUserLinks) footerUserLinks.style.display = 'none';
         if (footerAdminLinks) footerAdminLinks.style.display = 'none';
         return;
@@ -45,7 +46,10 @@ async function updateHeaderFooter() {
         if (userLinks) userLinks.style.display = 'none';
         if (adminLinks) adminLinks.style.display = 'flex';
         if (headerSearch) headerSearch.style.display = 'none';
-        if (headerLogo) headerLogo.textContent = 'Taliq Admin';
+        if (headerLogo) {
+            headerLogo.textContent = 'Taliq Admin';
+            headerLogo.href = '/taleeq/Taliq/pages/admin/admin_home.html';
+        }
         if (footerLogo) footerLogo.textContent = 'Taliq Admin';
         if (footerUserLinks) footerUserLinks.style.display = 'none';
         if (footerAdminLinks) footerAdminLinks.style.display = 'block';
@@ -54,6 +58,7 @@ async function updateHeaderFooter() {
         if (userLinks) userLinks.style.display = 'flex';
         if (adminLinks) adminLinks.style.display = 'none';
         if (headerSearch) headerSearch.style.display = 'flex';
+        if (headerLogo) headerLogo.href = '/taleeq/Taliq/pages/user/user_home.html';
         if (footerUserLinks) footerUserLinks.style.display = 'block';
         if (footerAdminLinks) footerAdminLinks.style.display = 'none';
     }
