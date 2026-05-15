@@ -24,6 +24,17 @@ class CartController {
             return ['success' => false, 'message' => 'Item not found'];
         }
 
+        // Workshop-specific duplicate checks
+        if ($workshopId) {
+            if ($this->cartModel->isWorkshopAlreadyPurchased($userId, $workshopId)) {
+                return ['success' => false, 'message' => 'You are already enrolled in this workshop'];
+            }
+            if ($this->cartModel->isWorkshopInCart($userId, $workshopId)) {
+                return ['success' => false, 'message' => 'This workshop is already in your cart'];
+            }
+            $quantity = 1;
+        }
+
         if ($quantity < 1) $quantity = 1;
         if ($quantity > 10) $quantity = 10;
 
