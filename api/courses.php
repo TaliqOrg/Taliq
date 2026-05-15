@@ -77,6 +77,21 @@ if ($method === 'GET') {
             json_response(['success' => false, 'message' => 'No curriculum found'], 404);
         }
 
+    } elseif ($action === 'admin_list') {
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            json_response(['success' => false, 'message' => 'Unauthorized'], 401);
+        }
+        json_response($courseController->getAllAdmin());
+
+    } elseif ($action === 'admin_get') {
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            json_response(['success' => false, 'message' => 'Unauthorized'], 401);
+        }
+        $courseId   = $_GET['id']   ?? null;
+        $courseType = $_GET['type'] ?? null;
+        $result = $courseController->getCourseForEdit($courseId, $courseType);
+        json_response($result, $result['success'] ? 200 : 404);
+
     } else {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
     }
@@ -91,6 +106,19 @@ if ($method === 'GET') {
     if ($action === 'create') {
         $result = $courseController->addCourse($_POST, $_FILES);
         json_response($result, $result['success'] ? 201 : 400);
+
+    } elseif ($action === 'update') {
+        $courseId   = $_POST['course_id']   ?? null;
+        $courseType = $_POST['course_type'] ?? null;
+        $result = $courseController->editCourse($courseId, $courseType, $_POST, $_FILES);
+        json_response($result, $result['success'] ? 200 : 400);
+
+    } elseif ($action === 'delete') {
+        $courseId   = $_POST['course_id']   ?? null;
+        $courseType = $_POST['course_type'] ?? null;
+        $result = $courseController->removeCourse($courseId, $courseType);
+        json_response($result, $result['success'] ? 200 : 400);
+
     } else {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
     }

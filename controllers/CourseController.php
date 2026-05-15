@@ -74,6 +74,67 @@ class CourseController {
         ];
     }
 
+    public function getAllAdmin() {
+        $courses = $this->courseModel->getAllForAdmin();
+        return ['success' => true, 'records' => $courses, 'count' => count($courses)];
+    }
+
+    public function getCourseForEdit($courseId, $courseType) {
+        if (empty($courseId) || !in_array($courseType, ['course', 'workshop'])) {
+            return ['success' => false, 'message' => 'Invalid parameters'];
+        }
+        $course = $this->courseModel->getByIdForAdmin($courseId, $courseType);
+        if ($course) {
+            $course['Description'] = html_entity_decode($course['Description']);
+            return ['success' => true, 'course' => $course];
+        }
+        return ['success' => false, 'message' => 'Course not found'];
+    }
+
+    public function editCourse($courseId, $courseType, $postData, $fileData) {
+        if (empty($courseId) || !in_array($courseType, ['course', 'workshop'])) {
+            return ['success' => false, 'message' => 'Invalid parameters'];
+        }
+        $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language'];
+        foreach ($required as $field) {
+            if (empty($postData[$field])) {
+                return ['success' => false, 'message' => "$field is required"];
+            }
+        }
+
+        $thumbnailUrl = null;
+        if (!empty($fileData['ThumbnailImage']['name'])) {
+            $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            $ext     = strtolower(pathinfo($fileData['ThumbnailImage']['name'], PATHINFO_EXTENSION));
+            if (!in_array($ext, $allowed)) {
+                return ['success' => false, 'message' => 'Invalid image type'];
+            }
+            $uploadDir = __DIR__ . '/../uploads/';
+            $filename  = uniqid('course_') . '.' . $ext;
+            if (!move_uploaded_file($fileData['ThumbnailImage']['tmp_name'], $uploadDir . $filename)) {
+                return ['success' => false, 'message' => 'Failed to upload image'];
+            }
+            $thumbnailUrl = '/Taliq/uploads/' . $filename;
+        }
+
+        $success = $this->courseModel->updateCourse($courseId, $courseType, $postData, $thumbnailUrl);
+        if ($success) {
+            return ['success' => true, 'message' => 'Course updated successfully'];
+        }
+        return ['success' => false, 'message' => 'Failed to update course'];
+    }
+
+    public function removeCourse($courseId, $courseType) {
+        if (empty($courseId) || !in_array($courseType, ['course', 'workshop'])) {
+            return ['success' => false, 'message' => 'Invalid parameters'];
+        }
+        $success = $this->courseModel->deleteCourse($courseId, $courseType);
+        if ($success) {
+            return ['success' => true, 'message' => 'Course deleted successfully'];
+        }
+        return ['success' => false, 'message' => 'Failed to delete course'];
+    }
+
     public function addCourse($postData, $fileData) {
         $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language'];
         foreach ($required as $field) {
