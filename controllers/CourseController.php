@@ -14,13 +14,15 @@ class CourseController {
 
     public function getAll($limit = 0) {
         $courses = $this->courseModel->getAllPublished();
+        $total = count($courses);
         if ($limit > 0) {
             $courses = array_slice($courses, 0, $limit);
         }
         return [
             'success' => true,
             'records' => $courses,
-            'count'   => count($courses)
+            'count'   => count($courses),
+            'total'   => $total
         ];
     }
 

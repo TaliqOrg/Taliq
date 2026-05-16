@@ -51,9 +51,9 @@ function populateCourseDetails() {
                 const workshopId = type === 'workshop' ? id : null;
                 const addToCartBtn = document.getElementById('addToCartBtn');
                 if (addToCartBtn) {
+                    addToCartBtn.innerHTML = '<span class="material-symbols-outlined">add_shopping_cart</span> Add to Cart';
                     addToCartBtn.onclick = function() {
-                        var qty = parseInt(document.getElementById('quantity').value) || 1;
-                        addToCart(courseId, workshopId, course.Price, qty);
+                        addToCart(courseId, workshopId, course.Price, 1);
                     };
                 }
 
@@ -112,6 +112,9 @@ function populateCourseDetails() {
                     loadWorkshopSessions(id);
                 }
 
+                // Check if user already owns this course — update buttons accordingly
+                checkEnrollmentStatus(id, type);
+
             })
             .catch(error => console.error('Error fetching details:', error));
     }
@@ -139,7 +142,8 @@ function loadWorkshopSessions(workshopId) {
                 const end      = session.EndTime   ? session.EndTime.slice(0, 5)   : '';
                 const time     = start && end ? `${start} – ${end}` : start || '—';
                 const location = session.Location || '—';
-                const seats    = session.AvailableSeats != null ? session.AvailableSeats + ' seats available' : '';
+                const isFull   = session.AvailableSeats !== null && session.AvailableSeats <= 0;
+                const seats    = isFull ? 'Full' : (session.AvailableSeats != null ? session.AvailableSeats + ' seats available' : '');
 
                 return `
                     <div class="curriculum-section">
@@ -161,6 +165,16 @@ function loadWorkshopSessions(workshopId) {
             }).join('');
 
             container.innerHTML = rows;
+
+            // If every session is full, disable the Add to Cart button
+            const allFull = data.sessions.every(s => s.AvailableSeats !== null && s.AvailableSeats <= 0);
+            if (allFull) {
+                const addToCartBtn = document.getElementById('addToCartBtn');
+                if (addToCartBtn) {
+                    addToCartBtn.disabled = true;
+                    addToCartBtn.innerHTML = '<span class="material-symbols-outlined">block</span> Workshop Full';
+                }
+            }
         })
         .catch(() => {
             container.innerHTML = '<p class="content-text">Unable to load sessions at this time.</p>';
@@ -263,7 +277,7 @@ function copyCourseLinkToClipboard() {
 
 function showCopyFeedback(button, success) {
     const originalHTML = button.innerHTML;
-    
+
     if (success) {
         button.innerHTML = '<span class="material-symbols-outlined">check</span><span>Link Copied!</span>';
         button.style.backgroundColor = 'var(--primary)';
@@ -273,10 +287,44 @@ function showCopyFeedback(button, success) {
         button.style.backgroundColor = 'var(--error)';
         button.style.color = 'white';
     }
-    
+
     setTimeout(() => {
         button.innerHTML = originalHTML;
         button.style.backgroundColor = '';
         button.style.color = '';
     }, 2000);
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CHECK ENROLLMENT STATUS — Bug #6
+// If the user already owns this course, swap the buttons
+// ══════════════════════════════════════════════════════════════════════════════
+
+async function checkEnrollmentStatus(id, type) {
+    // Only applies to courses (workshop duplicate is blocked at cart level)
+    if (type !== 'course') return;
+
+    try {
+        const response = await fetch(`/taleeq/Taliq/api/enrollments.php?action=check_enrollment&course_id=${id}`);
+
+        // 401 = not logged in, just show the normal buttons
+        if (!response.ok) return;
+
+        const data = await response.json();
+
+        if (data.is_enrolled) {
+            const addToCartBtn = document.getElementById('addToCartBtn');
+            if (addToCartBtn) {
+                addToCartBtn.innerHTML = '<span class="material-symbols-outlined">play_circle</span> Go to Course';
+                addToCartBtn.onclick = function () {
+                    window.location.href = `/taleeq/Taliq/pages/user/course_player.html?course_id=${id}`;
+                };
+            }
+
+            const wishlistBtn = document.getElementById('wishlistBtn');
+            if (wishlistBtn) wishlistBtn.style.display = 'none';
+        }
+    } catch (e) {
+        // Network error or not logged in — keep the default buttons as-is
+    }
 }

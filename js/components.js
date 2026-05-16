@@ -97,8 +97,21 @@ async function loadComponent(elementId, componentPath) {
 async function initializeComponents() {
     await loadComponent('header-placeholder', '/taleeq/Taliq/components/header.html');
     await loadComponent('footer-placeholder', '/taleeq/Taliq/components/footer.html');
-    
-    updateHeaderFooter();
+
+    await updateHeaderFooter();
+
+    // Wire the header search bar — redirect to explore page with search query
+    const searchInput = document.getElementById('headerSearchInput');
+    if (searchInput) {
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                const query = this.value.trim();
+                if (query) {
+                    window.location.href = '/taleeq/Taliq/pages/explore.html?q=' + encodeURIComponent(query);
+                }
+            }
+        });
+    }
 }
 
 async function updateHeaderFooter() {
