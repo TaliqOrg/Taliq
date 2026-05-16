@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    fetch(`../../api/certificate.php?action=get&cert_id=${certId}`)
+    fetch(`/taleeq/Taliq/api/certificate.php?action=get&cert_id=${certId}`)
         .then(r => r.json())
         .then(data => {
             if (!data.success) {

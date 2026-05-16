@@ -37,7 +37,18 @@ function fetchCoursesWithPagination() {
         .then(data => {
             if (data.success && data.records && data.records.length > 0) {
                 allCourses = data.records;
-                filteredCourses = allCourses;
+
+                // If user came from the header search bar, pre-filter by the query
+                const urlParams = new URLSearchParams(window.location.search);
+                const searchQuery = urlParams.get('q');
+                if (searchQuery) {
+                    filteredCourses = allCourses.filter(c =>
+                        c.Title.toLowerCase().includes(searchQuery.toLowerCase())
+                    );
+                } else {
+                    filteredCourses = allCourses;
+                }
+
                 totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
                 updateResultsCount();
                 renderCourses();
@@ -62,6 +73,12 @@ function fetchCourses(limit) {
             const container = document.getElementById('course-container');
             if (data.success && data.records && data.records.length > 0) {
                 container.innerHTML = data.records.map(course => createCourseCard(course)).join('');
+
+                // Update the "View All" button with the real total count from the DB
+                const viewAllBtn = document.getElementById('view-all-btn');
+                if (viewAllBtn && data.total) {
+                    viewAllBtn.textContent = 'View All ' + data.total + ' Courses';
+                }
             } else {
                 container.innerHTML = '<p>No courses available right now.</p>';
             }

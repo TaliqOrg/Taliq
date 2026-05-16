@@ -59,15 +59,23 @@ class Order {
         $sql = "SELECT WorkshopRegistrationId FROM WorkshopRegistration WHERE UserId = :user_id AND WorkshopId = :workshop_id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId, ':workshop_id' => $workshopId]);
-        
+
         if ($stmt->fetch()) {
             return false; // Already registered
         }
-        
+
         $sql = "INSERT INTO WorkshopRegistration (UserId, WorkshopId, AttendanceStatus)
                 VALUES (:user_id, :workshop_id, 'registered')";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId, ':workshop_id' => $workshopId]);
+
+        // Decrement available seats — GREATEST keeps it from going below 0
+        $this->db->prepare(
+            "UPDATE WorkshopSession
+             SET AvailableSeats = GREATEST(AvailableSeats - 1, 0)
+             WHERE WorkshopId = :workshop_id AND AvailableSeats > 0"
+        )->execute([':workshop_id' => $workshopId]);
+
         return true;
     }
 
