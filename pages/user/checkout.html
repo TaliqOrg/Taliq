@@ -3,129 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Taliq </title>
+    <title>Checkout - Taliq</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/welcome_page.css">
     <link rel="stylesheet" href="../../css/user_home.css">
     <link rel="stylesheet" href="../../css/checkout.css">
 
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
+    <script src="../../js/cart.js"></script>
+    <script src="../../js/checkout_validation.js" defer></script>
 </head>
 <body>
 
     <div id="header-placeholder"></div>
 
+    <main>
 
-<main>
+        <section class="container mt-custom">
+            <div class="section-header">
+                <a href="cart.html" class="back-link">
+                    <span class="material-symbols-outlined">arrow_back</span> Back to Cart
+                </a>
+                <h1 class="section-title">Checkout</h1>
+            </div>
+        </section>
 
-    <section class="container mt-custom">
-        <div class="section-header">
-            <a href="cart.html" class="back-link">
-                <span class="material-symbols-outlined">arrow_back</span> Back to Cart
-            </a>
-            <h1 class="section-title">Checkout</h1>
-        </div>
-    </section>
+        <section class="container pb-custom">
 
-    <section class="container pb-custom">
+            <div class="checkout-layout">
 
-        <div class="checkout-layout">
+                <!-- Left side: billing + payment forms -->
+                <div class="checkout-forms">
 
-            <div class="checkout-forms">
-
-                <div class="checkout-card">
-                    <h3 class="checkout-card-title">
-                        <span class="material-symbols-outlined text-primary">person</span> Billing Information
-                    </h3>
-
-                    <div class="form-group-list">
-                        <div>
-                            <label class="checkout-label">Full Name</label>
-                            <input type="text" placeholder="Ali Al-Fulan" class="checkout-input">
-                        </div>
-                        <div>
-                            <label class="checkout-label">Email Address</label>
-                            <input type="email" placeholder="ali@example.com" class="checkout-input">
+                    <div class="checkout-card">
+                        <h3 class="checkout-card-title">
+                            <span class="material-symbols-outlined text-primary">person</span>
+                            Billing Information
+                        </h3>
+                        <div class="form-group-list">
+                            <div>
+                                <label class="checkout-label">Full Name</label>
+                                <input type="text" id="billingName" placeholder="Ali Al-Fulan" class="checkout-input">
+                            </div>
+                            <div>
+                                <label class="checkout-label">Email Address</label>
+                                <input type="email" id="billingEmail" placeholder="ali@example.com" class="checkout-input">
+                            </div>
                         </div>
                     </div>
+
+                    <div class="checkout-card">
+                        <h3 class="checkout-card-title">
+                            <span class="material-symbols-outlined text-primary">credit_card</span>
+                            Payment Details
+                        </h3>
+                        <div class="form-group-list">
+                            <div>
+                                <label class="checkout-label">Name on Card</label>
+                                <input type="text" id="cardName" placeholder="Ali Al-Fulan" class="checkout-input" autocomplete="cc-name">
+                            </div>
+                            <div>
+                                <label class="checkout-label">Card Number</label>
+                                <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" class="checkout-input" maxlength="19" inputmode="numeric" autocomplete="cc-number">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkout-label">Expiry Date</label>
+                                    <input type="text" id="cardExpiry" placeholder="MM/YY" class="checkout-input" maxlength="5" inputmode="numeric" autocomplete="cc-exp">
+                                </div>
+                                <div class="form-col">
+                                    <label class="checkout-label">CVC</label>
+                                    <input type="text" id="cardCvc" placeholder="123" class="checkout-input" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="checkout-card">
-                    <h3 class="checkout-card-title">
-                        <span class="material-symbols-outlined text-primary">credit_card</span> Payment Details
-                    </h3>
+                <!-- Right side: order summary -->
+                <div class="checkout-summary">
+                    <div class="checkout-card">
+                        <h3 class="card-title" style="margin-bottom: 1.5rem;">Order Summary</h3>
 
-                    <div class="form-group-list">
-                        <div>
-                            <label class="checkout-label">Name on Card</label>
-                            <input type="text" placeholder="Ali Al-Fulan" class="checkout-input">
-                        </div>
-                        <div>
-                            <label class="checkout-label">Card Number</label>
-                            <input type="text" placeholder="0000 0000 0000 0000" class="checkout-input">
+                        <!-- Items loaded dynamically by cart.js -->
+                        <div class="summary-items" id="checkout-items-container">
+                            <p style="color: var(--text-muted);">Loading...</p>
                         </div>
 
-                        <div class="form-row">
-                            <div class="form-col">
-                                <label class="checkout-label">Expiry Date</label>
-                                <input type="text" placeholder="MM/YY" class="checkout-input">
-                            </div>
-                            <div class="form-col">
-                                <label class="checkout-label">CVC</label>
-                                <input type="text" placeholder="123" class="checkout-input">
-                            </div>
+                        <hr class="summary-divider">
+
+                        <div class="past-purchases-container summary-row">
+                            <span class="section-subtitle">Original Price</span>
+                            <span id="checkout-original-price">0.00 SAR</span>
                         </div>
+
+                        <div class="past-purchases-container summary-row">
+                            <span class="section-subtitle">Discounts</span>
+                            <span class="text-primary">0 SAR</span>
+                        </div>
+
+                        <hr class="summary-divider">
+
+                        <div class="past-purchases-container" style="margin-bottom: 2rem;">
+                            <span class="card-title" style="margin: 0;">Total</span>
+                            <span class="price" id="checkout-total-price">0.00 SAR</span>
+                        </div>
+
+                        <button id="confirmPayBtn" onclick="completePurchase()" class="btn btn-primary btn-block">
+                            <span class="material-symbols-outlined">lock</span>
+                            Confirm & Pay
+                        </button>
+
+                        <p class="secure-note">
+                            <span class="material-symbols-outlined" style="font-size: 0.9rem; vertical-align: middle;">shield</span>
+                            Secure and encrypted payment
+                        </p>
                     </div>
                 </div>
 
             </div>
+        </section>
 
-            <div class="checkout-summary">
-                <div class="checkout-card">
-                    <h3 class="card-title" style="margin-bottom: 1.5rem;">Order Summary</h3>
+    </main>
 
-                    <div class="summary-items">
-                        <div class="summary-item">
-                            <span class="summary-item-name">1x Data Mastery & Analysis</span>
-                            <span class="summary-item-price">450 SAR</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-item-name">1x Leadership In Practice</span>
-                            <span class="summary-item-price">850 SAR</span>
-                        </div>
-                    </div>
+    <div id="footer-placeholder"></div>
 
-                    <hr class="summary-divider">
-
-                    <div class="past-purchases-container summary-row">
-                        <span class="section-subtitle">Original Price</span>
-                        1300 SAR
-                    </div>
-
-                    <div class="past-purchases-container summary-row">
-                        <span class="section-subtitle">Discounts</span>
-                        <span class="rating-score text-primary">0 SAR</span>
-                    </div>
-
-                    <hr class="summary-divider">
-
-                    <div class="past-purchases-container" style="margin-bottom: 2rem;">
-                        <span class="card-title" style="margin: 0;">Total</span>
-                        <span class="price">1300 SAR</span>
-                    </div>
-
-                    <a href="user_home.html" class="btn btn-primary btn-block">
-                        <span class="material-symbols-outlined">lock</span>
-                        Confirm & Pay
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-</main>
+</body>
+</html>

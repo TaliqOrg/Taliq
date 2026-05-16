@@ -182,17 +182,108 @@
 }
 
 .field-label {
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--text-muted);
-    letter-spacing: 0.5px;
 }
 
 .field-value {
     font-size: 1rem;
     color: var(--text-main);
-    font-weight: 500;
+    margin: 0;
 }
+
+.field-input {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: var(--surface);
+    color: var(--text-main);
+    transition: border-color 0.2s ease;
+}
+
+.field-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.edit-form {
+    background-color: var(--surface-low);
+    padding: 1.5rem;
+    border-radius: var(--border-radius-lg);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border);
+}
+
+/* Loading and Empty States */
+.loading-text {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-text {
+    color: var(--error);
+    text-align: center;
+    padding: 2rem;
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    text-align: center;
+    background-color: var(--surface-low);
+    border-radius: var(--border-radius-lg);
+    gap: 1rem;
+}
+
+.empty-state .material-symbols-outlined {
+    font-size: 4rem;
+    color: var(--text-muted);
+}
+
+.empty-state h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 400px;
+}
+
+/* Order Status Colors */
+.status-pending {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.status-cancelled {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.status-refunded {
+    background-color: #e0e7ff;
+    color: #3730a3;
+}
+
+/* Note: Form input styles moved to global.css */
 
 .courses-list {
     display: flex;
@@ -546,7 +637,6 @@
 }
 
 .stat-card {
-    background: linear-gradient(135deg, var(--surface-low) 0%, var(--surface) 100%);
     border: 1px solid var(--border);
     border-radius: var(--border-radius-lg);
     padding: 1.5rem;
@@ -556,12 +646,7 @@
 }
 
 .stat-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.stat-card.points-card {
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--surface) 100%);
-    border-color: var(--primary);
+    border: 1px solid black;
 }
 
 .stat-icon {
@@ -610,7 +695,179 @@
     color: var(--primary);
 }
 
-/* Achievements Section */
+/* Tab Content Visibility */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Level System Section */
+.level-section {
+    margin-top: 2rem;
+}
+
+.content-heading {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+}
+
+.level-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.current-level {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: var(--surface-low);
+    border-radius: var(--border-radius-lg);
+    border: 2px solid var(--primary);
+}
+
+.level-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.level-badge .material-symbols-outlined {
+    font-size: 3rem;
+    color: var(--primary);
+}
+
+.level-info {
+    flex: 1;
+}
+
+.level-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 0.5rem 0;
+}
+
+.level-description {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.level-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.level-progress-bar {
+    width: 100%;
+    height: 12px;
+    background-color: var(--surface-hover);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.level-progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 1rem;
+    transition: width 0.3s ease;
+}
+
+.level-progress-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+    margin: 0;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.level-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--surface-low);
+    border: 2px solid var(--border);
+    border-radius: var(--border-radius-lg);
+    transition: all 0.3s ease;
+}
+
+.level-item.completed,
+.level-item.current {
+    background-color: var(--surface);
+    border-color: var(--primary);
+}
+
+.level-item.locked {
+    opacity: 0.5;
+}
+
+.level-item-badge {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background-color: var(--surface-hover);
+}
+
+.level-item.completed .level-item-badge,
+.level-item.current .level-item-badge {
+    background-color: var(--primary);
+}
+
+.level-item-badge .material-symbols-outlined {
+    font-size: 1.75rem;
+    color: var(--text-muted);
+}
+
+.level-item.completed .level-item-badge .material-symbols-outlined,
+.level-item.current .level-item-badge .material-symbols-outlined {
+    color: white;
+}
+
+.level-item-info {
+    flex: 1;
+}
+
+.level-item-name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 0.25rem 0;
+}
+
+.level-item-points {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Achievements Section (kept for backward compatibility) */
 .achievements-section {
     margin-top: 2rem;
 }
@@ -621,7 +878,7 @@
     margin-top: 1rem;
 }
 
-.achievement-item {
+.achievements-list .stat-icon {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -629,14 +886,15 @@
     background-color: var(--surface-low);
     border: 1px solid var(--border);
     border-radius: var(--border-radius-lg);
+    width: 100%;
+    height: auto;
 }
 
-.achievement-item.unlocked {
-    background: linear-gradient(90deg, var(--success-light) 0%, var(--surface-low) 100%);
-    border-color: var(--success);
+.achievements-list .stat-icon.unlocked {
+    background-color: var(--surface);
 }
 
-.achievement-item.locked {
+.stat-icon.locked {
     opacity: 0.6;
 }
 
@@ -653,23 +911,22 @@
     flex-shrink: 0;
 }
 
-.achievement-item.unlocked .achievement-badge {
-    background: linear-gradient(135deg, var(--success) 0%, var(--accent) 100%);
-    border-color: var(--success);
+.achievements-list .stat-icon.unlocked .achievement-badge {
+    background: transparent;
 }
 
-.achievement-item.unlocked .achievement-badge.gold {
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%) !important;
+.achievements-list .stat-icon.unlocked .achievement-badge.gold {
+    background: transparent !important;
     border-color: #FFD700 !important;
 }
 
-.achievement-item.unlocked .achievement-badge.silver {
-    background: linear-gradient(135deg, #C0C0C0 0%, #808080 100%) !important;
+.achievements-list .stat-icon.unlocked .achievement-badge.silver {
+    background: transparent !important;
     border-color: #C0C0C0 !important;
 }
 
-.achievement-item.unlocked .achievement-badge.bronze {
-    background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%) !important;
+.achievements-list .stat-icon.unlocked .achievement-badge.bronze {
+    background: transparent !important;
     border-color: #CD7F32 !important;
 }
 
@@ -678,11 +935,11 @@
     color: var(--text-muted);
 }
 
-.achievement-item.unlocked .achievement-badge .material-symbols-outlined {
+.achievements-list .stat-icon.unlocked .achievement-badge .material-symbols-outlined {
     color: #FFD700;
 }
 
-.achievement-item.locked .achievement-badge .material-symbols-outlined {
+.achievements-list .stat-icon.locked .achievement-badge .material-symbols-outlined {
     color: var(--text-muted);
 }
 
@@ -719,10 +976,32 @@
     .gamification-stats {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .current-level {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .levels-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
     .gamification-stats {
         grid-template-columns: 1fr;
+    }
+
+    .level-badge {
+        width: 60px;
+        height: 60px;
+    }
+
+    .level-badge .material-symbols-outlined {
+        font-size: 2.5rem;
+    }
+
+    .level-title {
+        font-size: 1.25rem;
     }
 }

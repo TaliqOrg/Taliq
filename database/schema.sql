@@ -42,10 +42,16 @@ CREATE TABLE Course (
     CategoryId INT NOT NULL,
     Title VARCHAR(255) NOT NULL,
     Description TEXT,
+    LearningOutcomes TEXT,
+    Requirements TEXT,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     DurationHours DECIMAL(5, 2),
     Level ENUM('beginner', 'intermediate', 'advanced') NOT NULL DEFAULT 'beginner',
     Language VARCHAR(50) DEFAULT 'English',
+    HasCertificate BOOLEAN DEFAULT TRUE,
+    AverageRating DECIMAL(3, 2) DEFAULT 0.00,
+    RatingCount INT DEFAULT 0,
+    EnrollmentCount INT DEFAULT 0,
     ThumbnailUrl VARCHAR(500),
     IsPublished BOOLEAN DEFAULT FALSE,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -55,7 +61,6 @@ CREATE TABLE Course (
     INDEX idx_published (IsPublished),
     INDEX idx_level (Level)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- ============================================
 -- 4. Workshop Table
 -- ============================================
@@ -64,10 +69,19 @@ CREATE TABLE Workshop (
     CategoryId INT NOT NULL,
     Title VARCHAR(255) NOT NULL,
     Description TEXT,
+    LearningOutcomes TEXT,
+    Requirements TEXT,
     Price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
     Location VARCHAR(255),
+    DurationHours DECIMAL(5, 2),
+    Level ENUM('beginner', 'intermediate', 'advanced') NOT NULL DEFAULT 'beginner',
     Capacity INT NOT NULL DEFAULT 0,
     Language VARCHAR(50) DEFAULT 'English',
+    HasCertificate BOOLEAN DEFAULT TRUE,
+    AverageRating DECIMAL(3, 2) DEFAULT 0.00,
+    RatingCount INT DEFAULT 0,
+    EnrollmentCount INT DEFAULT 0,
+    ThumbnailUrl VARCHAR(500),
     IsPublished BOOLEAN DEFAULT FALSE,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -82,18 +96,18 @@ CREATE TABLE Workshop (
 CREATE TABLE Lesson (
     LessonId INT AUTO_INCREMENT PRIMARY KEY,
     CourseId INT NOT NULL,
+    SectionTitle VARCHAR(255),
     Title VARCHAR(255) NOT NULL,
     Description TEXT,
     ContentType ENUM('video', 'document', 'quiz', 'assignment') NOT NULL,
     ContentUrl VARCHAR(500),
-    OrderNumber INT NOT NULL,
-    DurationMinutes INT,
+    SortOrder INT NOT NULL DEFAULT 0,
+    Duration INT,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (CourseId) REFERENCES Course(CourseId) ON DELETE CASCADE,
     INDEX idx_course (CourseId),
-    INDEX idx_order (OrderNumber)
+    INDEX idx_sort (SortOrder)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 -- ============================================
 -- 6. WorkshopSession Table
 -- ============================================

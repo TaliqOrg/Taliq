@@ -1,6 +1,3 @@
-
-
-
 .toolbar {
     display: flex;
     justify-content: space-between;
@@ -17,27 +14,33 @@
 }
 
 .search-wrapper {
+    display: flex;
     position: relative;
+    align-items: center;
     flex: 1;
     max-width: 400px;
+    box-sizing: border-box;
+    border: 2px solid var(--surface-low);
+    border-radius: var(--border-radius-lg);
+    background-color: var(--surface);
 }
 
 .search-wrapper .material-symbols-outlined {
     position: absolute;
     left: 1rem;
-    top: 50%;
     color: var(--text-muted);
+    font-size: 1.25rem;
 }
 
 .filter-input {
     width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.75rem;
-    border: 2px solid var(--surface-low);
-    border-radius: var(--border-radius-lg);
-    background-color: var(--surface);
+    padding: 0.75rem 0.5rem 0.75rem 3rem;
+    border: none;
+    background-color: transparent;
     font-family: var(--font-body);
     color: var(--text-main);
     outline: none;
+    box-sizing: border-box;
 }
 
 .filter-select {
@@ -201,11 +204,12 @@
         border-top: 1px solid var(--surface-low);
     }
 
-    .admin-Manage-Item-small{
+    .admin-Manage-Item-small {
         flex: 1;
         min-width: 300px;
     }
-    .admin-Manage-Item-Large{
+
+    .admin-Manage-Item-Large {
         flex: 1;
         min-width: 200px
     }
