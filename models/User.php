@@ -1,27 +1,32 @@
 <?php
+
 /**
  * User Model
  * 
  * Handles all user-related database operations
  */
 
-class User {
+class User
+{
     private $db;
     private $table = 'User';
-    
-    public function __construct() {
+
+    public function __construct()
+    {
         global $pdo;
         $this->db = $pdo;
     }
-    
-    public function findByEmail($email) {
+
+    public function findByEmail($email)
+    {
         $sql = "SELECT * FROM {$this->table} WHERE Email = :email AND IsActive = 1 LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':email' => $email]);
         return $stmt->fetch();
     }
-    
-    public function verifyPassword($email, $password) {
+
+    public function verifyPassword($email, $password)
+    {
         $user = $this->findByEmail($email);
         if ($user && password_verify($password, $user['PasswordHash'])) {
             unset($user['PasswordHash']);
@@ -29,13 +34,14 @@ class User {
         }
         return false;
     }
-    
-    public function create($firstName, $lastName, $email, $password, $phoneNumber = null, $role = 'user') {
+
+    public function create($firstName, $lastName, $email, $password, $phoneNumber = null, $role = 'user')
+    {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        
+
         $sql = "INSERT INTO {$this->table} (FirstName, LastName, Email, PasswordHash, PhoneNumber, Role) 
                 VALUES (:first_name, :last_name, :email, :password_hash, :phone_number, :role)";
-        
+
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute([
             ':first_name' => $firstName,
@@ -45,22 +51,24 @@ class User {
             ':phone_number' => $phoneNumber,
             ':role' => $role
         ]);
-        
+
         if ($result) {
             return $this->db->lastInsertId();
         }
-        
+
         return false;
     }
-    
-    public function emailExists($email) {
+
+    public function emailExists($email)
+    {
         $sql = "SELECT COUNT(*) FROM {$this->table} WHERE Email = :email";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':email' => $email]);
         return $stmt->fetchColumn() > 0;
     }
-    
-    public function findById($userId) {
+
+    public function findById($userId)
+    {
         $sql = "SELECT * FROM {$this->table} WHERE UserId = :user_id AND IsActive = 1 LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
@@ -70,8 +78,9 @@ class User {
         }
         return $user;
     }
-    
-    public function updateProfile($userId, $firstName, $lastName, $email, $phoneNumber = null) {
+
+    public function updateProfile($userId, $firstName, $lastName, $email, $phoneNumber = null)
+    {
         $sql = "UPDATE {$this->table} 
                 SET FirstName = :first_name, 
                     LastName = :last_name, 
@@ -79,7 +88,7 @@ class User {
                     PhoneNumber = :phone_number,
                     UpdatedAt = CURRENT_TIMESTAMP
                 WHERE UserId = :user_id";
-        
+
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':first_name' => $firstName,
@@ -89,35 +98,38 @@ class User {
             ':user_id' => $userId
         ]);
     }
-    
-    public function updatePassword($userId, $newPassword) {
+
+    public function updatePassword($userId, $newPassword)
+    {
         $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
-        
+
         $sql = "UPDATE {$this->table} 
                 SET PasswordHash = :password_hash,
                     UpdatedAt = CURRENT_TIMESTAMP
                 WHERE UserId = :user_id";
-        
+
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
             ':password_hash' => $passwordHash,
             ':user_id' => $userId
         ]);
     }
-    
-    public function verifyCurrentPassword($userId, $password) {
+
+    public function verifyCurrentPassword($userId, $password)
+    {
         $sql = "SELECT PasswordHash FROM {$this->table} WHERE UserId = :user_id LIMIT 1";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
         $user = $stmt->fetch();
-        
+
         if ($user && password_verify($password, $user['PasswordHash'])) {
             return true;
         }
         return false;
     }
-    
-    public function emailExistsForOtherUser($email, $userId) {
+
+    public function emailExistsForOtherUser($email, $userId)
+    {
         $sql = "SELECT COUNT(*) FROM {$this->table} WHERE Email = :email AND UserId != :user_id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -125,5 +137,52 @@ class User {
             ':user_id' => $userId
         ]);
         return $stmt->fetchColumn() > 0;
+    }
+
+    public function getAll()
+    {
+        $sql = "SELECT UserId, FirstName, LastName, Email, PhoneNumber, Role, IsActive, CreatedAt 
+                FROM {$this->table} 
+                ORDER BY CreatedAt DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function delete($userId)
+    {
+        $sql = "DELETE FROM {$this->table} WHERE UserId = :user_id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([':user_id' => $userId]);
+    }
+
+    // --- FOR ADMIN EDIT USER ---
+    public function adminUpdateUser($userId, $firstName, $lastName, $email, $role, $password = null)
+    {
+        $sql = "UPDATE {$this->table} 
+                SET FirstName = :first_name, 
+                    LastName = :last_name, 
+                    Email = :email, 
+                    Role = :role,
+                    UpdatedAt = CURRENT_TIMESTAMP";
+
+        $params = [
+            ':first_name' => $firstName,
+            ':last_name'  => $lastName,
+            ':email'      => $email,
+            ':role'       => $role,
+            ':user_id'    => (int)$userId // Cast to strict int
+        ];
+
+        // Append password logic ONLY if a clean password was sent
+        if (!empty($password)) {
+            $sql .= ", PasswordHash = :password_hash";
+            $params[':password_hash'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        $sql .= " WHERE UserId = :user_id";
+
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute($params);
     }
 }

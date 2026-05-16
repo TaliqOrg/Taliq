@@ -19,6 +19,7 @@
 
     <script src="../../js/auth.js"></script>
     <script src="../../js/components.js"></script>
+    <script src="../../js/users.js"></script>
 </head>
 <body>
 
@@ -36,136 +37,31 @@
         </div>
     </section>
 
-<!-- Toolbar -->
-<section class="container pb-custom">
-    <div class="toolbar">
-        <div class="toolbar-filters">
-            <div class="search-wrapper">
-                <span class="material-symbols-outlined">search</span>
-                <input type="text" class="filter-input" placeholder="Search by name...">
+    <section class="container pb-custom">
+        <div class="toolbar">
+            <div class="toolbar-filters">
+                <div class="search-wrapper">
+                    <span class="material-symbols-outlined">search</span>
+                    <input type="text" id="search-input" class="filter-input" placeholder="Search by name or email...">
+                </div>
+                <select id="role-filter" class="filter-select">
+                    <option value="all">All Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                    <option value="instructor">Instructor</option>
+                </select>
             </div>
-            <select class="filter-select">
-                <option value="all">All Roles</option>
-                <option value="Admin">Admin</option>
-                <option value="Customer">Customer</option>
-            </select>
+
+            <a href="new_user.html" class="btn btn-primary">
+                <span class="material-symbols-outlined">add</span> Create New
+            </a>
         </div>
 
-        <a href="new_user.html" class="btn btn-primary">
-            <span class="material-symbols-outlined">add</span> Create New
-        </a>
-    </div>
-
-
-    <div class="admin-list-container">
-
-        <!-- User 1 -->
-        <div class="admin-list-card">
-
-            <div class="admin-card-info">
-                <h3 class="admin-card-title">
-                    Abdulhadi Shamea
-                </h3>
-                <div class="admin-card-meta">
-                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
-                                Admin</span>
-                </div>
-            </div>
-
-                <div class="admin-card-actions">
-                    <a href="edit_user.html" class="action-btn" title="Edit User">
-                        <span class="material-symbols-outlined">Edit</span> Edit User
-                    </a>
-                    <button class="action-btn danger" title="Delete User">
-                        <span class="material-symbols-outlined">delete</span>
-                    </button>
-                </div>
+        <div id="users-list" class="admin-list-container">
+            <p style="padding: 1rem; color: #6b7280;">Loading users...</p>
         </div>
 
-        <!-- User 2 -->
-        <div class="admin-list-card">
-
-            <div class="admin-card-info">
-                <h3 class="admin-card-title">
-                    Abdullah Bin Ahmad
-                </h3>
-                <div class="admin-card-meta">
-                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
-                                Customer</span>
-                </div>
-            </div>
-
-            <div class="admin-card-actions">
-                <a href="edit_user.html" class="action-btn" title="Edit User">
-                    <span class="material-symbols-outlined">Edit</span> Edit User
-                </a>
-                <button class="action-btn danger" title="Delete User">
-                    <span class="material-symbols-outlined">delete</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- User 3 -->
-        <div class="admin-list-card">
-
-            <div class="admin-card-info">
-                <h3 class="admin-card-title">
-                    Fadallah
-                </h3>
-                <div class="admin-card-meta">
-                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
-                                Admin</span>
-                </div>
-            </div>
-
-            <div class="admin-card-actions">
-                <a href="edit_user.html" class="action-btn" title="Edit User">
-                    <span class="material-symbols-outlined">Edit</span> Edit User
-                </a>
-                <button class="action-btn danger" title="Delete User">
-                    <span class="material-symbols-outlined">delete</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- User 4 -->
-        <div class="admin-list-card">
-
-            <div class="admin-card-info">
-                <h3 class="admin-card-title">
-                    Momeen
-                </h3>
-                <div class="admin-card-meta">
-                            <span class="meta-item"><span class="material-symbols-outlined">category</span>
-                                Customer</span>
-                </div>
-            </div>
-
-            <div class="admin-card-actions">
-                <a href="edit_user.html" class="action-btn" title="Edit User">
-                    <span class="material-symbols-outlined">Edit</span> Edit User
-                </a>
-                <button class="action-btn danger" title="Delete User">
-                    <span class="material-symbols-outlined">delete</span>
-                </button>
-            </div>
-        </div>
-
-
-
-
-
-
-    </div>
-
-
-
-</section>
-
-
-
-
-
+    </section>
 </main>
 
 
