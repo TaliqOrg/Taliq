@@ -1,7 +1,17 @@
 <?php
 /**
- * Points API v2.0 (Refactored)
- * Simplified - Points stored directly in User table
+ * Points API Endpoint
+ *
+ * Retrieves gamification data for authenticated users. Points are stored
+ * directly in the User table. Supports fetching user points with streak
+ * data and level information, as well as listing all available levels.
+ * Includes fallback support for both Level and LevelDefinition table schemas.
+ *
+ * @package    Taliq\Api
+ * @subpackage Points
+ * @version    2.0.0
+ *
+ * @method GET Retrieves user points/streaks or all level definitions.
  */
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -27,13 +37,11 @@ $userId = $_SESSION['user_id'];
 
 switch ($action) {
     case 'get_user_points':
-        // Get points directly from User table
         $stmt = $pdo->prepare("SELECT Points, CurrentStreak, LongestStreak FROM User WHERE UserId = ?");
         $stmt->execute([$userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if ($user) {
-            // Get level info - try Level table first, then LevelDefinition
             try {
                 $stmt = $pdo->prepare("SELECT * FROM Level WHERE MinPoints <= ? ORDER BY MinPoints DESC LIMIT 1");
                 $stmt->execute([$user['Points']]);

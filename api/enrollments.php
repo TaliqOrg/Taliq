@@ -1,4 +1,18 @@
 <?php
+/**
+ * Enrollments API Endpoint
+ *
+ * Manages user enrollment operations for authenticated users. Provides actions
+ * to retrieve all enrolled courses with progress data, get detailed progress
+ * for a specific course, and check enrollment status.
+ *
+ * @package    Taliq\Api
+ * @subpackage Enrollments
+ * @version    1.0.0
+ *
+ * @method GET Retrieves user enrollments, course progress, and enrollment status.
+ */
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -28,11 +42,9 @@ $userId = $_SESSION['user_id'];
 if ($method === 'GET') {
     switch ($action) {
         case 'my_courses':
-            // Get all user enrollments with progress
             $enrollments = $enrollmentModel->getUserEnrollments($userId);
             
             if ($enrollments) {
-                // Enrich with progress data
                 foreach ($enrollments as &$enrollment) {
                     $courseId = $enrollment['CourseId'];
                     $progress = $lessonModel->getCourseProgress($userId, $courseId);
@@ -57,7 +69,6 @@ if ($method === 'GET') {
             break;
 
         case 'course_progress':
-            // Get progress for a specific course
             $courseId = $_GET['course_id'] ?? null;
             
             if (!$courseId) {
@@ -66,7 +77,6 @@ if ($method === 'GET') {
                 exit;
             }
             
-            // Check enrollment
             $isEnrolled = $enrollmentModel->isUserEnrolled($userId, $courseId);
             
             if (!$isEnrolled) {
@@ -75,10 +85,7 @@ if ($method === 'GET') {
                 exit;
             }
             
-            // Get enrollment details
             $enrollment = $enrollmentModel->getEnrollment($userId, $courseId);
-            
-            // Get detailed progress
             $progress = $lessonModel->getCourseProgress($userId, $courseId);
             
             json_response([
@@ -89,7 +96,6 @@ if ($method === 'GET') {
             break;
 
         case 'check_enrollment':
-            // Check if user is enrolled in a course
             $courseId = $_GET['course_id'] ?? null;
             
             if (!$courseId) {

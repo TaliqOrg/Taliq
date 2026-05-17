@@ -1,4 +1,18 @@
 <?php
+/**
+ * Session Verification API Endpoint
+ *
+ * Checks whether the current user has an active authenticated session.
+ * Returns the authentication status along with basic user details
+ * (ID, name, email, role) if authenticated.
+ *
+ * @package    Taliq\Api
+ * @subpackage Session
+ * @version    1.0.0
+ *
+ * @method GET Returns authentication status and user data if logged in.
+ */
+
 require_once '../config/constants.php';
 require_once '../includes/functions.php';
 

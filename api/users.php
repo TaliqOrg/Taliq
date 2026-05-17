@@ -1,4 +1,19 @@
 <?php
+/**
+ * Users API Endpoint
+ *
+ * Manages user-related operations for both regular and admin users. Regular
+ * users can view their profile, update personal information, and change their
+ * password. Admin users have additional access to list all users, view individual
+ * user details, create new users, update existing users, and delete users.
+ *
+ * @package    Taliq\Api
+ * @subpackage Users
+ * @version    1.0.0
+ *
+ * @method GET  Retrieves user listings (admin), individual user data (admin), or user profile.
+ * @method POST Updates profile, changes password, and performs admin user management.
+ */
 
 require_once '../controllers/UserController.php';
 
@@ -25,6 +40,7 @@ if ($method === 'GET') {
         $userIdToFetch = $_GET['id'] ?? null;
         $result = $userController->getUserForAdmin($userIdToFetch);
         json_response($result, $result['success'] ? 200 : 404);
+
     } elseif ($action === 'profile') {
         $userId = $_SESSION['user_id'] ?? null;
         

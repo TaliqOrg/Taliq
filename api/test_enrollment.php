@@ -1,11 +1,26 @@
 <?php
+/**
+ * Enrollment Test Utility
+ *
+ * Diagnostic script for testing and verifying user enrollment functionality.
+ * Checks if the current session user is enrolled in a given course and
+ * creates an enrollment if one does not exist. Outputs enrollment details
+ * and all user enrollments for debugging purposes.
+ *
+ * @package    Taliq\Api
+ * @subpackage Testing
+ * @version    1.0.0
+ *
+ * @requires   Active user session for execution.
+ */
+
 session_start();
 
 require_once '../config/database.php';
 require_once '../models/Enrollment.php';
 
 if (!isset($_SESSION['user_id'])) {
-    die("Please log in first. Go to login page and log in with: ahmed@example.com / password123");
+    die("Please log in first to run enrollment tests.");
 }
 
 $userId = $_SESSION['user_id'];
