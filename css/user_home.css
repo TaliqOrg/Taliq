@@ -1,4 +1,10 @@
-/* --- CSS Variables (IMPORTANT) --- */
+/**
+ * user_home.css
+ * Styles for the authenticated user home dashboard including welcome banner,
+ * recent purchases, course cards, and empty state components.
+ */
+
+/* Design Tokens */
 :root {
     --bg-main: #f7f9fb;
     --surface: #ffffff;
@@ -30,7 +36,7 @@
     --nav-border-radius: 0.5rem;
 }
 
-/* --- Resets --- */
+/* Resets */
 * {
     margin: 0;
     padding: 0;
@@ -46,22 +52,21 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* Ensures footer sticks to bottom */
 }
 
-/* Removes underlines from links */
+/* Link Reset */
 a {
     text-decoration: none;
     color: inherit;
 }
 
-/* --- Utility Classes --- */
+/* Utilities */
 
 .active {
     color: var(--primary);
 }
 
-/* horizontal padding */
+/* Container */
 .container {
     padding: 0 2rem;
 }
@@ -75,7 +80,7 @@ a {
     margin-top: 1.5rem;
 }
 
-/* vertical padding */
+/* Vertical Padding */
 .py-custom {
     padding-bottom: 2rem;
 }
@@ -84,13 +89,12 @@ a {
     padding-bottom: 5rem;
 }
 
-/* Welcome banner */
+/* Welcome Banner */
 .home-banner {
     background-color: var(--primary-container);
     color: var(--on-primary);
     padding: 2.5rem 2rem;
     border-radius: var(--border-radius-lg);
-    /* border: 4px solid red; */
 }
 
 .home-title {
@@ -106,7 +110,7 @@ a {
 }
 
 
-/* past purchases section */
+/* Past Purchases */
 .past-purchases-container {
     display: flex;
     align-items: center;
@@ -114,7 +118,7 @@ a {
     padding-right: 0.5rem;
 }
 
-/* view all link for past purchases */
+/* View All Link */
 .view-all {
     color: var(--primary);
     font-weight: 700;
@@ -130,7 +134,7 @@ a {
 
 }
 
-/* for past purchases layout */
+/* Purchased Courses Layout */
 .purchased-courses-container {
     display: flex;
     flex: 1;
@@ -138,7 +142,7 @@ a {
     align-items: center;
 }
 
-/* Empty state for user home sections */
+/* Empty State */
 .empty-state-small {
     display: flex;
     align-items: center;

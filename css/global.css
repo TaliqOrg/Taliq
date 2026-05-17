@@ -1,3 +1,8 @@
+/**
+ * global.css
+ * Global design tokens, CSS resets, shared components, and utility classes
+ * used across the entire Taliq platform.
+ */
 
 :root {
     /* Background Colors */

@@ -1,3 +1,9 @@
+/**
+ * course_player.css
+ * Styles for the interactive course player, video container, lesson sidebar,
+ * progress bars, navigation controls, and points notification popup.
+ */
+
 /* Course Player Layout */
 .player-main {
     padding: 0;

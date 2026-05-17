@@ -1,3 +1,9 @@
+/**
+ * course_details.css
+ * Styles for the course detail page including hero image, info grid,
+ * curriculum sections, purchase sidebar, share button, and help modal.
+ */
+
 .breadcrumb {
     display: flex;
     align-items: center;
