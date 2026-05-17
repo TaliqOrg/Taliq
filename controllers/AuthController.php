@@ -1,17 +1,45 @@
 <?php
-    require_once '../config/constants.php';
-    require_once '../config/database.php';
-    require_once '../models/User.php';
-    require_once '../controllers/CartController.php';
-    require_once '../includes/functions.php';
+/**
+ * Authentication Controller
+ *
+ * Handles user authentication logic including login with session creation,
+ * logout with session destruction, and new user registration with validation.
+ * Syncs the user's cart from the database into the session upon successful login.
+ *
+ * @package    Taliq\Controllers
+ * @subpackage Authentication
+ * @version    1.0.0
+ */
+
+require_once '../config/constants.php';
+require_once '../config/database.php';
+require_once '../models/User.php';
+require_once '../controllers/CartController.php';
+require_once '../includes/functions.php';
 
 class AuthController {
+
+    /** @var User The User model instance. */
     private $userModel;
     
+    /**
+     * Initializes the AuthController with a User model instance.
+     */
     public function __construct() {
         $this->userModel = new User();
     }
     
+    /**
+     * Authenticates a user by email and password.
+     *
+     * Sets session variables and syncs the cart on success. Returns a redirect
+     * URL based on the user's role (admin or user).
+     *
+     * @param string $email    The user's email address.
+     * @param string $password The user's plaintext password.
+     *
+     * @return array Associative array with success status, message, redirect URL, and user data.
+     */
     public function login($email, $password) {
         $email = sanitize_input($email);
         
@@ -31,7 +59,6 @@ class AuthController {
             $_SESSION['email'] = $user['Email'];
             $_SESSION['role'] = $user['Role'];
 
-            // Load the user's cart from DB into the session
             $cartController = new CartController();
             $cartController->syncToSession($user['UserId']);
 
@@ -61,6 +88,11 @@ class AuthController {
         ];
     }
     
+    /**
+     * Logs the current user out by destroying the session.
+     *
+     * @return array Associative array with success status and message.
+     */
     public function logout() {
         session_unset();
         session_destroy();
@@ -70,6 +102,21 @@ class AuthController {
         ];
     }
     
+    /**
+     * Registers a new user account.
+     *
+     * Validates all required fields, email format, password length, and
+     * checks for duplicate emails before creating the account.
+     * Automatically logs the user in upon successful registration.
+     *
+     * @param string      $firstName   The user's first name.
+     * @param string      $lastName    The user's last name.
+     * @param string      $email       The user's email address.
+     * @param string      $password    The user's plaintext password (min 6 chars).
+     * @param string|null $phoneNumber Optional phone number.
+     *
+     * @return array Associative array with success status, message, redirect URL, and user data.
+     */
     public function register($firstName, $lastName, $email, $password, $phoneNumber = null) {
         $firstName = sanitize_input($firstName);
         $lastName = sanitize_input($lastName);

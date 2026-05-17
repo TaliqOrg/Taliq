@@ -1,4 +1,17 @@
 <?php
+/**
+ * Authentication API Endpoint
+ *
+ * Handles user authentication operations including login, registration,
+ * and logout. Accepts JSON payloads via POST and query parameters via GET.
+ *
+ * @package    Taliq\Api
+ * @subpackage Authentication
+ * @version    1.0.0
+ *
+ * @method POST Processes login, register, and logout actions via JSON body.
+ * @method GET  Processes logout action via query parameter and redirects.
+ */
 
 require_once '../controllers/AuthController.php';
 

@@ -1,12 +1,20 @@
 <?php
 /**
- * Profile Model v2.0 (Refactored)
- * Simplified model with unified points system
+ * Profile Model (Version 2)
+ *
+ * Simplified profile data layer with unified points system. Provides user info
+ * management, gamification with level progression, streak tracking, enrolled
+ * courses with accurate progress, certificates, and order history.
+ *
+ * @package    Taliq\Models
+ * @subpackage Profile
+ * @version    2.0.0
  */
 
 require_once __DIR__ . '/../config/database.php';
 
 class Profile {
+    /** @var PDO */
     private $db;
 
     public function __construct() {
@@ -14,10 +22,7 @@ class Profile {
         $this->db = $pdo;
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // USER INFO
-    // ══════════════════════════════════════════════════════════════════════════
-    
+    /** @return array|false */
     public function getUserInfo($userId) {
         $sql = "SELECT UserId, FirstName, LastName, Email, PhoneNumber, 
                        DateOfBirth, Country, City, ProfileImageUrl, 
@@ -28,6 +33,7 @@ class Profile {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /** @return bool */
     public function updateUserInfo($userId, $data) {
         $sql = "UPDATE User SET 
                     FirstName = :first_name,
@@ -52,10 +58,7 @@ class Profile {
         ]);
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // POINTS & GAMIFICATION (Simplified)
-    // ══════════════════════════════════════════════════════════════════════════
-
+    /** @return int */
     public function getPoints($userId) {
         $sql = "SELECT Points FROM User WHERE UserId = :user_id";
         $stmt = $this->db->prepare($sql);
@@ -63,12 +66,14 @@ class Profile {
         return (int)$stmt->fetchColumn();
     }
 
+    /** @return bool */
     public function addPoints($userId, $points = 50) {
         $sql = "UPDATE User SET Points = Points + :points WHERE UserId = :user_id";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':points' => $points, ':user_id' => $userId]);
     }
 
+    /** @return array */
     public function getUserLevel($userId) {
         $points = $this->getPoints($userId);
         
@@ -94,12 +99,11 @@ class Profile {
         return $level;
     }
 
+    /** @return array */
     public function getGamificationStats($userId) {
         $user = $this->getUserInfo($userId);
         $level = $this->getUserLevel($userId);
         $nextLevel = $this->getNextLevel($level['LevelNumber']);
-        
-        // Calculate progress to next level
         $progressPercentage = 0;
         if ($nextLevel && $level['MaxPoints']) {
             $pointsInLevel = $user['Points'] - $level['MinPoints'];
@@ -124,6 +128,7 @@ class Profile {
         ];
     }
 
+    /** @return array|false */
     private function getNextLevel($currentLevelNumber) {
         $sql = "SELECT * FROM Level WHERE LevelNumber = :level";
         $stmt = $this->db->prepare($sql);
@@ -131,6 +136,7 @@ class Profile {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /** @return array */
     public function getAllLevels() {
         $sql = "SELECT * FROM Level ORDER BY LevelNumber ASC";
         $stmt = $this->db->prepare($sql);
@@ -138,6 +144,7 @@ class Profile {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /** @return int */
     public function updateStreak($userId) {
         $sql = "SELECT LastActivityDate, CurrentStreak, LongestStreak FROM User WHERE UserId = :user_id";
         $stmt = $this->db->prepare($sql);
@@ -179,10 +186,7 @@ class Profile {
         return $currentStreak;
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // ENROLLED COURSES
-    // ══════════════════════════════════════════════════════════════════════════
-
+    /** @return array */
     public function getEnrolledCourses($userId) {
         // Get course enrollments with accurate progress
         $sql = "SELECT 
@@ -207,8 +211,6 @@ class Profile {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId]);
         $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Calculate accurate progress for each course
         foreach ($courses as &$course) {
             if ($course['TotalLessons'] > 0) {
                 $course['ProgressPercentage'] = round(($course['CompletedLessons'] / $course['TotalLessons']) * 100, 2);
@@ -241,10 +243,7 @@ class Profile {
         return array_merge($courses, $workshops);
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // CERTIFICATES
-    // ══════════════════════════════════════════════════════════════════════════
-
+    /** @return array */
     public function getCertificates($userId) {
         $sql = "SELECT 
                     cert.CertificateId,
@@ -264,6 +263,7 @@ class Profile {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /** @return int */
     public function getCertificatesCount($userId) {
         $sql = "SELECT COUNT(*) FROM Certificate WHERE UserId = :user_id";
         $stmt = $this->db->prepare($sql);
@@ -271,10 +271,7 @@ class Profile {
         return (int)$stmt->fetchColumn();
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // ORDER HISTORY
-    // ══════════════════════════════════════════════════════════════════════════
-
+    /** @return array */
     public function getOrders($userId) {
         $sql = "SELECT 
                     o.OrderId,
@@ -314,6 +311,7 @@ class Profile {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /** @return array|false */
     public function getOrderById($orderId, $userId) {
         $sql = "SELECT * FROM `Order` WHERE OrderId = :order_id AND UserId = :user_id";
         $stmt = $this->db->prepare($sql);

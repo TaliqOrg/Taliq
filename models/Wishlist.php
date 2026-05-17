@@ -1,4 +1,15 @@
 <?php
+/**
+ * Wishlist Model
+ *
+ * Handles all wishlist database operations including adding, removing,
+ * checking item presence, retrieving all items with metadata, counting
+ * items, fetching item identifiers, and clearing the wishlist.
+ *
+ * @package    Taliq\Models
+ * @subpackage Wishlist
+ * @version    1.0.0
+ */
 
 class Wishlist {
     private $db;
@@ -8,6 +19,15 @@ class Wishlist {
         $this->db = $pdo;
     }
 
+    /**
+     * Adds a course or workshop to the user's wishlist.
+     *
+     * @param int      $userId     The user's ID.
+     * @param int|null $courseId   The course ID, or null.
+     * @param int|null $workshopId The workshop ID, or null.
+     *
+     * @return bool True on success.
+     */
     public function add($userId, $courseId, $workshopId) {
         if ($courseId) {
             $sql = "INSERT IGNORE INTO Wishlist (UserId, CourseId) VALUES (:user_id, :course_id)";
@@ -20,6 +40,15 @@ class Wishlist {
         }
     }
 
+    /**
+     * Removes a course or workshop from the user's wishlist.
+     *
+     * @param int      $userId     The user's ID.
+     * @param int|null $courseId   The course ID, or null.
+     * @param int|null $workshopId The workshop ID, or null.
+     *
+     * @return bool True on success.
+     */
     public function remove($userId, $courseId, $workshopId) {
         if ($courseId) {
             $sql = "DELETE FROM Wishlist WHERE UserId = :user_id AND CourseId = :course_id";
@@ -32,6 +61,15 @@ class Wishlist {
         }
     }
 
+    /**
+     * Checks if a specific item exists in the user's wishlist.
+     *
+     * @param int      $userId     The user's ID.
+     * @param int|null $courseId   The course ID, or null.
+     * @param int|null $workshopId The workshop ID, or null.
+     *
+     * @return bool True if the item is in the wishlist.
+     */
     public function isInWishlist($userId, $courseId, $workshopId) {
         if ($courseId) {
             $sql = "SELECT WishlistId FROM Wishlist WHERE UserId = :user_id AND CourseId = :course_id LIMIT 1";
@@ -45,6 +83,13 @@ class Wishlist {
         return $stmt->fetch() !== false;
     }
 
+    /**
+     * Retrieves all wishlist items with full course/workshop metadata.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return array Array of wishlist items with Title, Price, ThumbnailUrl, etc.
+     */
     public function getAll($userId) {
         $sql = "SELECT 
                     w.WishlistId,
@@ -69,6 +114,13 @@ class Wishlist {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Returns the total number of items in the user's wishlist.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return int The wishlist item count.
+     */
     public function getCount($userId) {
         $sql = "SELECT COUNT(*) as count FROM Wishlist WHERE UserId = :user_id";
         $stmt = $this->db->prepare($sql);
@@ -77,6 +129,13 @@ class Wishlist {
         return $result ? (int)$result['count'] : 0;
     }
 
+    /**
+     * Returns all wishlist item keys in 'type_id' format for client-side lookups.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return array Array of item key strings (e.g., 'course_5', 'workshop_3').
+     */
     public function getWishlistIds($userId) {
         $sql = "SELECT 
                     CASE WHEN CourseId IS NOT NULL THEN CONCAT('course_', CourseId) ELSE CONCAT('workshop_', WorkshopId) END AS item_key
@@ -88,6 +147,13 @@ class Wishlist {
         return $results;
     }
 
+    /**
+     * Removes all items from the user's wishlist.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return bool True on success.
+     */
     public function clear($userId) {
         $sql = "DELETE FROM Wishlist WHERE UserId = :user_id";
         $stmt = $this->db->prepare($sql);

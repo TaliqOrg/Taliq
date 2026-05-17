@@ -1,7 +1,17 @@
 <?php
 /**
- * Course Player API v2.0 (Refactored)
- * Simplified - Points stored directly in User table
+ * Course Player API Endpoint
+ *
+ * Provides the core functionality for the course player interface including
+ * lesson retrieval, course content loading, lesson completion tracking,
+ * watch time updates, progress reporting, and automatic certificate issuance.
+ *
+ * @package    Taliq\Api
+ * @subpackage CoursePlayer
+ * @version    2.0.0
+ *
+ * @method GET  Retrieves lesson details, course content, and progress data.
+ * @method POST Marks lessons as complete and updates watch time.
  */
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -18,7 +28,7 @@ require_once '../models/Certificate.php';
 
 global $pdo;
 
-$lessonModel    = new Lesson();
+$lessonModel     = new Lesson();
 $enrollmentModel = new Enrollment();
 $courseModel    = new Course();
 $certModel      = new Certificate();
@@ -137,7 +147,6 @@ switch ($action) {
             exit;
         }
 
-        // Check if already completed (to prevent duplicate points)
         $existingProgress = $lessonModel->getLessonProgress($userId, $lessonId);
         $alreadyCompleted = $existingProgress && $existingProgress['IsCompleted'];
 
@@ -146,12 +155,10 @@ switch ($action) {
         if ($result) {
             $progress = $lessonModel->getCourseProgress($userId, $courseId);
 
-            // Get updated user points from User table
             $stmt = $pdo->prepare("SELECT Points FROM User WHERE UserId = ?");
             $stmt->execute([$userId]);
             $userPoints = (int)$stmt->fetchColumn();
 
-            // Auto-issue certificate when all lessons are done
             $certificateIssued = false;
             if ($progress && $progress['progress_percentage'] >= 100) {
                 if (!$certModel->alreadyIssued($userId, $courseId)) {

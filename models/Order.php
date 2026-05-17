@@ -1,4 +1,16 @@
 <?php
+/**
+ * Order Model
+ *
+ * Handles order persistence and related enrollment/registration creation.
+ * Supports creating orders, adding order items, enrolling users in courses,
+ * registering users for workshops with seat management, and retrieving
+ * order history with item details.
+ *
+ * @package    Taliq\Models
+ * @subpackage Order
+ * @version    1.0.0
+ */
 
 class Order {
     private $db;
@@ -8,7 +20,14 @@ class Order {
         $this->db = $pdo;
     }
 
-    // Create a new order and return the new OrderId
+    /**
+     * Creates a new order record and returns the generated order ID.
+     *
+     * @param int   $userId      The user's ID.
+     * @param float $totalAmount The order's total amount.
+     *
+     * @return int The new order ID.
+     */
     public function createOrder($userId, $totalAmount) {
         $sql = "INSERT INTO `Order` (UserId, TotalAmount, Status)
                 VALUES (:user_id, :total, 'completed')";
@@ -20,7 +39,18 @@ class Order {
         return $this->db->lastInsertId();
     }
 
-    // Add one item to an order
+    /**
+     * Adds a single item to an existing order.
+     *
+     * @param int      $orderId    The order ID.
+     * @param int|null $courseId   The course ID, or null.
+     * @param int|null $workshopId The workshop ID, or null.
+     * @param int      $quantity   The item quantity.
+     * @param float    $unitPrice  The unit price.
+     * @param float    $subtotal   The line item subtotal.
+     *
+     * @return void
+     */
     public function addOrderItem($orderId, $courseId, $workshopId, $quantity, $unitPrice, $subtotal) {
         $sql = "INSERT INTO OrderItem (OrderId, CourseId, WorkshopId, Quantity, UnitPrice, Subtotal)
                 VALUES (:order_id, :course_id, :workshop_id, :qty, :unit_price, :subtotal)";
@@ -35,15 +65,21 @@ class Order {
         ]);
     }
 
-    // Create enrollment for a course
+    /**
+     * Creates a course enrollment for a user if not already enrolled.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $courseId The course ID.
+     *
+     * @return bool True on success, false if already enrolled.
+     */
     public function createEnrollment($userId, $courseId) {
-        // Check if already enrolled
         $sql = "SELECT EnrollmentId FROM Enrollment WHERE UserId = :user_id AND CourseId = :course_id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId, ':course_id' => $courseId]);
         
         if ($stmt->fetch()) {
-            return false; // Already enrolled
+            return false;
         }
         
         $sql = "INSERT INTO Enrollment (UserId, CourseId, CompletionStatus)
@@ -53,15 +89,23 @@ class Order {
         return true;
     }
 
-    // Create workshop registration
+    /**
+     * Creates a workshop registration for a user if not already registered.
+     *
+     * Decrements available seats upon successful registration.
+     *
+     * @param int $userId     The user's ID.
+     * @param int $workshopId The workshop ID.
+     *
+     * @return bool True on success, false if already registered.
+     */
     public function createWorkshopRegistration($userId, $workshopId) {
-        // Check if already registered
         $sql = "SELECT WorkshopRegistrationId FROM WorkshopRegistration WHERE UserId = :user_id AND WorkshopId = :workshop_id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId, ':workshop_id' => $workshopId]);
 
         if ($stmt->fetch()) {
-            return false; // Already registered
+            return false;
         }
 
         $sql = "INSERT INTO WorkshopRegistration (UserId, WorkshopId, AttendanceStatus)
@@ -69,7 +113,6 @@ class Order {
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId, ':workshop_id' => $workshopId]);
 
-        // Decrement available seats — GREATEST keeps it from going below 0
         $this->db->prepare(
             "UPDATE WorkshopSession
              SET AvailableSeats = GREATEST(AvailableSeats - 1, 0)
@@ -79,7 +122,13 @@ class Order {
         return true;
     }
 
-    // Get all orders for a user (for past purchases)
+    /**
+     * Retrieves all orders for a user with associated item details.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return array Array of order records with item metadata.
+     */
     public function getOrdersByUser($userId) {
         $sql = "SELECT o.OrderId, o.TotalAmount, o.Status, o.OrderDate,
                        oi.CourseId, oi.WorkshopId, oi.Quantity, oi.UnitPrice, oi.Subtotal,

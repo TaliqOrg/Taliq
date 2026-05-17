@@ -1,4 +1,16 @@
 <?php
+/**
+ * Course Model
+ *
+ * Handles all course and workshop database operations. Provides methods for
+ * retrieving published listings (courses + workshops via UNION), individual
+ * course lookups, admin CRUD operations with thumbnail uploads, and
+ * curriculum retrieval with associated lessons.
+ *
+ * @package    Taliq\Models
+ * @subpackage Course
+ * @version    1.0.0
+ */
 
 class Course {
     private $db;
@@ -8,6 +20,11 @@ class Course {
         $this->db = $pdo;
     }
 
+    /**
+     * Retrieves all published courses and workshops, ordered by creation date.
+     *
+     * @return array Array of published course/workshop records.
+     */
     public function getAllPublished() {
         $sql = "SELECT CourseId, Title, Description, Price, ThumbnailUrl, AverageRating, RatingCount, Level, Language, CategoryId, 'course' AS CourseType, CreatedAt
                 FROM Course
@@ -22,6 +39,14 @@ class Course {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves a single published course or workshop by ID and type.
+     *
+     * @param int    $courseId   The course or workshop ID.
+     * @param string $courseType The type: 'course' or 'workshop'.
+     *
+     * @return array|false The course record, or false if not found.
+     */
     public function getById($courseId, $courseType) {
         $table = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
@@ -31,6 +56,13 @@ class Course {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves multiple courses/workshops by an array of ID pairs.
+     *
+     * @param array $items Array of associative arrays with courseId and/or workshopId keys.
+     *
+     * @return array Array of matching course/workshop records.
+     */
     public function getByIds($items) {
         $courses = [];
         foreach ($items as $item) {
@@ -52,6 +84,11 @@ class Course {
         return $courses;
     }
 
+    /**
+     * Retrieves all courses and workshops for admin management (includes unpublished).
+     *
+     * @return array Array of all course/workshop records.
+     */
     public function getAllForAdmin() {
         $sql = "SELECT CourseId, Title, Price, ThumbnailUrl, IsPublished, 'course' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
                 FROM Course
@@ -64,6 +101,14 @@ class Course {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves a single course or workshop for admin editing (no publish filter).
+     *
+     * @param int    $courseId   The course or workshop ID.
+     * @param string $courseType The type: 'course' or 'workshop'.
+     *
+     * @return array|false The course record, or false if not found.
+     */
     public function getByIdForAdmin($courseId, $courseType) {
         $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
@@ -73,6 +118,16 @@ class Course {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Updates an existing course or workshop record.
+     *
+     * @param int         $courseId     The course or workshop ID.
+     * @param string      $courseType   The type: 'course' or 'workshop'.
+     * @param array       $data         Associative array of field values.
+     * @param string|null $thumbnailUrl The new thumbnail URL, or null to keep existing.
+     *
+     * @return bool True on success.
+     */
     public function updateCourse($courseId, $courseType, $data, $thumbnailUrl) {
         $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
@@ -101,6 +156,14 @@ class Course {
         return $stmt->execute($params);
     }
 
+    /**
+     * Deletes a course or workshop by ID and type.
+     *
+     * @param int    $courseId   The course or workshop ID.
+     * @param string $courseType The type: 'course' or 'workshop'.
+     *
+     * @return bool True on success.
+     */
     public function deleteCourse($courseId, $courseType) {
         $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
@@ -109,6 +172,14 @@ class Course {
         return $stmt->execute([':id' => $courseId]);
     }
 
+    /**
+     * Creates a new course record in the database.
+     *
+     * @param array       $data         Associative array of course fields.
+     * @param string|null $thumbnailUrl The thumbnail URL for the course.
+     *
+     * @return int|false The new course ID, or false on failure.
+     */
     public function createCourse($data, $thumbnailUrl) {
         $sql = "INSERT INTO Course
                     (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished)
@@ -131,6 +202,14 @@ class Course {
         return $this->db->lastInsertId();
     }
 
+    /**
+     * Retrieves a course with its associated lessons list.
+     *
+     * @param int    $courseId   The course ID.
+     * @param string $courseType The type: 'course' or 'workshop'.
+     *
+     * @return array|false The course record with a 'lessons' key, or false if not found.
+     */
     public function getByIdWithLessons($courseId, $courseType) {
         
         $course = $this->getById($courseId, $courseType);

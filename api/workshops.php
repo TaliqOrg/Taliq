@@ -1,4 +1,16 @@
 <?php
+/**
+ * Workshops API Endpoint
+ *
+ * Provides workshop-related data retrieval. Currently supports fetching
+ * session schedules for a specific workshop by its ID.
+ *
+ * @package    Taliq\Api
+ * @subpackage Workshops
+ * @version    1.0.0
+ *
+ * @method GET Retrieves workshop sessions by workshop ID.
+ */
 
 require_once '../config/constants.php';
 require_once '../config/database.php';

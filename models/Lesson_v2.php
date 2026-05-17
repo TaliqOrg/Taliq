@@ -1,12 +1,19 @@
 <?php
 /**
- * Lesson Model v2.0 (Refactored)
- * Simplified lesson and progress management
+ * Lesson Model (Version 2)
+ *
+ * Simplified lesson and progress management model with section grouping,
+ * navigation, progress tracking, and course-level completion calculation.
+ *
+ * @package    Taliq\Models
+ * @subpackage Lesson
+ * @version    2.0.0
  */
 
 require_once __DIR__ . '/../config/database.php';
 
 class Lesson {
+    /** @var PDO */
     private $db;
 
     public function __construct() {
@@ -14,10 +21,7 @@ class Lesson {
         $this->db = $pdo;
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // LESSON RETRIEVAL
-    // ══════════════════════════════════════════════════════════════════════════
-
+    /** @return array */
     public function getLessonsByCourse($courseId) {
         $sql = "SELECT LessonId, CourseId, SectionTitle, Title, Description, 
                        ContentType, ContentUrl, Duration, SortOrder
@@ -29,6 +33,7 @@ class Lesson {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /** @return array|false */
     public function getLessonById($lessonId) {
         $sql = "SELECT l.*, c.Title as CourseTitle 
                 FROM Lesson l
@@ -39,6 +44,7 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /** @return array|false */
     public function getNextLesson($courseId, $currentSortOrder) {
         $sql = "SELECT LessonId, Title, SortOrder 
                 FROM Lesson 
@@ -50,6 +56,7 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /** @return array|false */
     public function getPreviousLesson($courseId, $currentSortOrder) {
         $sql = "SELECT LessonId, Title, SortOrder 
                 FROM Lesson 
@@ -61,6 +68,7 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /** @return array */
     public function getLessonsBySectionGrouped($courseId) {
         $lessons = $this->getLessonsByCourse($courseId);
         
@@ -81,10 +89,7 @@ class Lesson {
         return array_values($sections);
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // LESSON PROGRESS
-    // ══════════════════════════════════════════════════════════════════════════
-
+    /** @return array|false */
     public function getLessonProgress($userId, $lessonId) {
         $sql = "SELECT * FROM LessonProgress 
                 WHERE UserId = :user_id AND LessonId = :lesson_id";
@@ -93,12 +98,12 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /** @return bool */
     public function markAsComplete($userId, $lessonId, $courseId) {
-        // Check if already completed
         $existing = $this->getLessonProgress($userId, $lessonId);
         
         if ($existing && $existing['IsCompleted']) {
-            return true; // Already completed, no duplicate points
+            return true;
         }
         
         if ($existing) {
@@ -120,11 +125,10 @@ class Lesson {
                 ':course_id' => $courseId
             ]);
         }
-        
-        // Note: Points are awarded by database trigger
         return $result;
     }
 
+    /** @return bool */
     public function updateWatchTime($userId, $lessonId, $courseId, $seconds) {
         $existing = $this->getLessonProgress($userId, $lessonId);
         
@@ -151,29 +155,25 @@ class Lesson {
         }
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // COURSE PROGRESS
-    // ══════════════════════════════════════════════════════════════════════════
-
+    /** @return array */
     public function getCourseProgress($userId, $courseId) {
-        // Get total lessons
         $sql = "SELECT COUNT(*) FROM Lesson WHERE CourseId = :course_id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':course_id' => $courseId]);
         $totalLessons = (int)$stmt->fetchColumn();
-        
+
         // Get completed lessons
         $sql = "SELECT COUNT(*) FROM LessonProgress 
                 WHERE UserId = :user_id AND CourseId = :course_id AND IsCompleted = TRUE";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([':user_id' => $userId, ':course_id' => $courseId]);
         $completedLessons = (int)$stmt->fetchColumn();
-        
+
         // Calculate percentage
         $progressPercentage = $totalLessons > 0 
             ? round(($completedLessons / $totalLessons) * 100, 2) 
             : 0;
-        
+
         return [
             'total_lessons' => $totalLessons,
             'completed_lessons' => $completedLessons,
@@ -205,6 +205,7 @@ class Lesson {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /** @return array */
     public function getLessonsWithProgressGrouped($userId, $courseId) {
         $lessons = $this->getLessonsWithProgress($userId, $courseId);
         

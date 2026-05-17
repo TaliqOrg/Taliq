@@ -1,4 +1,19 @@
 <?php
+/**
+ * Courses API Endpoint
+ *
+ * Manages course-related operations for both public and admin users. Public
+ * actions include listing courses, retrieving details, fetching lessons, looking
+ * up courses by IDs, and viewing curriculum. Admin actions include listing all
+ * courses, getting a course for editing, creating, updating, and deleting courses.
+ *
+ * @package    Taliq\Api
+ * @subpackage Courses
+ * @version    1.0.0
+ *
+ * @method GET  Retrieves course listings, details, lessons, curriculum, and admin views.
+ * @method POST Admin-only operations: create, update, and delete courses.
+ */
 
 require_once '../controllers/CourseController.php';
 require_once '../includes/functions.php';

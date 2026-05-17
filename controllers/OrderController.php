@@ -1,4 +1,16 @@
 <?php
+/**
+ * Order Controller
+ *
+ * Handles the purchase workflow by converting cart items into a finalized order.
+ * Creates order records, saves individual order items, enrolls users in purchased
+ * courses, registers users for purchased workshops, and empties the cart upon
+ * successful completion.
+ *
+ * @package    Taliq\Controllers
+ * @subpackage Orders
+ * @version    1.0.0
+ */
 
 require_once '../config/constants.php';
 require_once '../config/database.php';
@@ -7,6 +19,7 @@ require_once '../controllers/CartController.php';
 require_once '../includes/functions.php';
 
 class OrderController {
+    
     private $orderModel;
     private $cartController;
 
@@ -15,9 +28,18 @@ class OrderController {
         $this->cartController = new CartController();
     }
 
-    // Complete the purchase: create order in DB, save items, empty the cart
+    /**
+     * Completes the purchase for a user.
+     *
+     * Retrieves cart items, creates an order record, saves each item as an
+     * order line, creates enrollments/registrations for courses and workshops,
+     * empties the cart, and returns the purchased items for client-side use.
+     *
+     * @param int $userId The authenticated user's ID.
+     *
+     * @return array Associative array with success status, message, order ID, and purchased items.
+     */
     public function completePurchase($userId) {
-        // Get the current cart items
         $cartData = $this->cartController->getCartItems($userId);
 
         if (!$cartData['success'] || count($cartData['items']) === 0) {
@@ -30,10 +52,8 @@ class OrderController {
         $items = $cartData['items'];
         $total = $cartData['total'];
 
-        // Create the order in DB
         $orderId = $this->orderModel->createOrder($userId, $total);
 
-        // Save each cart item as an order item and create enrollments
         foreach ($items as $item) {
             $this->orderModel->addOrderItem(
                 $orderId,
@@ -44,7 +64,6 @@ class OrderController {
                 $item['Subtotal']
             );
             
-            // Create enrollment for courses or registration for workshops
             if (!empty($item['CourseId'])) {
                 $this->orderModel->createEnrollment($userId, $item['CourseId']);
             }
@@ -53,10 +72,8 @@ class OrderController {
             }
         }
 
-        // Empty the cart after successful purchase
         $this->cartController->emptyCart($userId);
 
-        // Prepare purchased items for cookie storage
         $purchasedItems = [];
         foreach ($items as $item) {
             if (!empty($item['CourseId'])) {

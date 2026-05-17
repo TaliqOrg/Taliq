@@ -1,7 +1,17 @@
 <?php
 /**
- * Course Player API v2.0 (Refactored)
- * Simplified API with unified points system
+ * Course Player API Endpoint (Version 2)
+ *
+ * Simplified course player API with a unified points system. Handles lesson
+ * retrieval with progress data, course content with sections, lesson completion
+ * marking with points, watch time tracking, and progress reporting.
+ *
+ * @package    Taliq\Api
+ * @subpackage CoursePlayer
+ * @version    2.0.0
+ *
+ * @method GET  Retrieves lesson details, course content, and progress.
+ * @method POST Marks lessons as complete and updates watch time.
  */
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -22,7 +32,6 @@ $courseModel = new Course();
 $method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? '';
 
-// Check authentication
 if (!isset($_SESSION['user_id'])) {
     http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Unauthorized. Please log in.']);
@@ -49,7 +58,6 @@ switch ($action) {
             exit;
         }
         
-        // Check enrollment
         $isEnrolled = $enrollmentModel->isUserEnrolled($userId, $lesson['CourseId']);
         
         if (!$isEnrolled) {
