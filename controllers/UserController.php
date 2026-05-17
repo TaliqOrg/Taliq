@@ -1,4 +1,18 @@
 <?php
+/**
+ * User Controller
+ *
+ * Manages user account operations for both regular users and administrators.
+ * Regular users can view their profile, update personal information, and change
+ * their password. Administrators have additional access to list all users,
+ * view individual user details, create new users, update existing users, and
+ * delete user accounts.
+ *
+ * @package    Taliq\Controllers
+ * @subpackage Users
+ * @version    1.0.0
+ */
+
 require_once '../config/constants.php';
 require_once '../config/database.php';
 require_once '../models/User.php';
@@ -13,6 +27,13 @@ class UserController
         $this->userModel = new User();
     }
 
+    /**
+     * Retrieves the profile data for a specific user.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return array Associative array with success status and user data.
+     */
     public function getProfile($userId)
     {
         if (empty($userId)) {
@@ -44,6 +65,20 @@ class UserController
         ];
     }
 
+    /**
+     * Updates a user's profile information.
+     *
+     * Sanitizes inputs, validates required fields and email format, checks
+     * for email uniqueness, and syncs the session on success.
+     *
+     * @param int         $userId      The user's ID.
+     * @param string      $firstName   The updated first name.
+     * @param string      $lastName    The updated last name.
+     * @param string      $email       The updated email address.
+     * @param string|null $phoneNumber The updated phone number (optional).
+     *
+     * @return array Associative array with success status, message, and updated user data.
+     */
     public function updateProfile($userId, $firstName, $lastName, $email, $phoneNumber = null)
     {
         $firstName = sanitize_input($firstName);
@@ -104,6 +139,15 @@ class UserController
         ];
     }
 
+    /**
+     * Changes the user's password after verifying the current one.
+     *
+     * @param int    $userId          The user's ID.
+     * @param string $currentPassword The current password for verification.
+     * @param string $newPassword     The new password (min 6 characters).
+     *
+     * @return array Associative array with success status and message.
+     */
     public function changePassword($userId, $currentPassword, $newPassword)
     {
         if (empty($userId)) {
@@ -149,6 +193,11 @@ class UserController
         ];
     }
 
+    /**
+     * Retrieves all users in the system (admin only).
+     *
+     * @return array Associative array with success status and users list.
+     */
     public function getAllUsers()
     {
         $users = $this->userModel->getAll();
@@ -158,6 +207,13 @@ class UserController
         ];
     }
 
+    /**
+     * Deletes a user account by ID (admin only).
+     *
+     * @param int $userId The user ID to delete.
+     *
+     * @return array Associative array with success status and message.
+     */
     public function deleteUser($userId)
     {
         if (empty($userId)) {
@@ -172,7 +228,13 @@ class UserController
         return ['success' => false, 'message' => 'Failed to delete user'];
     }
 
-    // --- FOR ADMIN EDIT USER ---
+    /**
+     * Retrieves a user's full details for admin editing.
+     *
+     * @param int $userId The user ID to retrieve.
+     *
+     * @return array Associative array with success status and user data.
+     */
     public function getUserForAdmin($userId)
     {
         if (empty($userId)) return ['success' => false, 'message' => 'User ID is required'];
@@ -184,6 +246,17 @@ class UserController
         return ['success' => false, 'message' => 'User not found'];
     }
 
+    /**
+     * Updates a user's details from the admin panel.
+     *
+     * Sanitizes inputs, validates required fields, checks email uniqueness,
+     * and optionally updates the password if provided.
+     *
+     * @param int   $userId The user ID to update.
+     * @param array $data   Associative array with first_name, last_name, email, role, and optional password.
+     *
+     * @return array Associative array with success status and message.
+     */
     public function adminUpdateUser($userId, $data)
     {
         if (empty($userId)) return ['success' => false, 'message' => 'User ID is required'];
@@ -212,7 +285,16 @@ class UserController
         return ['success' => false, 'message' => 'Failed to update user'];
     }
 
-    // --- FOR ADMIN CREATE USER ---
+    /**
+     * Creates a new user account from the admin panel.
+     *
+     * Validates all required fields, email format, email uniqueness,
+     * and minimum password length before creating.
+     *
+     * @param array $data Associative array with first_name, last_name, email, role, and password.
+     *
+     * @return array Associative array with success status and message.
+     */
     public function adminCreateUser($data) {
         $firstName = trim(sanitize_input($data['first_name'] ?? ''));
         $lastName  = trim(sanitize_input($data['last_name'] ?? ''));
@@ -227,7 +309,7 @@ class UserController
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return ['success' => false, 'message' => 'Invalid email format.'];
         }
-        
+
 
         if ($this->userModel->emailExists($email)) {
             return ['success' => false, 'message' => 'Email is already in use by another account.'];
