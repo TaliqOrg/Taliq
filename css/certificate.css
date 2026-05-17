@@ -1,3 +1,9 @@
+/**
+ * certificate.css
+ * Styles for the printable course completion certificate page,
+ * including layout, typography, and print media overrides.
+ */
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {

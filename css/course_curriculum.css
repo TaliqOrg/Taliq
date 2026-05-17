@@ -1,3 +1,9 @@
+/**
+ * course_curriculum.css
+ * Styles for the admin curriculum editor layout, lesson items,
+ * drag handles, and content type icon indicators.
+ */
+
 .curriculum-layout {
     display: flex;
     flex-wrap: wrap;

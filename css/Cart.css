@@ -1,4 +1,9 @@
-/* --- Cart Page Specific Styles --- */
+/**
+ * Cart.css
+ * Styles for the shopping cart page layout, cart items, and order summary sidebar.
+ */
+
+/* Cart Page */
 
 /* Cart page header with title and empty button */
 .cart-header {

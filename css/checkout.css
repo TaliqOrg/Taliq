@@ -1,4 +1,10 @@
-/* --- Checkout & Cart Specific Styles --- */
+/**
+ * checkout.css
+ * Styles for the checkout page layout, payment form fields,
+ * validation states, and order summary components.
+ */
+
+/* Checkout Layout */
 
 /* Layouts */
 .checkout-layout {
