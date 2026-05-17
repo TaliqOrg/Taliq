@@ -1,3 +1,11 @@
+/**
+ * @file contact.js
+ * @description Handles contact form validation and submission via the contact API.
+ * Validates email format, required fields, and minimum message length before
+ * sending data asynchronously and displaying success/error feedback.
+ * @version 1.0.0
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('contact-form');
     if (!form) return;
@@ -70,6 +78,13 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+/**
+ * Displays a feedback message with a type-based CSS class.
+ *
+ * @param {HTMLElement} el - The message container element.
+ * @param {string} text - The message text to display.
+ * @param {string} type - The message type ('success' or 'error').
+ */
 function showMessage(el, text, type) {
     el.textContent = text;
     el.className   = 'form-message form-message-' + type;

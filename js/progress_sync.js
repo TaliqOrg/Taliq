@@ -1,7 +1,9 @@
 /**
- * Progress Sync Module v2.0
- * Centralized progress and points synchronization across the platform
- * Points are now stored directly in User table
+ * @file progress_sync.js
+ * @description Centralized progress and points synchronization module.
+ * Provides caching, event-based updates, and auto-refresh for course progress
+ * and user points across the platform. Points are stored in the User table.
+ * @version 2.0.0
  */
 
 class ProgressSync {
@@ -12,7 +14,10 @@ class ProgressSync {
     }
 
     /**
-     * Get course progress with caching
+     * Fetches course progress with caching support.
+     * @param {string} courseId - The course ID.
+     * @param {boolean} [forceRefresh=false] - Bypass the cache.
+     * @returns {Promise<Object|null>} The progress data or null on failure.
      */
     async getCourseProgress(courseId, forceRefresh = false) {
         const cacheKey = `course_${courseId}`;
@@ -29,7 +34,7 @@ class ProgressSync {
                 this.progressCache.set(cacheKey, data);
                 this.notifyListeners('progress_updated', { courseId, data });
                 
-                // Also update points cache
+
                 if (data.user_points !== undefined) {
                     this.pointsCache = { TotalPoints: data.user_points };
                     this.notifyListeners('points_updated', this.pointsCache);
@@ -46,7 +51,9 @@ class ProgressSync {
     }
 
     /**
-     * Get all user enrollments with progress
+     * Fetches all user enrollments with progress data.
+     * @param {boolean} [forceRefresh=false] - Bypass the cache.
+     * @returns {Promise<Array<Object>>} The enrolled courses array.
      */
     async getAllEnrollments(forceRefresh = false) {
         const cacheKey = 'all_enrollments';
@@ -73,7 +80,9 @@ class ProgressSync {
     }
 
     /**
-     * Get user points with caching (from User table)
+     * Fetches user points from the User table.
+     * @param {boolean} [forceRefresh=false] - Bypass the cache.
+     * @returns {Promise<Object>} The points data object.
      */
     async getUserPoints(forceRefresh = false) {
         if (!forceRefresh && this.pointsCache !== null) {
@@ -98,7 +107,8 @@ class ProgressSync {
     }
 
     /**
-     * Refresh all data
+     * Clears all caches and re-fetches enrollments and points.
+     * @returns {Promise<{enrollments: Array, points: Object}>}
      */
     async refreshAll() {
         this.progressCache.clear();
@@ -115,20 +125,24 @@ class ProgressSync {
     }
 
     /**
-     * Refresh specific course progress
+     * Refreshes progress for a specific course and syncs points.
+     * @param {string} courseId - The course ID to refresh.
+     * @returns {Promise<{progress: Object, points: Object}>}
      */
     async refreshCourseProgress(courseId) {
         const progress = await this.getCourseProgress(courseId, true);
         const points = await this.getUserPoints(true);
         
-        // Also refresh all enrollments to keep them in sync
+
         await this.getAllEnrollments(true);
 
         return { progress, points };
     }
 
     /**
-     * Subscribe to progress/points updates
+     * Subscribes a callback to a named event.
+     * @param {string} event - The event name.
+     * @param {Function} callback - The listener function.
      */
     on(event, callback) {
         if (!this.listeners.has(event)) {
@@ -138,7 +152,9 @@ class ProgressSync {
     }
 
     /**
-     * Unsubscribe from updates
+     * Unsubscribes a callback from a named event.
+     * @param {string} event - The event name.
+     * @param {Function} callback - The listener to remove.
      */
     off(event, callback) {
         if (this.listeners.has(event)) {
@@ -151,7 +167,9 @@ class ProgressSync {
     }
 
     /**
-     * Notify all listeners of an event
+     * Dispatches an event to all registered listeners.
+     * @param {string} event - The event name.
+     * @param {*} data - The event payload.
      */
     notifyListeners(event, data) {
         if (this.listeners.has(event)) {
@@ -166,7 +184,7 @@ class ProgressSync {
     }
 
     /**
-     * Clear all caches
+     * Clears all cached progress and points data.
      */
     clearCache() {
         this.progressCache.clear();
@@ -174,22 +192,24 @@ class ProgressSync {
     }
 
     /**
-     * Update progress display elements
+     * Updates progress bar, text, and lesson count elements in the DOM.
+     * @param {string} courseId - The course ID.
+     * @param {Object} progress - The progress data.
      */
     updateProgressDisplay(courseId, progress) {
-        // Update progress bars
+
         const progressBars = document.querySelectorAll(`[data-course-id="${courseId}"] .progress-fill`);
         progressBars.forEach(bar => {
             bar.style.width = `${progress.progress_percentage}%`;
         });
 
-        // Update progress text
+
         const progressTexts = document.querySelectorAll(`[data-course-id="${courseId}"] .progress-text`);
         progressTexts.forEach(text => {
             text.textContent = `${Math.round(progress.progress_percentage)}% Complete`;
         });
 
-        // Update lesson count
+
         const lessonCounts = document.querySelectorAll(`[data-course-id="${courseId}"] .lesson-count`);
         lessonCounts.forEach(count => {
             count.textContent = `${progress.completed_lessons} of ${progress.total_lessons} lessons completed`;
@@ -197,7 +217,8 @@ class ProgressSync {
     }
 
     /**
-     * Update points display elements
+     * Updates points and lifetime points display elements in the DOM.
+     * @param {Object} points - The points data object.
      */
     updatePointsDisplay(points) {
         const pointsDisplays = document.querySelectorAll('.user-points-display, #userPointsDisplay');
@@ -212,17 +233,17 @@ class ProgressSync {
     }
 }
 
-// Create global instance
+/** @type {ProgressSync} Global progress sync instance. */
 window.progressSync = new ProgressSync();
 
-// Auto-refresh on page visibility change (when user returns to tab)
+/** Triggers a full data refresh when the user returns to the tab. */
 document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
         window.progressSync.refreshAll();
     }
 });
 
-// Auto-refresh every 5 minutes (optional, can be disabled)
+/** Auto-refreshes all synced data every 5 minutes. */
 setInterval(() => {
     window.progressSync.refreshAll();
 }, 5 * 60 * 1000);

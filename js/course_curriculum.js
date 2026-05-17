@@ -1,3 +1,11 @@
+/**
+ * @file course_curriculum.js
+ * @description Admin course curriculum management page.
+ * Handles lesson CRUD, inline editing, drag-and-drop reordering,
+ * and lesson form submission for a specific course.
+ * @version 1.0.0
+ */
+
 let currentLessonsData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,6 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/**
+ * Fetches and displays the course title in the page header.
+ * @param {string} courseId - The course ID.
+ * @returns {Promise<void>}
+ */
 async function loadCourseDetails(courseId) {
     try {
         const response = await fetch(`../../api/courses.php?action=admin_get&id=${courseId}&type=course`);
@@ -28,6 +41,11 @@ async function loadCourseDetails(courseId) {
     } catch (err) { console.error("Failed to load details", err); }
 }
 
+/**
+ * Fetches and renders all lessons for a course.
+ * @param {string} courseId - The course ID.
+ * @returns {Promise<void>}
+ */
 async function loadLessons(courseId) {
     const container = document.getElementById('lessons-container');
     container.innerHTML = '<p style="padding:1rem;">Loading lessons...</p>';
@@ -50,11 +68,21 @@ async function loadLessons(courseId) {
     }
 }
 
+/**
+ * Escapes HTML special characters in lesson content.
+ * @param {string} text - The raw text to escape.
+ * @returns {string} The escaped string.
+ */
 function escapeHtml(text) {
     if (!text) return '';
     return text.toString().replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+/**
+ * Generates the HTML for a lesson card with inline edit form.
+ * @param {Object} lesson - The lesson data object.
+ * @returns {string} The lesson card HTML markup.
+ */
 function createLessonCard(lesson) {
     const icon = lesson.ContentType === 'document' ? 'article' : (lesson.ContentType === 'quiz' ? 'quiz' : 'play_circle');
 
@@ -126,21 +154,29 @@ function createLessonCard(lesson) {
     `;
 }
 
-// --- ACCORDION TOGGLE LOGIC ---
+/**
+ * Toggles the inline edit form for a lesson card.
+ * @param {number} lessonId - The lesson ID to toggle editing for.
+ */
 function toggleEdit(lessonId) {
     const editArea = document.getElementById(`edit-area-${lessonId}`);
     const card = document.getElementById(`lesson-card-${lessonId}`);
 
     if (editArea.style.display === 'none') {
         editArea.style.display = 'block';
-        card.draggable = false; // Disable dragging while editing so it doesn't glitch
+        card.draggable = false;
     } else {
         editArea.style.display = 'none';
-        card.draggable = true; // Re-enable dragging when closed
+        card.draggable = true;
     }
 }
 
-// --- SUBMIT INLINE EDIT ---
+/**
+ * Submits inline lesson edits to the API.
+ * @param {Event} e - The form submit event.
+ * @param {number} lessonId - The lesson ID being edited.
+ * @returns {Promise<void>}
+ */
 async function submitInlineEdit(e, lessonId) {
     e.preventDefault();
     const form = document.getElementById(`edit-form-${lessonId}`);
@@ -161,7 +197,11 @@ async function submitInlineEdit(e, lessonId) {
     } catch (err) { alert('Network error while updating lesson.'); }
 }
 
-// --- CREATE NEW LESSON ---
+/**
+ * Creates a new lesson and appends it to the curriculum.
+ * @param {string} courseId - The course ID to create the lesson for.
+ * @returns {Promise<void>}
+ */
 async function saveNewLesson(courseId) {
     const form = document.getElementById('lesson-form');
     const formData = new FormData(form);
@@ -184,6 +224,11 @@ async function saveNewLesson(courseId) {
     } catch (err) { alert('Network error while saving lesson.'); }
 }
 
+/**
+ * Deletes a lesson after user confirmation.
+ * @param {number} lessonId - The lesson ID to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteLesson(lessonId) {
     if (!confirm("Are you sure you want to delete this lesson?")) return;
     const formData = new FormData();
@@ -198,7 +243,9 @@ async function deleteLesson(lessonId) {
     } catch (err) { alert('Failed to delete lesson.'); }
 }
 
-// --- DRAG AND DROP REORDERING ---
+/**
+ * Initializes drag-and-drop event listeners on lesson cards.
+ */
 function initDragAndDrop() {
     const container = document.getElementById('lessons-container');
     const draggables = document.querySelectorAll('.lesson-item');
@@ -223,6 +270,12 @@ function initDragAndDrop() {
     });
 }
 
+/**
+ * Determines the element to insert the dragged item before.
+ * @param {HTMLElement} container - The lessons container.
+ * @param {number} y - The current drag Y position.
+ * @returns {HTMLElement|undefined} The element to insert before.
+ */
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.lesson-item:not(.dragging)')];
     return draggableElements.reduce((closest, child) => {
@@ -233,6 +286,10 @@ function getDragAfterElement(container, y) {
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
+/**
+ * Persists the new lesson sort order to the API after drag-and-drop.
+ * @returns {Promise<void>}
+ */
 async function saveNewOrder() {
     const items = document.querySelectorAll('.lesson-item');
     const newOrders = [];

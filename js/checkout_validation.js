@@ -1,12 +1,18 @@
 /**
- * Checkout Payment Form Validation
- * Real-time validation and auto-formatting for payment fields
+ * @file checkout_validation.js
+ * @description Real-time payment form validation and auto-formatting for checkout.
+ * Validates card number, expiry, CVC, cardholder name, and billing fields
+ * with live visual feedback and pre-submission validation gating.
+ * @version 1.0.0
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     initPaymentValidation();
 });
 
+/**
+ * Initializes real-time input validation and formatting for all payment fields.
+ */
 function initPaymentValidation() {
     const cardNumber = document.getElementById('cardNumber');
     const cardExpiry = document.getElementById('cardExpiry');
@@ -16,13 +22,12 @@ function initPaymentValidation() {
     const billingEmail = document.getElementById('billingEmail');
     const confirmPayBtn = document.getElementById('confirmPayBtn');
 
-    // Card Number: Numbers only, auto-space every 4 digits, max 19 chars (16 digits + 3 spaces)
+
     if (cardNumber) {
         cardNumber.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
-            value = value.substring(0, 16); // Limit to 16 digits
+            let value = e.target.value.replace(/\D/g, ''); 
+            value = value.substring(0, 16); 
             
-            // Add spaces every 4 digits
             let formatted = '';
             for (let i = 0; i < value.length; i++) {
                 if (i > 0 && i % 4 === 0) {
@@ -45,14 +50,14 @@ function initPaymentValidation() {
     // Expiry Date: Auto-format to MM/YY, prevent invalid months
     if (cardExpiry) {
         cardExpiry.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
-            value = value.substring(0, 4); // Limit to 4 digits (MMYY)
+            let value = e.target.value.replace(/\D/g, ''); 
+            value = value.substring(0, 4); 
             
-            // Validate and format month
+
             if (value.length >= 1) {
                 let month = value.substring(0, 2);
                 
-                // Auto-correct month
+
                 if (value.length === 1 && parseInt(value) > 1) {
                     value = '0' + value;
                 }
@@ -66,14 +71,14 @@ function initPaymentValidation() {
                 }
             }
             
-            // Add slash after month
+
             if (value.length > 2) {
                 value = value.substring(0, 2) + '/' + value.substring(2);
             }
             
             e.target.value = value;
             
-            // Validate: must be MM/YY format and not expired
+
             const isValid = validateExpiry(value);
             validateField(e.target, isValid);
         });
@@ -85,11 +90,11 @@ function initPaymentValidation() {
         });
     }
 
-    // CVC: Numbers only, limit to 3-4 digits
+
     if (cardCvc) {
         cardCvc.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
-            value = value.substring(0, 4); // Limit to 4 digits (some cards have 4)
+            let value = e.target.value.replace(/\D/g, ''); 
+            value = value.substring(0, 4); 
             e.target.value = value;
             validateField(e.target, value.length >= 3 && value.length <= 4);
         });
@@ -101,10 +106,10 @@ function initPaymentValidation() {
         });
     }
 
-    // Card Holder Name: Letters, spaces, hyphens, apostrophes only
+
     if (cardName) {
         cardName.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/[^a-zA-Z\s\-']/g, ''); // Remove invalid chars
+            let value = e.target.value.replace(/[^a-zA-Z\s\-']/g, ''); 
             e.target.value = value;
             validateField(e.target, value.trim().length >= 2);
         });
@@ -116,7 +121,7 @@ function initPaymentValidation() {
         });
     }
 
-    // Billing Name: Same as card name
+
     if (billingName) {
         billingName.addEventListener('input', (e) => {
             let value = e.target.value.replace(/[^a-zA-Z\s\-']/g, '');
@@ -131,7 +136,7 @@ function initPaymentValidation() {
         });
     }
 
-    // Billing Email: Standard email validation
+
     if (billingEmail) {
         billingEmail.addEventListener('input', (e) => {
             const value = e.target.value;
@@ -140,7 +145,7 @@ function initPaymentValidation() {
         });
     }
 
-    // Override the confirm button to validate before submission
+
     if (confirmPayBtn) {
         const originalOnclick = confirmPayBtn.onclick;
         confirmPayBtn.onclick = (e) => {
@@ -157,6 +162,11 @@ function initPaymentValidation() {
     }
 }
 
+/**
+ * Validates a card expiry string in MM/YY format.
+ * @param {string} value - The expiry value to validate.
+ * @returns {boolean} True if the expiry is valid and not expired.
+ */
 function validateExpiry(value) {
     if (value.length !== 5 || !value.includes('/')) {
         return false;
@@ -174,16 +184,21 @@ function validateExpiry(value) {
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth() + 1;
     
-    // Check if card is expired
+
     if (year < currentYear) return false;
     if (year === currentYear && month < currentMonth) return false;
     
-    // Check if year is too far in the future (max 20 years)
+
     if (year > currentYear + 20) return false;
     
     return true;
 }
 
+/**
+ * Applies valid/invalid CSS classes to a form input based on validation state.
+ * @param {HTMLInputElement} input - The input element.
+ * @param {boolean} isValid - Whether the field value is valid.
+ */
 function validateField(input, isValid) {
     if (isValid) {
         input.classList.remove('invalid');
@@ -196,6 +211,10 @@ function validateField(input, isValid) {
     }
 }
 
+/**
+ * Validates all checkout form fields and highlights invalid ones.
+ * @returns {boolean} True if all fields pass validation.
+ */
 function validateAllFields() {
     const cardNumber = document.getElementById('cardNumber');
     const cardExpiry = document.getElementById('cardExpiry');
@@ -254,6 +273,10 @@ function validateAllFields() {
     return isValid;
 }
 
+/**
+ * Displays a validation error message above the confirm button.
+ * @param {string} message - The error message to display.
+ */
 function showValidationError(message) {
     // Check if error message already exists
     let errorDiv = document.querySelector('.checkout-validation-error');

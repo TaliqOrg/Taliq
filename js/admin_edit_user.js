@@ -1,3 +1,11 @@
+/**
+ * @file admin_edit_user.js
+ * @description Handles the edit user form for administrators.
+ * Fetches user data by ID from the URL, populates form fields, and submits updates
+ * including optional password changes.
+ * @version 1.0.0
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('id');
@@ -16,6 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/**
+ * Loads user data from the API and populates the edit form.
+ * @param {string} userId - The ID of the user to load.
+ * @returns {Promise<void>}
+ */
 async function loadUserData(userId) {
     try {
         const response = await fetch(`../../api/users.php?action=get_user&id=${userId}`);
@@ -42,6 +55,11 @@ async function loadUserData(userId) {
     }
 }
 
+/**
+ * Validates and saves updated user details to the API.
+ * @param {string} userId - The ID of the user to update.
+ * @returns {Promise<void>}
+ */
 async function saveUserDetails(userId) {
     const btn = document.getElementById('save-btn');
 

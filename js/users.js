@@ -1,3 +1,7 @@
+/**
+ * @file users.js
+ * @description Admin user management page controller.\n * Handles listing, filtering, and deleting users.\n * @version 1.0.0
+ */
 
 let allUsers = [];
 
@@ -10,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/**
+ * Fetches all users from the API and renders them.
+ * @returns {Promise<void>}
+ */
 async function loadUsers() {
     const container = document.getElementById('users-list');
     container.innerHTML = '<p style="padding: 1rem;">Loading users...</p>';
@@ -30,6 +38,10 @@ async function loadUsers() {
     }
 }
 
+/**
+ * Renders user cards into the users list container.
+ * @param {Array<Object>} usersToRender - The array of user objects to display.
+ */
 function renderUsers(usersToRender) {
     const container = document.getElementById('users-list');
     
@@ -65,6 +77,9 @@ function renderUsers(usersToRender) {
     `).join('');
 }
 
+/**
+ * Filters users by search term and role dropdown.
+ */
 function applyFilters() {
     const searchTerm = document.getElementById('search-input').value.toLowerCase();
     const roleFilter = document.getElementById('role-filter').value.toLowerCase();
@@ -79,6 +94,12 @@ function applyFilters() {
     renderUsers(filtered);
 }
 
+/**
+ * Deletes a user after confirmation.
+ * @param {number} userId - The user ID to delete.
+ * @param {HTMLButtonElement} btnElement - The delete button element.
+ * @returns {Promise<void>}
+ */
 async function deleteUser(userId, btnElement) {
     if (!confirm('Are you sure you want to delete this user? This cannot be undone.')) return;
 
@@ -109,11 +130,21 @@ async function deleteUser(userId, btnElement) {
 }
 
 
+/**
+ * Escapes HTML special characters in user data.
+ * @param {string} text - The raw text.
+ * @returns {string} The escaped string.
+ */
 function escapeHtml(text) {
     if (!text) return '';
     return text.toString().replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
+/**
+ * Capitalizes the first character of a string.
+ * @param {string} string - The input string.
+ * @returns {string} The capitalized string.
+ */
 function capitalize(string) {
     if (!string) return '';
     return string.charAt(0).toUpperCase() + string.slice(1);
