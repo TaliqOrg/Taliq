@@ -1,4 +1,15 @@
 <?php
+/**
+ * Points Model
+ *
+ * Manages the gamification points system. Handles point retrieval, awarding
+ * points via stored procedures, reading points configuration, transaction
+ * history, purchase-based point awards, and user points initialization.
+ *
+ * @package    Taliq\Models
+ * @subpackage Points
+ * @version    1.0.0
+ */
 
 class Points {
     private $db;
@@ -8,6 +19,13 @@ class Points {
         $this->db = $pdo;
     }
 
+    /**
+     * Retrieves a user's current and lifetime point totals.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return array Associative array with TotalPoints and LifetimePoints.
+     */
     public function getUserPoints($userId) {
         $sql = "SELECT * FROM UserPoints WHERE UserId = :user_id LIMIT 1";
         
@@ -26,6 +44,18 @@ class Points {
         return $result;
     }
 
+    /**
+     * Awards points to a user via the AwardPoints stored procedure.
+     *
+     * @param int         $userId          The user's ID.
+     * @param int         $points          The number of points to award.
+     * @param string      $transactionType The transaction type (e.g., 'earned').
+     * @param string      $source          The source action (e.g., 'purchase').
+     * @param int|null    $sourceId        The source record ID (optional).
+     * @param string      $description     A description of the award (optional).
+     *
+     * @return bool True on success, false on failure.
+     */
     public function awardPoints($userId, $points, $transactionType, $source, $sourceId = null, $description = '') {
         try {
             $sql = "CALL AwardPoints(:user_id, :points, :transaction_type, :source, :source_id, :description)";
@@ -47,6 +77,13 @@ class Points {
         }
     }
 
+    /**
+     * Retrieves the points configuration for a specific action type.
+     *
+     * @param string $actionType The action type identifier.
+     *
+     * @return array|false The configuration record, or false if not found.
+     */
     public function getPointsConfig($actionType) {
         $sql = "SELECT * FROM PointsConfig WHERE ActionType = :action_type AND IsActive = TRUE LIMIT 1";
         
@@ -56,6 +93,15 @@ class Points {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves a user's points transaction history with pagination.
+     *
+     * @param int $userId The user's ID.
+     * @param int $limit  Maximum number of records to return (default 50).
+     * @param int $offset The offset for pagination (default 0).
+     *
+     * @return array Array of transaction records.
+     */
     public function getUserTransactions($userId, $limit = 50, $offset = 0) {
         $sql = "SELECT * FROM PointsTransaction 
                 WHERE UserId = :user_id 
@@ -71,6 +117,15 @@ class Points {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves the most recent transaction for a specific source and source ID.
+     *
+     * @param int    $userId   The user's ID.
+     * @param string $source   The source action.
+     * @param int    $sourceId The source record ID.
+     *
+     * @return array|false The transaction record, or false if not found.
+     */
     public function getRecentTransaction($userId, $source, $sourceId) {
         $sql = "SELECT * FROM PointsTransaction 
                 WHERE UserId = :user_id 
@@ -89,6 +144,15 @@ class Points {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Awards points for a purchase based on the configured amount for the item type.
+     *
+     * @param int    $userId   The user's ID.
+     * @param int    $orderId  The order ID.
+     * @param string $itemType The purchased item type ('course' or 'workshop').
+     *
+     * @return bool True on success, false on failure or if no points configured.
+     */
     public function awardPurchasePoints($userId, $orderId, $itemType) {
         try {
             $actionType = $itemType === 'course' ? 'purchase_course' : 'purchase_workshop';
@@ -117,6 +181,13 @@ class Points {
         }
     }
 
+    /**
+     * Initializes a points record for a new user with zero balances.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return bool True on success, false on failure.
+     */
     public function initializeUserPoints($userId) {
         try {
             $sql = "INSERT INTO UserPoints (UserId, TotalPoints, LifetimePoints) 

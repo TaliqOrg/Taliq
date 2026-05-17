@@ -1,4 +1,15 @@
 <?php
+/**
+ * Certificate Model
+ *
+ * Handles certificate issuance and retrieval. Supports checking for duplicate
+ * certificates, issuing new certificates with unique codes, and fetching
+ * certificate details with associated course/workshop and user information.
+ *
+ * @package    Taliq\Models
+ * @subpackage Certificate
+ * @version    1.0.0
+ */
 
 class Certificate {
     private $db;
@@ -8,6 +19,14 @@ class Certificate {
         $this->db = $pdo;
     }
 
+    /**
+     * Checks if a certificate has already been issued for a user and course.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $courseId The course ID.
+     *
+     * @return bool True if a certificate already exists.
+     */
     public function alreadyIssued($userId, $courseId) {
         $sql = "SELECT 1 FROM Certificate WHERE UserId = :user_id AND CourseId = :course_id LIMIT 1";
         $stmt = $this->db->prepare($sql);
@@ -15,6 +34,16 @@ class Certificate {
         return (bool)$stmt->fetch();
     }
 
+    /**
+     * Issues a new certificate for a user upon course completion.
+     *
+     * Generates a unique certificate code in the format TLQ-YYYY-XXXXXXXXXX.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $courseId The course ID.
+     *
+     * @return array|false Associative array with CertificateId and CertificateCode, or false on failure.
+     */
     public function issue($userId, $courseId) {
         $stmt = $this->db->prepare("SELECT Title FROM Course WHERE CourseId = :id LIMIT 1");
         $stmt->execute([':id' => $courseId]);
@@ -38,6 +67,14 @@ class Certificate {
         ];
     }
 
+    /**
+     * Retrieves a certificate's full details by its ID and owner.
+     *
+     * @param int $certId The certificate ID.
+     * @param int $userId The user's ID (for ownership verification).
+     *
+     * @return array|false Associative array with certificate data, or false if not found.
+     */
     public function getById($certId, $userId) {
         $sql = "SELECT
                     cert.CertificateId,

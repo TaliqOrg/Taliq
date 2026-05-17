@@ -1,4 +1,15 @@
 <?php
+/**
+ * Enrollment Model
+ *
+ * Handles course enrollment database operations including enrollment checks,
+ * retrieval, creation with enrollment count tracking, and progress updates
+ * with automatic completion timestamps.
+ *
+ * @package    Taliq\Models
+ * @subpackage Enrollment
+ * @version    1.0.0
+ */
 
 class Enrollment {
     private $db;
@@ -8,6 +19,14 @@ class Enrollment {
         $this->db = $pdo;
     }
 
+    /**
+     * Checks if a user is enrolled in a specific course.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $courseId The course ID.
+     *
+     * @return bool True if enrolled.
+     */
     public function isUserEnrolled($userId, $courseId) {
         $sql = "SELECT EnrollmentId FROM Enrollment 
                 WHERE UserId = :user_id AND CourseId = :course_id LIMIT 1";
@@ -21,6 +40,14 @@ class Enrollment {
         return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
     }
 
+    /**
+     * Retrieves a specific enrollment record.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $courseId The course ID.
+     *
+     * @return array|false The enrollment record, or false if not found.
+     */
     public function getEnrollment($userId, $courseId) {
         $sql = "SELECT * FROM Enrollment 
                 WHERE UserId = :user_id AND CourseId = :course_id LIMIT 1";
@@ -34,6 +61,13 @@ class Enrollment {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves all enrollments for a user with course metadata.
+     *
+     * @param int $userId The user's ID.
+     *
+     * @return array Array of enrollment records with course details.
+     */
     public function getUserEnrollments($userId) {
         $sql = "SELECT 
                     e.EnrollmentId,
@@ -56,6 +90,14 @@ class Enrollment {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Creates a new enrollment and increments the course enrollment count.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $courseId The course ID.
+     *
+     * @return bool True on success, false on failure or duplicate.
+     */
     public function createEnrollment($userId, $courseId) {
         try {
             $sql = "INSERT INTO Enrollment (UserId, CourseId, EnrollmentDate, CompletionStatus)
@@ -79,6 +121,18 @@ class Enrollment {
         }
     }
 
+    /**
+     * Updates the progress and completion status of an enrollment.
+     *
+     * Automatically sets CompletedAt when status is 'completed'.
+     *
+     * @param int    $userId              The user's ID.
+     * @param int    $courseId            The course ID.
+     * @param float  $progressPercentage The new progress percentage (0-100).
+     * @param string $status              The completion status.
+     *
+     * @return bool True on success, false on failure.
+     */
     public function updateProgress($userId, $courseId, $progressPercentage, $status) {
         try {
             $sql = "UPDATE Enrollment 
