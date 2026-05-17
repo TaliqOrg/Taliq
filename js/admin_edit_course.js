@@ -1,3 +1,10 @@
+/**
+ * @file admin_edit_course.js
+ * @description Handles the edit course form for administrators.
+ * Fetches existing course data by ID, populates form fields, and submits updates.
+ * @version 1.0.0
+ */
+
 const params     = new URLSearchParams(window.location.search);
 const courseId   = params.get('id');
 const courseType = params.get('type') || 'course';
@@ -11,6 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('edit-course-form').addEventListener('submit', handleSubmit);
 });
 
+/**
+ * Loads existing course data from the API and populates form fields.
+ * @returns {Promise<void>}
+ */
 async function loadCourse() {
     try {
         const response = await fetch(
@@ -39,6 +50,11 @@ async function loadCourse() {
     }
 }
 
+/**
+ * Handles the edit form submission. Sends updated course data to the API.
+ * @param {Event} e - The form submit event.
+ * @returns {Promise<void>}
+ */
 async function handleSubmit(e) {
     e.preventDefault();
 

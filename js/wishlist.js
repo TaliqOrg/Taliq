@@ -1,17 +1,27 @@
-// Wishlist functionality
+/**
+ * @file wishlist.js
+ * @description Client-side wishlist management.
+ * Handles toggling, removing, and displaying wishlist items across
+ * course detail and profile pages.
+ * @version 1.0.0
+ */
+
 let wishlistIds = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     loadWishlistIds();
     
-    // Load wishlist items if on profile page with wishlist container
+
     const profileWishlistContainer = document.getElementById('profile-wishlist-container');
     if (profileWishlistContainer) {
         loadProfileWishlist();
     }
 });
 
-// Load all wishlist IDs for the current user
+/**
+ * Loads all wishlist item IDs for the current user from the API.
+ * @returns {Promise<void>}
+ */
 async function loadWishlistIds() {
     try {
         const response = await fetch('/taleeq/Taliq/api/wishlist.php?action=ids');
@@ -25,13 +35,24 @@ async function loadWishlistIds() {
     }
 }
 
-// Check if an item is in the wishlist
+/**
+ * Checks if a course or workshop is in the user's wishlist.
+ * @param {number|null} courseId - The course ID.
+ * @param {number|null} workshopId - The workshop ID.
+ * @returns {boolean} True if the item is wishlisted.
+ */
 function isInWishlist(courseId, workshopId) {
     const key = courseId ? `course_${courseId}` : `workshop_${workshopId}`;
     return wishlistIds.includes(key);
 }
 
-// Toggle wishlist status for an item
+/**
+ * Toggles an item's wishlist status via the API.
+ * @param {number|null} courseId - The course ID.
+ * @param {number|null} workshopId - The workshop ID.
+ * @param {Event} [event] - Optional click event to prevent default.
+ * @returns {Promise<void>}
+ */
 async function toggleWishlist(courseId, workshopId, event) {
     if (event) {
         event.preventDefault();
@@ -82,7 +103,11 @@ async function toggleWishlist(courseId, workshopId, event) {
 }
 
 
-// Show toast notification
+/**
+ * Displays a temporary toast notification.
+ * @param {string} message - The notification message.
+ * @param {string} [type='info'] - The type ('success', 'error', 'warning', 'info').
+ */
 function showToast(message, type = 'info') {
     const existingToast = document.querySelector('.toast-notification');
     if (existingToast) {
@@ -108,6 +133,11 @@ function showToast(message, type = 'info') {
     }, 3000);
 }
 
+/**
+ * Returns the Material icon name for a given toast type.
+ * @param {string} type - The toast type ('success', 'error', 'warning', 'info').
+ * @returns {string} The icon name.
+ */
 function getToastIcon(type) {
     switch (type) {
         case 'success': return 'check_circle';
@@ -117,7 +147,10 @@ function getToastIcon(type) {
     }
 }
 
-// Fetch and display wishlist items (for profile page)
+/**
+ * Fetches and displays the full wishlist on the profile page.
+ * @returns {Promise<void>}
+ */
 async function loadProfileWishlist() {
     const container = document.getElementById('profile-wishlist-container');
     if (!container) return;
@@ -127,12 +160,12 @@ async function loadProfileWishlist() {
     try {
         const response = await fetch('/taleeq/Taliq/api/wishlist.php?action=items');
         
-        // Handle non-JSON responses (like PHP warnings)
+
         const text = await response.text();
         let data;
         
         try {
-            // Try to parse JSON, looking for the actual JSON part
+
             const jsonMatch = text.match(/\{[\s\S]*\}/);
             if (jsonMatch) {
                 data = JSON.parse(jsonMatch[0]);
@@ -179,7 +212,11 @@ async function loadProfileWishlist() {
     }
 }
 
-// Create wishlist card for profile page
+/**
+ * Creates a wishlist card HTML string for the profile page.
+ * @param {Object} item - The wishlist item data.
+ * @returns {string} The card HTML markup.
+ */
 function createProfileWishlistCard(item) {
     const badgeClass = (item.CourseType === "course") ? 'badge-online' : 'badge-onsite';
     const PlaceOfCourse = (item.CourseType === "course") ? 'Online' : 'On-Site';
@@ -218,7 +255,12 @@ function createProfileWishlistCard(item) {
     `;
 }
 
-// Remove item from wishlist on profile page
+/**
+ * Removes an item from the wishlist on the profile page and refreshes the list.
+ * @param {number|null} courseId - The course ID.
+ * @param {number|null} workshopId - The workshop ID.
+ * @returns {Promise<void>}
+ */
 async function removeFromProfileWishlist(courseId, workshopId) {
     try {
         const response = await fetch('/taleeq/Taliq/api/wishlist.php', {
@@ -249,7 +291,10 @@ async function removeFromProfileWishlist(courseId, workshopId) {
     }
 }
 
-// Toggle wishlist from course detail page
+/**
+ * Toggles wishlist from the course detail page using URL params.
+ * @returns {Promise<void>}
+ */
 async function toggleWishlistFromDetail() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -262,7 +307,9 @@ async function toggleWishlistFromDetail() {
     updateWishlistDetailButton();
 }
 
-// Update wishlist button on course detail page
+/**
+ * Updates the wishlist button appearance on the course detail page.
+ */
 function updateWishlistDetailButton() {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');

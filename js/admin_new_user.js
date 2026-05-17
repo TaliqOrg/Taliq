@@ -1,3 +1,10 @@
+/**
+ * @file admin_new_user.js
+ * @description Handles the new user creation form for administrators.
+ * Validates password requirements and submits user data to the users API.
+ * @version 1.0.0
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
 
 
@@ -12,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/**
+ * Validates form inputs and creates a new user via the API.
+ * @returns {Promise<void>}
+ */
 async function createNewUser() {
 
 

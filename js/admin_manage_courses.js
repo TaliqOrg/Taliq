@@ -1,3 +1,11 @@
+/**
+ * @file admin_manage_courses.js
+ * @description Admin course management page controller.
+ * Fetches all courses, renders filterable/searchable list cards, and handles
+ * course deletion with confirmation.
+ * @version 1.0.0
+ */
+
 let allCourses = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('type-filter')?.addEventListener('change', applyFilters);
 });
 
+/**
+ * Fetches the full course list from the admin API and renders them.
+ * @returns {Promise<void>}
+ */
 async function loadCourses() {
     const container = document.getElementById('courses-list');
     if (!container) return;
@@ -41,6 +53,10 @@ async function loadCourses() {
     }
 }
 
+/**
+ * Renders course cards into the courses-list container.
+ * @param {Array<Object>} courses - The array of course objects to render.
+ */
 function renderCourses(courses) {
     const container = document.getElementById('courses-list');
     if (!courses.length) {
@@ -55,6 +71,11 @@ function renderCourses(courses) {
     container.innerHTML = courses.map(c => createCard(c)).join('');
 }
 
+/**
+ * Generates the HTML string for a single admin course card.
+ * @param {Object} course - The course data object.
+ * @returns {string} The card HTML markup.
+ */
 function createCard(course) {
     const isPublished = parseInt(course.IsPublished) === 1;
     const badge       = isPublished
@@ -99,6 +120,9 @@ function createCard(course) {
         </div>`;
 }
 
+/**
+ * Filters the course list by search term, publish status, and type.
+ */
 function applyFilters() {
     const query  = document.getElementById('search-input').value.toLowerCase();
     const status = document.getElementById('status-filter').value;
@@ -118,6 +142,13 @@ function applyFilters() {
     renderCourses(filtered);
 }
 
+/**
+ * Deletes a course after user confirmation.
+ * @param {number} courseId - The ID of the course to delete.
+ * @param {string} courseType - The type ('course' or 'workshop').
+ * @param {HTMLButtonElement} btn - The delete button element.
+ * @returns {Promise<void>}
+ */
 async function deleteCourse(courseId, courseType, btn) {
     if (!confirm('Are you sure you want to delete this course? This cannot be undone.')) return;
     btn.disabled = true;

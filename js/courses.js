@@ -1,4 +1,12 @@
-// Pagination & filter state
+/**
+ * @file courses.js
+ * @description Public course listing with filtering, sorting, and pagination.
+ * Renders course cards on the explore page with category, type, level, price,
+ * and language filters, and handles header search bar pre-filtering.
+ * @version 1.0.0
+ */
+
+
 let allCourses = [];
 let filteredCourses = [];
 let currentPage = 1;
@@ -27,10 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ══════════════════════════════════════════════════════════════════════════════
-// FETCH
-// ══════════════════════════════════════════════════════════════════════════════
 
+
+/**
+ * Fetches courses with server-side pagination and renders results.
+ */
 function fetchCoursesWithPagination() {
     fetch('/taleeq/Taliq/api/courses.php?action=list')
         .then(response => response.json())
@@ -63,6 +72,10 @@ function fetchCoursesWithPagination() {
         });
 }
 
+/**
+ * Fetches a limited course list for homepage rendering.
+ * @param {number} limit - Max courses to fetch (0 for all).
+ */
 function fetchCourses(limit) {
     let apiUrl = '/taleeq/Taliq/api/courses.php?action=list';
     if (limit > 0) apiUrl += `&limit=${limit}`;
@@ -74,7 +87,7 @@ function fetchCourses(limit) {
             if (data.success && data.records && data.records.length > 0) {
                 container.innerHTML = data.records.map(course => createCourseCard(course)).join('');
 
-                // Update the "View All" button with the real total count from the DB
+
                 const viewAllBtn = document.getElementById('view-all-btn');
                 if (viewAllBtn && data.total) {
                     viewAllBtn.textContent = 'View All ' + data.total + ' Courses';
@@ -86,10 +99,11 @@ function fetchCourses(limit) {
         .catch(error => console.error('Error fetching courses:', error));
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// FILTERS & SORT
-// ══════════════════════════════════════════════════════════════════════════════
 
+
+/**
+ * Binds event listeners to all filter checkboxes and the sort dropdown.
+ */
 function attachFilterListeners() {
     document.querySelectorAll('.filters-sidebar input[type="checkbox"]').forEach(cb => {
         cb.addEventListener('change', applyFilters);
@@ -98,6 +112,9 @@ function attachFilterListeners() {
     if (sortSelect) sortSelect.addEventListener('change', applyFilters);
 }
 
+/**
+ * Applies active filters and sort to the course list, then re-renders.
+ */
 function applyFilters() {
     const checkedCategories = getCheckedValues('category');
     const checkedTypes      = getCheckedValues('type');
@@ -106,7 +123,7 @@ function applyFilters() {
     const checkedLanguages  = getCheckedValues('language');
     const sortValue         = document.getElementById('sort')?.value || 'popular';
 
-    // "all" checked (or nothing checked) means no filter on that group
+
     const categoryIds = (checkedCategories.includes('all') || checkedCategories.length === 0)
         ? null
         : checkedCategories.map(v => CATEGORY_MAP[v]).filter(Boolean);
@@ -141,7 +158,7 @@ function applyFilters() {
         return true;
     });
 
-    // Sort
+
     switch (sortValue) {
         case 'price-low':
             filteredCourses.sort((a, b) => parseFloat(a.Price) - parseFloat(b.Price));
@@ -165,14 +182,20 @@ function applyFilters() {
     renderPagination();
 }
 
+/**
+ * Returns an array of checked checkbox values for a given input group name.
+ * @param {string} name - The input name attribute.
+ * @returns {Array<string>} The checked values.
+ */
 function getCheckedValues(name) {
     return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(cb => cb.value);
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════════════════════════════════════════
 
+
+/**
+ * Renders paginated course cards into the container.
+ */
 function renderCourses() {
     const container = document.getElementById('course-container');
     if (!container) return;
@@ -193,6 +216,9 @@ function renderCourses() {
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+/**
+ * Updates the results count text with the current filtered total.
+ */
 function updateResultsCount() {
     const el = document.querySelector('.results-count');
     if (!el) return;
@@ -204,7 +230,12 @@ function updateResultsCount() {
         : 'No courses found';
 }
 
-// Create HTML for a single course card
+
+/**
+ * Generates the HTML for a single course card.
+ * @param {Object} course - The course data object.
+ * @returns {string} The card HTML markup.
+ */
 function createCourseCard(course) {
     const badgeClass    = course.CourseType === 'course' ? 'badge-online' : 'badge-onsite';
     const badgeText     = course.CourseType === 'course' ? 'Online' : 'On-Site';
@@ -237,10 +268,11 @@ function createCourseCard(course) {
     `;
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// PAGINATION
-// ══════════════════════════════════════════════════════════════════════════════
 
+
+/**
+ * Renders pagination controls beneath the course grid.
+ */
 function renderPagination() {
     const container = document.querySelector('.pagination');
     if (!container) return;
@@ -286,6 +318,10 @@ function renderPagination() {
     container.innerHTML = html;
 }
 
+/**
+ * Navigates to a specific page and re-renders the course list.
+ * @param {number} page - The target page number.
+ */
 function goToPage(page) {
     if (page < 1 || page > totalPages || page === currentPage) return;
     currentPage = page;
@@ -294,16 +330,25 @@ function goToPage(page) {
     renderPagination();
 }
 
+/**
+ * Hides the pagination container.
+ */
 function hidePagination() {
     const container = document.querySelector('.pagination');
     if (container) container.style.display = 'none';
 }
 
+/**
+ * Opens the help modal for filter instructions.
+ */
 function openHelpModal() {
     document.getElementById('helpModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
 
+/**
+ * Closes the help modal.
+ */
 function closeHelpModal() {
     document.getElementById('helpModal').style.display = 'none';
     document.body.style.overflow = 'auto';

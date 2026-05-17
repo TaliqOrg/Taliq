@@ -1,14 +1,17 @@
-// ══════════════════════════════════════════════════════════════════════════════
-// PROFILE PAGE - Main JavaScript
-// ══════════════════════════════════════════════════════════════════════════════
-
+/**
+ * @file profile.js
+ * @description User profile page controller.
+ * Manages tabbed navigation across gamification, personal info, my courses,
+ * certificates, and orders sections with live data loading.
+ * @version 1.0.0
+ */
 document.addEventListener('DOMContentLoaded', function() {
     initProfileTabs();
     loadProfileSummary();
     
-    // Set up progress sync listeners
+
     if (window.progressSync) {
-        // Listen for points updates
+
         window.progressSync.on('points_updated', (points) => {
             const pointsValue = document.getElementById('stat-points');
             if (pointsValue) {
@@ -16,9 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Listen for enrollment updates
+
         window.progressSync.on('enrollments_updated', () => {
-            // Reload courses if on that tab
+
             const coursesTab = document.getElementById('courses');
             if (coursesTab && coursesTab.classList.contains('active')) {
                 loadEnrolledCourses();
@@ -26,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Check for hash in URL to open specific tab
+
     const hash = window.location.hash.replace('#', '');
     if (hash) {
         activateTab(hash);
@@ -35,15 +38,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+/**
+ * Activates a profile tab by ID and loads its data.
+ * @param {string} tabId - The tab panel element ID.
+ */
 function activateTab(tabId) {
     const navLinks = document.querySelectorAll('.profile-nav-link[data-tab]');
     const tabContents = document.querySelectorAll('.tab-content');
     
-    // Find the nav link for this tab
+
     const targetLink = document.querySelector(`.profile-nav-link[data-tab="${tabId}"]`);
     if (!targetLink) return;
     
-    // Update active states
+
     navLinks.forEach(nav => nav.classList.remove('active'));
     targetLink.classList.add('active');
     
@@ -56,10 +63,10 @@ function activateTab(tabId) {
     }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// TAB NAVIGATION
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Initializes click handlers for profile navigation tabs.
+ */
 function initProfileTabs() {
     const navLinks = document.querySelectorAll('.profile-nav-link[data-tab]');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -79,13 +86,17 @@ function initProfileTabs() {
             if (targetContent) {
                 targetContent.classList.add('active');
                 
-                // Load data for the tab
+
                 loadTabData(targetTab);
             }
         });
     });
 }
 
+/**
+ * Routes a tab activation to the appropriate data loader.
+ * @param {string} tab - The tab identifier.
+ */
 function loadTabData(tab) {
     switch(tab) {
         case 'gamification':
@@ -106,10 +117,11 @@ function loadTabData(tab) {
     }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// PROFILE SUMMARY (Sidebar)
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Fetches the profile summary and updates the sidebar display.
+ * @returns {Promise<void>}
+ */
 async function loadProfileSummary() {
     try {
         const response = await fetch('../../api/profile.php?action=summary');
@@ -118,7 +130,7 @@ async function loadProfileSummary() {
         if (result.success) {
             const { user, gamification } = result.summary;
             
-            // Update sidebar
+
             const profileName = document.querySelector('.profile-name');
             const profileEmail = document.querySelector('.profile-email');
             const profileJoined = document.querySelector('.profile-joined');
@@ -132,13 +144,14 @@ async function loadProfileSummary() {
     }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// GAMIFICATION TAB
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Loads gamification stats and renders the level progress display.
+ * @returns {Promise<void>}
+ */
 async function loadGamificationData() {
     try {
-        // Get points from progress sync module
+
         let points = { TotalPoints: 0 };
         if (window.progressSync) {
             points = await window.progressSync.getUserPoints(true);
@@ -148,7 +161,7 @@ async function loadGamificationData() {
         const result = await response.json();
         
         if (result.success) {
-            // Merge points from sync module
+
             result.stats.TotalPoints = points.TotalPoints || result.stats.TotalPoints || 0;
             renderGamificationStats(result.stats);
             renderLevelProgress(result.stats, result.levels);
@@ -158,6 +171,10 @@ async function loadGamificationData() {
     }
 }
 
+/**
+ * Renders gamification stat values (points, certs, streak) into the DOM.
+ * @param {Object} stats - The gamification statistics object.
+ */
 function renderGamificationStats(stats) {
     const pointsValue = document.getElementById('stat-points');
     const certsValue = document.getElementById('stat-certificates');
@@ -165,12 +182,17 @@ function renderGamificationStats(stats) {
     
     if (pointsValue) {
         pointsValue.textContent = formatNumber(stats.TotalPoints || 0);
-        pointsValue.classList.add('user-points-display'); // For sync updates
+        pointsValue.classList.add('user-points-display');
     }
     if (certsValue) certsValue.textContent = stats.CertificatesCount || 0;
     if (streakValue) streakValue.textContent = `${stats.CurrentStreak || 0} Days`;
 }
 
+/**
+ * Renders the level progress bar and level grid.
+ * @param {Object} stats - The gamification statistics.
+ * @param {Array<Object>} levels - The available level definitions.
+ */
 function renderLevelProgress(stats, levels) {
     const levelTitle = document.getElementById('current-level-title');
     const levelDesc = document.getElementById('current-level-desc');
@@ -181,10 +203,10 @@ function renderLevelProgress(stats, levels) {
     if (levelTitle) levelTitle.textContent = stats.LevelName || 'Course Hunter';
     if (levelDesc) levelDesc.textContent = `Level ${stats.Level || 1} - ${stats.LevelDescription || 'Keep learning!'}`;
     
-    // Calculate progress percentage if not provided or is 0
+
     let progressPercent = stats.ProgressPercentage || 0;
     
-    // If we have points and next level, calculate progress manually
+
     if (progressPercent === 0 && stats.TotalPoints > 0 && stats.NextLevel) {
         const currentMin = stats.MinPoints || 0;
         const nextMin = stats.NextLevel.MinPoints || 0;
@@ -208,7 +230,7 @@ function renderLevelProgress(stats, levels) {
         }
     }
     
-    // Render levels grid
+
     if (levelsGrid && levels) {
         levelsGrid.innerHTML = levels.map(level => {
             let statusClass = 'locked';
@@ -230,10 +252,11 @@ function renderLevelProgress(stats, levels) {
     }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// PERSONAL INFO TAB
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Loads personal info from the API.
+ * @returns {Promise<void>}
+ */
 async function loadPersonalInfo() {
     try {
         const response = await fetch('../../api/profile.php?action=user-info');
@@ -247,6 +270,10 @@ async function loadPersonalInfo() {
     }
 }
 
+/**
+ * Populates the personal info display and edit form fields.
+ * @param {Object} user - The user data object.
+ */
 function renderPersonalInfo(user) {
     document.getElementById('info-fullname').textContent = `${user.FirstName} ${user.LastName}`;
     document.getElementById('info-email').textContent = user.Email;
@@ -255,7 +282,7 @@ function renderPersonalInfo(user) {
     document.getElementById('info-country').textContent = user.Country || 'Not provided';
     document.getElementById('info-city').textContent = user.City || 'Not provided';
     
-    // Populate edit form
+
     document.getElementById('edit-firstname').value = user.FirstName || '';
     document.getElementById('edit-lastname').value = user.LastName || '';
     document.getElementById('edit-email').value = user.Email || '';
@@ -265,16 +292,27 @@ function renderPersonalInfo(user) {
     document.getElementById('edit-city').value = user.City || '';
 }
 
+/**
+ * Switches the personal info section to edit mode.
+ */
 function toggleEditMode() {
     document.getElementById('view-mode').style.display = 'none';
     document.getElementById('edit-mode').style.display = 'block';
 }
 
+/**
+ * Exits edit mode and reverts to view mode.
+ */
 function cancelEdit() {
     document.getElementById('view-mode').style.display = 'grid';
     document.getElementById('edit-mode').style.display = 'none';
 }
 
+/**
+ * Validates and submits updated personal info to the API.
+ * @param {Event} event - The form submit event.
+ * @returns {Promise<void>}
+ */
 async function savePersonalInfo(event) {
     event.preventDefault();
     
@@ -317,10 +355,11 @@ async function savePersonalInfo(event) {
     }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// MY COURSES TAB
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Fetches and renders enrolled courses using the progress sync module.
+ * @returns {Promise<void>}
+ */
 async function loadEnrolledCourses() {
     const container = document.getElementById('enrolled-courses-container');
     if (!container) return;
@@ -356,6 +395,11 @@ async function loadEnrolledCourses() {
     }
 }
 
+/**
+ * Generates the HTML for an enrolled course list item.
+ * @param {Object} course - The enrolled course data.
+ * @returns {string} The course item HTML markup.
+ */
 function createCourseItem(course) {
     const placeholder = '../../images/placeholder-course.png';
     const thumbnail = course.ThumbnailUrl || placeholder;
@@ -388,10 +432,11 @@ function createCourseItem(course) {
     `;
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// CERTIFICATES TAB
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Fetches and renders user certificates.
+ * @returns {Promise<void>}
+ */
 async function loadCertificates() {
     const container = document.getElementById('certificates-container');
     if (!container) return;
@@ -420,6 +465,11 @@ async function loadCertificates() {
     }
 }
 
+/**
+ * Generates the HTML for a certificate card.
+ * @param {Object} cert - The certificate data object.
+ * @returns {string} The certificate card HTML markup.
+ */
 function createCertificateCard(cert) {
     return `
         <div class="certificate-card">
@@ -440,14 +490,19 @@ function createCertificateCard(cert) {
     `;
 }
 
+/**
+ * Opens the certificate page in a new tab.
+ * @param {string} certId - The certificate ID.
+ */
 function downloadCertificate(certId) {
     window.open(`/taleeq/Taliq/pages/certificate.html?cert_id=${certId}`, '_blank');
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// ORDERS TAB
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Fetches and renders order history.
+ * @returns {Promise<void>}
+ */
 async function loadOrders() {
     const container = document.getElementById('orders-container');
     if (!container) return;
@@ -476,6 +531,11 @@ async function loadOrders() {
     }
 }
 
+/**
+ * Generates the HTML for an order card.
+ * @param {Object} order - The order data object.
+ * @returns {string} The order card HTML markup.
+ */
 function createOrderCard(order) {
     const statusClass = `status-${order.Status}`;
     const statusText = order.Status.charAt(0).toUpperCase() + order.Status.slice(1);
@@ -510,19 +570,31 @@ function createOrderCard(order) {
     `;
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// UTILITY FUNCTIONS
-// ══════════════════════════════════════════════════════════════════════════════
 
+/**
+ * Formats a number with comma-separated thousands.
+ * @param {number} num - The number to format.
+ * @returns {string} The formatted number string.
+ */
 function formatNumber(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+/**
+ * Formats a date string into a human-readable format.
+ * @param {string} dateStr - The date string to format.
+ * @returns {string} The formatted date.
+ */
 function formatDate(dateStr) {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+/**
+ * Displays a temporary toast notification.
+ * @param {string} message - The notification message.
+ * @param {string} [type='info'] - The type ('success', 'error', 'warning', 'info').
+ */
 function showToast(message, type = 'info') {
     const existingToast = document.querySelector('.toast-notification');
     if (existingToast) existingToast.remove();
