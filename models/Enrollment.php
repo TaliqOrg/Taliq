@@ -68,7 +68,7 @@ class Enrollment {
             ]);
             
             if ($result) {
-                $this->db->prepare("UPDATE Course SET EnrollmentCount = EnrollmentCount + 1 WHERE CourseId = :course_id")
+                $this->db->prepare("UPDATE Course SET EnrollmentCount = EnrollmentCount + 1, MaxStudents = GREATEST(MaxStudents - 1, 0) WHERE CourseId = :course_id")
                     ->execute([':course_id' => $courseId]);
             }
             

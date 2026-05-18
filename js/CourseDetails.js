@@ -31,6 +31,23 @@ function populateCourseDetails() {
                 document.getElementById('average-Rating').innerText = parseFloat(course.AverageRating || 0).toFixed(1);
                 document.getElementById('Rating-Count').innerText = "(" + (course.RatingCount || 0) + ' ratings)';
                 document.getElementById('EnrolledAmount').innerText = (course.EnrollmentCount || 0) + ' students enrolled';
+
+                // Show remaining seats for courses
+                if (type === 'course') {
+                    const seats = parseInt(course.MaxStudents) || 0;
+                    const seatsEl = document.getElementById('seatsRemaining');
+                    if (seatsEl && seats === 0) {
+                        seatsEl.innerHTML = '<span style="color:#dc2626;">&#x26A0; Course Full — No seats available</span>';
+                        const btn = document.getElementById('addToCartBtn');
+                        if (btn) {
+                            btn.disabled = true;
+                            btn.innerHTML = '<span class="material-symbols-outlined">block</span> Course Full';
+                        }
+                    } else if (seatsEl && seats > 0) {
+                        const color = seats <= 5 ? '#f59e0b' : '#16a34a';
+                        seatsEl.innerHTML = `<span style="color:${color};">${seats} seat${seats !== 1 ? 's' : ''} remaining</span>`;
+                    }
+                }
                 document.getElementById('Duration Time').innerText = parseFloat(course.DurationHours || 0).toFixed(0) + " hours";
                 document.getElementById('Course-Level').innerText = course.Level || 'Beginner';
                 document.getElementById('course-hero-img').src = course.ThumbnailUrl || placeholder;

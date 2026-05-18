@@ -74,11 +74,6 @@ function fetchCourses(limit) {
             if (data.success && data.records && data.records.length > 0) {
                 container.innerHTML = data.records.map(course => createCourseCard(course)).join('');
 
-                // Update the "View All" button with the real total count from the DB
-                const viewAllBtn = document.getElementById('view-all-btn');
-                if (viewAllBtn && data.total) {
-                    viewAllBtn.textContent = 'View All ' + data.total + ' Courses';
-                }
             } else {
                 container.innerHTML = '<p>No courses available right now.</p>';
             }

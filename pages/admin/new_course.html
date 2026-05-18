@@ -60,6 +60,19 @@
           ></div>
 
           <form id="new-course-form" class="login-form">
+            <!-- Course Type -->
+            <div class="input-group">
+              <label class="input-label" for="course_type">Course Type *</label>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon">school</span>
+                <select id="course_type" name="CourseType" class="form-input" required onchange="toggleCourseTypeFields(this.value)">
+                  <option value="" disabled selected>Select type</option>
+                  <option value="course">Online</option>
+                  <option value="workshop">In-Person</option>
+                </select>
+              </div>
+            </div>
+
             <!-- Title and Category -->
             <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap">
               <div class="input-group admin-Manage-Item-small">
@@ -182,6 +195,37 @@
               </div>
             </div>
 
+            <!-- Location (In-Person only) -->
+            <div class="input-group" id="location-field" style="display: none;">
+              <label class="input-label" for="location">Location *</label>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon">location_on</span>
+                <input
+                  type="text"
+                  id="location"
+                  name="Location"
+                  placeholder="e.g., Building A, Room 101"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <!-- Number of Seats -->
+            <div class="input-group admin-Manage-Item-small" id="seats-field" style="max-width: 300px; display: none;">
+              <label class="input-label" for="max_students">Number of Seats *</label>
+              <div class="input-wrapper">
+                <span class="material-symbols-outlined input-icon">group</span>
+                <input
+                  type="number"
+                  id="max_students"
+                  name="MaxStudents"
+                  placeholder="e.g., 50"
+                  min="1"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
             <!-- Thumbnail and Language -->
             <div style="display: flex; gap: 1rem; width: 100%; flex-wrap: wrap">
               <div class="input-group" style="flex: 2; min-width: 300px">
@@ -260,7 +304,26 @@
   </body>
 
     <script src="../../js/courses.js?v=3"></script>
+    <script>
+        function toggleCourseTypeFields(type) {
+            const locationField = document.getElementById('location-field');
+            const seatsField    = document.getElementById('seats-field');
+            const locationInput = document.getElementById('location');
+            const seatsInput    = document.getElementById('max_students');
 
+            if (type === 'workshop') {
+                locationField.style.display = 'block';
+                seatsField.style.display    = 'block';
+                locationInput.required      = true;
+                seatsInput.required         = true;
+            } else {
+                locationField.style.display = 'none';
+                seatsField.style.display    = 'block';
+                locationInput.required      = false;
+                seatsInput.required         = true;
+            }
+        }
+    </script>
 </body>
 
 </html>

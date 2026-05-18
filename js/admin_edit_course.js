@@ -33,7 +33,19 @@ async function loadCourse() {
         document.getElementById('level').value        = capitalize(c.Level) || '';
         document.getElementById('language').value     = c.Language     || '';
         document.getElementById('isPublished').checked = parseInt(c.IsPublished) === 1;
+        document.getElementById('max_students').value  = c.MaxStudents ?? '';
         document.querySelector('.section-subtitle strong').textContent = c.Title;
+
+        // Show course type label and location field for workshops
+        const typeLabel = document.getElementById('course-type-label');
+        if (typeLabel) typeLabel.textContent = courseType === 'workshop' ? 'In-Person' : 'Online';
+
+        if (courseType === 'workshop') {
+            const locationField = document.getElementById('location-field');
+            if (locationField) locationField.style.display = 'block';
+            const locationInput = document.getElementById('location');
+            if (locationInput) locationInput.value = c.Location || '';
+        }
     } catch (err) {
         alert('Failed to load course data.');
     }

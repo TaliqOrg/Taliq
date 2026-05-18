@@ -56,6 +56,12 @@
 
                     <form id="edit-course-form" class="form-group-list">
 
+                        <!-- Course Type (read-only) -->
+                        <div>
+                            <label class="checkout-label">Course Type</label>
+                            <p id="course-type-label" style="font-weight: 600; padding: 0.5rem 0;"></p>
+                        </div>
+
                         <!-- Title & Category -->
                         <div class="form-row">
                             <div class="form-col">
@@ -80,7 +86,7 @@
                             <textarea id="description" name="Description" class="checkout-input" rows="5" required></textarea>
                         </div>
 
-                        <!-- Price & Duration -->
+                        <!-- Price & Duration & Seats -->
                         <div class="form-row">
                             <div class="form-col">
                                 <label class="checkout-label" for="price">Price in SAR</label>
@@ -89,6 +95,10 @@
                             <div class="form-col">
                                 <label class="checkout-label" for="duration">Duration (Hours)</label>
                                 <input type="number" id="duration" name="DurationHours" class="checkout-input" required>
+                            </div>
+                            <div class="form-col">
+                                <label class="checkout-label" for="max_students">Number of Seats</label>
+                                <input type="number" id="max_students" name="MaxStudents" min="0" class="checkout-input" required>
                             </div>
                         </div>
 
@@ -111,6 +121,12 @@
                                     <option value="Arabic">Arabic</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <!-- Location (workshops only) -->
+                        <div id="location-field" style="display: none;">
+                            <label class="checkout-label" for="location">Location</label>
+                            <input type="text" id="location" name="Location" class="checkout-input" placeholder="e.g., Building A, Room 101">
                         </div>
 
                         <!-- Thumbnail -->
