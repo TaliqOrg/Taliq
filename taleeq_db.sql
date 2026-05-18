@@ -1126,3 +1126,10 @@ CREATE TABLE IF NOT EXISTS ContactMessage (
     Message     TEXT         NOT NULL,
     SubmittedAt TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Add MaxStudents capacity field to Course table
+ALTER TABLE `course` ADD COLUMN IF NOT EXISTS `MaxStudents` int(11) NOT NULL DEFAULT 30 AFTER `EnrollmentCount`;
+
+-- Set default capacity for all courses, keep one as "Full" for demo
+UPDATE `course` SET `MaxStudents` = 1500;
+UPDATE `course` SET `MaxStudents` = 25 WHERE `CourseId` = 5;
