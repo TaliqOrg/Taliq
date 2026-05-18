@@ -1,7 +1,17 @@
 <?php
 /**
  * Course Player Integration Test
- * Tests all API endpoints and functionality
+ *
+ * Provides a comprehensive HTML-based test suite for all course player API
+ * endpoints. Tests enrollment verification, course content retrieval, lesson
+ * details, navigation, completion marking, watch time updates, progress
+ * tracking, and database state inspection.
+ *
+ * @package    Taliq\Api
+ * @subpackage Testing
+ * @version    1.0.0
+ *
+ * @requires   Active user session for test execution.
  */
 
 header('Content-Type: text/html; charset=utf-8');
@@ -26,7 +36,6 @@ echo "<style>
     .fail .status { color: #f44336; }
 </style>";
 
-// Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     echo "<div class='info'>";
     echo "<h2>⚠️ Not Logged In</h2>";
@@ -53,7 +62,6 @@ $courseModel = new Course();
 
 $testResults = [];
 
-// Test 1: Check Enrollment
 echo "<h2>Test 1: Check User Enrollment</h2>";
 $isEnrolled = $enrollmentModel->isUserEnrolled($userId, $testCourseId);
 if ($isEnrolled) {
@@ -75,7 +83,6 @@ if ($isEnrolled) {
     echo "</div>";
 }
 
-// Test 2: Get Course Content
 echo "<h2>Test 2: Get Course Content</h2>";
 try {
     $course = $courseModel->getById($testCourseId, 'course');
@@ -107,7 +114,6 @@ try {
     $testResults[] = false;
 }
 
-// Test 3: Get Lesson Details
 echo "<h2>Test 3: Get Lesson Details</h2>";
 try {
     $lesson = $lessonModel->getLessonById($testLessonId, $userId);
@@ -137,7 +143,6 @@ try {
     $testResults[] = false;
 }
 
-// Test 4: Get Next/Previous Lessons
 echo "<h2>Test 4: Get Next/Previous Lessons</h2>";
 try {
     $nextLesson = $lessonModel->getNextLesson($testLessonId, $testCourseId);
@@ -158,7 +163,6 @@ try {
     $testResults[] = false;
 }
 
-// Test 5: Mark Lesson as Complete
 echo "<h2>Test 5: Mark Lesson as Complete</h2>";
 try {
     $result = $lessonModel->markAsComplete($userId, $testLessonId, $testCourseId);
@@ -167,7 +171,6 @@ try {
         echo "<div class='test pass'>";
         echo "<span class='status'>✓ PASS</span> - Lesson marked as complete";
         
-        // Verify it was marked
         $lesson = $lessonModel->getLessonById($testLessonId, $userId);
         echo "<pre>";
         echo "Verification - Is Completed: " . ($lesson['IsCompleted'] ? 'Yes' : 'No') . "\n";
@@ -188,10 +191,9 @@ try {
     $testResults[] = false;
 }
 
-// Test 6: Update Watch Time
 echo "<h2>Test 6: Update Watch Time</h2>";
 try {
-    $watchTime = 120; // 2 minutes
+    $watchTime = 120;
     $result = $lessonModel->updateWatchTime($userId, $testLessonId, $testCourseId, $watchTime);
     
     if ($result) {
@@ -213,7 +215,6 @@ try {
     $testResults[] = false;
 }
 
-// Test 7: Verify Progress Update (Trigger Test)
 echo "<h2>Test 7: Verify Progress Update (Database Trigger)</h2>";
 try {
     $enrollment = $enrollmentModel->getEnrollment($userId, $testCourseId);
@@ -243,7 +244,6 @@ try {
     $testResults[] = false;
 }
 
-// Test 8: Get All Lessons with Progress
 echo "<h2>Test 8: Get All Lessons with Progress</h2>";
 try {
     $lessons = $lessonModel->getLessonsByCourse($testCourseId, $userId);
@@ -276,7 +276,6 @@ try {
     $testResults[] = false;
 }
 
-// Summary
 $totalTests = count($testResults);
 $passedTests = count(array_filter($testResults));
 $failedTests = $totalTests - $passedTests;
@@ -297,7 +296,6 @@ if ($passRate == 100) {
 }
 echo "</div>";
 
-// Database State
 echo "<h2>Current Database State</h2>";
 echo "<div class='test'>";
 echo "<h3>LessonProgress Records</h3>";

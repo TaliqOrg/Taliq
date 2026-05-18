@@ -1,3 +1,9 @@
+/**
+ * explore.css
+ * Styles for the course exploration page including filter sidebar,
+ * sort controls, course grid, and pagination components.
+ */
+
 .active {
     color: var(--primary);
 }

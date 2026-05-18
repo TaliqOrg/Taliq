@@ -1,4 +1,16 @@
 <?php
+/**
+ * Certificate API Endpoint
+ *
+ * Retrieves certificate details for authenticated users. Requires a valid
+ * session and accepts a certificate ID via GET query parameter.
+ *
+ * @package    Taliq\Api
+ * @subpackage Certificate
+ * @version    1.0.0
+ *
+ * @method GET Retrieves a specific certificate by ID for the logged-in user.
+ */
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

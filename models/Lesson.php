@@ -1,4 +1,17 @@
 <?php
+/**
+ * Lesson Model
+ *
+ * Handles lesson data retrieval, progress tracking, and CRUD operations.
+ * Supports fetching lessons by course with optional user progress joins,
+ * navigation between lessons, marking completions with point awards,
+ * watch time tracking, course-level progress calculation, section grouping,
+ * and admin lesson management (create, update, delete, reorder).
+ *
+ * @package    Taliq\Models
+ * @subpackage Lesson
+ * @version    1.0.0
+ */
 
 class Lesson {
 
@@ -9,6 +22,14 @@ class Lesson {
         $this->db = $pdo;
     }
 
+    /**
+     * Retrieves all lessons for a course, optionally joined with user progress.
+     *
+     * @param int      $courseId The course ID.
+     * @param int|null $userId  The user's ID for progress data (optional).
+     *
+     * @return array Array of lesson records ordered by SortOrder.
+     */
     public function getLessonsByCourse($courseId, $userId = null) {
         $sql = "SELECT 
                     l.LessonId,
@@ -50,7 +71,14 @@ class Lesson {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
+    /**
+     * Retrieves a single lesson by ID with its parent course title.
+     *
+     * @param int      $lessonId The lesson ID.
+     * @param int|null $userId   The user's ID for progress data (optional).
+     *
+     * @return array|false The lesson record, or false if not found.
+     */
     public function getLessonById($lessonId, $userId = null) {
         $sql = "SELECT 
                     l.LessonId,
@@ -93,6 +121,14 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves the next lesson in sort order within a course.
+     *
+     * @param int $currentLessonId The current lesson ID.
+     * @param int $courseId        The course ID.
+     *
+     * @return array|false The next lesson record, or false if none.
+     */
     public function getNextLesson($currentLessonId, $courseId) {
         $sql = "SELECT l1.LessonId, l1.Title
                 FROM Lesson l1
@@ -111,6 +147,14 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves the previous lesson in sort order within a course.
+     *
+     * @param int $currentLessonId The current lesson ID.
+     * @param int $courseId        The course ID.
+     *
+     * @return array|false The previous lesson record, or false if none.
+     */
     public function getPreviousLesson($currentLessonId, $courseId) {
         $sql = "SELECT l1.LessonId, l1.Title
                 FROM Lesson l1
@@ -129,6 +173,14 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves the progress record for a specific user and lesson.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $lessonId The lesson ID.
+     *
+     * @return array|false The progress record, or false if not found.
+     */
     public function getLessonProgress($userId, $lessonId) {
         $sql = "SELECT * FROM LessonProgress 
                 WHERE UserId = :user_id AND LessonId = :lesson_id";
@@ -137,12 +189,22 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Marks a lesson as complete and awards 50 points if not already completed.
+     *
+     * Uses INSERT ... ON DUPLICATE KEY UPDATE for idempotent completion tracking.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $lessonId The lesson ID.
+     * @param int $courseId The course ID.
+     *
+     * @return bool True on success, false on failure.
+     */
     public function markAsComplete($userId, $lessonId, $courseId) {
         try {
-            // Check if already completed to prevent duplicate points
             $existing = $this->getLessonProgress($userId, $lessonId);
             if ($existing && $existing['IsCompleted']) {
-                return true; // Already completed
+                return true;
             }
             
             $sql = "INSERT INTO LessonProgress 
@@ -160,7 +222,6 @@ class Lesson {
                 ':course_id' => $courseId
             ]);
             
-            // Award 50 points directly to User table
             if ($result && (!$existing || !$existing['IsCompleted'])) {
                 $sql = "UPDATE User SET Points = Points + 50 WHERE UserId = :user_id";
                 $stmt = $this->db->prepare($sql);
@@ -174,6 +235,16 @@ class Lesson {
         }
     }
 
+    /**
+     * Updates the watch time for a lesson progress record.
+     *
+     * @param int $userId           The user's ID.
+     * @param int $lessonId         The lesson ID.
+     * @param int $courseId         The course ID.
+     * @param int $watchTimeSeconds The total watch time in seconds.
+     *
+     * @return bool True on success, false on failure.
+     */
     public function updateWatchTime($userId, $lessonId, $courseId, $watchTimeSeconds) {
         try {
             $sql = "INSERT INTO LessonProgress 
@@ -196,6 +267,14 @@ class Lesson {
         }
     }
 
+    /**
+     * Calculates overall course progress based on completed lessons.
+     *
+     * @param int $userId   The user's ID.
+     * @param int $courseId The course ID.
+     *
+     * @return array Associative array with total_lessons, completed_lessons, and progress_percentage.
+     */
     public function getCourseProgress($userId, $courseId) {
         $sql = "SELECT 
                     COUNT(*) as total_lessons,
@@ -213,6 +292,14 @@ class Lesson {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Retrieves lessons grouped by their SectionTitle.
+     *
+     * @param int      $courseId The course ID.
+     * @param int|null $userId  The user's ID for progress data (optional).
+     *
+     * @return array Array of section groups, each with section_title and lessons.
+     */
     public function getLessonsBySectionGrouped($courseId, $userId = null) {
         $lessons = $this->getLessonsByCourse($courseId, $userId);
         
@@ -231,6 +318,14 @@ class Lesson {
         return array_values($grouped);
     }
 
+    /**
+     * Creates a new lesson record.
+     *
+     * @param array $data Associative array with course_id, SectionTitle, Title, Description,
+     *                     ContentType, ContentUrl, Duration, and SortOrder.
+     *
+     * @return bool True on success.
+     */
     public function createLesson($data) {
 
         $sql = "INSERT INTO Lesson (CourseId, SectionTitle, Title, Description, ContentType, ContentUrl, Duration, SortOrder)
@@ -250,6 +345,13 @@ class Lesson {
         ]);
     }
 
+    /**
+     * Deletes a lesson by its ID.
+     *
+     * @param int $lessonId The lesson ID to delete.
+     *
+     * @return bool True on success.
+     */
     public function deleteLesson($lessonId) {
 
         $sql = "DELETE FROM Lesson WHERE LessonId = :lesson_id";
@@ -258,7 +360,13 @@ class Lesson {
 
     }
 
-
+    /**
+     * Updates an existing lesson record.
+     *
+     * @param array $data Associative array with LessonId and updated fields.
+     *
+     * @return bool True on success.
+     */
     public function updateLesson($data) {
         $sql = "UPDATE Lesson 
                 SET SectionTitle = :section_title, Title = :title, Description = :description, 
@@ -278,7 +386,13 @@ class Lesson {
         ]);
     }
 
-
+    /**
+     * Batch-updates lesson sort orders within a transaction.
+     *
+     * @param array $orders Array of associative arrays with lesson_id and sort_order.
+     *
+     * @return bool True on success, false on failure (rolls back).
+     */
     public function updateLessonOrders($orders) {
         $this->db->beginTransaction();
         try {

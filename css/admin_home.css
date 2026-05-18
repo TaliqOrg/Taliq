@@ -1,4 +1,24 @@
-/* --- Admin Styling --- */
+/**
+ * admin_home.css
+ * Styles for the admin dashboard, action cards, course creation form,
+ * and admin-specific layout components.
+ */
+
+/* Admin Layout */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0; 
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 
 .admin-actions-grid {
     display: grid;

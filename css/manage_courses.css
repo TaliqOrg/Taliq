@@ -1,3 +1,9 @@
+/**
+ * manage_courses.css
+ * Styles for the admin course management page including toolbar filters,
+ * course list cards, action buttons, and status badges.
+ */
+
 .toolbar {
     display: flex;
     justify-content: space-between;

@@ -1,6 +1,8 @@
 /**
- * Manage Courses Page Controller
- * Handles fetching, rendering, and state management for the course list.
+ * @file manage_courses.js
+ * @description Alternative admin course management controller using a CourseManager object.
+ * Handles fetching, rendering, filtering, and deleting courses.
+ * @version 1.0.0
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,9 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container: document.querySelector('.admin-list-container'),
 
-        // to store all list of courses
+        /** @type {Array<Object>} Cached list of all courses. */
         allCourses: [],
 
+        /**
+         * Initializes the course manager, loads data, and binds event listeners.
+         * @returns {Promise<void>}
+         */
         init: async function () {
             if (!this.container) return;
 
@@ -20,11 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.container.addEventListener('click', (e) => {
 
-                // Check if what clicked was the delete button
+
                 const deleteBtn = e.target.closest('.action-btn.danger');
 
                 if (deleteBtn) {
-                    // Get the ID
+
                     const courseId = deleteBtn.getAttribute('data-id');
                     this.deleteCourse(courseId);
                 }
@@ -44,6 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         },
 
+        /**
+         * Fetches all courses from the API and renders them.
+         * @returns {Promise<void>}
+         */
         loadCourses: async function () {
             try {
                 const response = await fetch('../../api/courses.php', {
@@ -69,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
-        // filter logic
+        /**
+         * Filters the course list by search text, status, and type.
+         */
         applyFilters: function() {
 
             const searchText = document.querySelector('.filter-input').value.toLowerCase();
@@ -103,6 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
+        /**
+         * Renders course cards into the container.
+         * @param {Array<Object>} courses - The courses to render.
+         */
         render: function (courses) {
             this.container.innerHTML = '';
             const fragment = document.createDocumentFragment();
@@ -150,6 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
             this.container.appendChild(fragment);
         },
 
+        /**
+         * Displays a loading spinner in the container.
+         */
         setLoadingState: function () {
             this.container.innerHTML = `
                 <div class="ui-state-box">
@@ -158,6 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
         },
 
+        /**
+         * Displays an empty state message.
+         */
         setEmptyState: function () {
             this.container.innerHTML = `
                 <div class="ui-state-box empty">
@@ -167,6 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
         },
 
+        /**
+         * Displays an error state message.
+         */
         setErrorState: function () {
             this.container.innerHTML = `
                 <div class="ui-state-box error">
@@ -175,16 +200,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`;
         },
 
+        /**
+         * Deletes a course after user confirmation.
+         * @param {string} id - The course ID to delete.
+         * @returns {Promise<void>}
+         */
         deleteCourse: async function(id) {
 
-            // Confirm deletion
+
             if (!confirm('Are you sure you want to delete this course? This cannot be undone.')) {
                 return;
             }
 
             try {
 
-                // Send the DELETE request with the ID
+
                 const response = await fetch(`../../api/courses.php?id=${id}`, {
                     method: 'DELETE',
                     headers: { 'Accept': 'application/json' }
@@ -194,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (result.success) {
 
-                    // Reload the list after deletion
+
                     this.setLoadingState();
                     await this.loadCourses();
 

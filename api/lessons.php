@@ -1,4 +1,18 @@
 <?php
+/**
+ * Lessons API Endpoint
+ *
+ * Provides admin-only lesson management operations via POST requests. Supports
+ * creating, updating, deleting, and reordering lessons within a course.
+ * Requires an active admin session for all actions.
+ *
+ * @package    Taliq\Api
+ * @subpackage Lessons
+ * @version    1.0.0
+ *
+ * @method POST Handles create_lesson, update_lesson, delete_lesson, and reorder_lessons actions.
+ */
+
 session_start();
 
 require_once '../config/constants.php';
@@ -8,14 +22,12 @@ require_once '../includes/functions.php';
 
 header('Content-Type: application/json');
 
-// Only admins can manage lessons
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     json_response(['success' => false, 'message' => 'Unauthorized. Admin access required.'], 401);
 }
 
 $lessonModel = new Lesson();
 $method = $_SERVER['REQUEST_METHOD'];
-
 
 if ($method === 'POST') {
     $action = $_POST['action'] ?? '';
@@ -87,7 +99,6 @@ if ($method === 'POST') {
     else {
         json_response(['success' => false, 'message' => 'Unknown action requested.'], 400);
     }
-} 
-else {
+} else {
     json_response(['success' => false, 'message' => 'Invalid Request Method'], 405);
 }

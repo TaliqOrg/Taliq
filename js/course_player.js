@@ -1,3 +1,15 @@
+/**
+ * @file course_player.js
+ * @description Interactive course player with lesson navigation, video playback,
+ * watch time tracking, progress syncing, and lesson completion management.
+ * @version 1.0.0
+ */
+
+/**
+ * @class CoursePlayer
+ * @description Main controller for the course player page. Manages lesson loading,
+ * sidebar rendering, navigation, video playback, and progress tracking.
+ */
 class CoursePlayer {
     constructor() {
         this.currentLesson = null;
@@ -8,6 +20,9 @@ class CoursePlayer {
         this.init();
     }
 
+    /**
+     * Parses URL params and bootstraps the player.
+     */
     init() {
         const urlParams = new URLSearchParams(window.location.search);
         this.courseId = urlParams.get('course_id');
@@ -29,6 +44,9 @@ class CoursePlayer {
         this.setupEventListeners();
     }
 
+    /**
+     * Binds click handlers for navigation and completion buttons.
+     */
     setupEventListeners() {
         const markCompleteBtn = document.getElementById('markCompleteBtn');
         if (markCompleteBtn) {
@@ -48,6 +66,10 @@ class CoursePlayer {
         this.loadUserPoints();
     }
 
+    /**
+     * Fetches the user's total points and updates the display.
+     * @returns {Promise<void>}
+     */
     async loadUserPoints() {
         try {
             const response = await fetch('../../api/points.php?action=get_user_points');
@@ -61,6 +83,10 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Updates the points counter in the header.
+     * @param {number} points - The total points value.
+     */
     updatePointsDisplay(points) {
         const pointsDisplay = document.getElementById('userPointsDisplay');
         if (pointsDisplay) {
@@ -68,6 +94,10 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Loads course structure for the sidebar.
+     * @returns {Promise<void>}
+     */
     async loadCourseContent() {
         try {
             const response = await fetch(`../../api/course_player.php?action=get_course_content&course_id=${this.courseId}`);
@@ -84,6 +114,11 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Loads a specific lesson by ID.
+     * @param {string} lessonId - The lesson ID to load.
+     * @returns {Promise<void>}
+     */
     async loadLesson(lessonId) {
         try {
             const response = await fetch(`../../api/course_player.php?action=get_lesson&lesson_id=${lessonId}`);
@@ -102,6 +137,10 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Loads the first available lesson in the course.
+     * @returns {Promise<void>}
+     */
     async loadFirstLesson() {
         try {
             const response = await fetch(`../../api/course_player.php?action=get_course_content&course_id=${this.courseId}`);
@@ -116,6 +155,12 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Renders the main lesson view including title, meta, video, and navigation.
+     * @param {Object} lesson - The lesson data.
+     * @param {Object|null} nextLesson - The next lesson data.
+     * @param {Object|null} previousLesson - The previous lesson data.
+     */
     renderLesson(lesson, nextLesson, previousLesson) {
         document.title = `${lesson.Title} | Taliq`;
         
@@ -143,6 +188,10 @@ class CoursePlayer {
         this.updateURL(lesson.LessonId);
     }
 
+    /**
+     * Renders the video player or content viewer for the current lesson.
+     * @param {Object} lesson - The lesson data.
+     */
     renderVideoPlayer(lesson) {
         const videoContainer = document.querySelector('.video-container');
         if (!videoContainer) return;
@@ -169,6 +218,10 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Renders the lesson description text.
+     * @param {Object} lesson - The lesson data.
+     */
     renderLessonContent(lesson) {
         const descriptionContainer = document.getElementById('lessonDescription');
         if (!descriptionContainer) return;
@@ -177,6 +230,12 @@ class CoursePlayer {
         descriptionContainer.innerHTML = `<p class="content-text">${description}</p>`;
     }
 
+    /**
+     * Renders the course sidebar with sections, lessons, and progress.
+     * @param {Object} course - The course metadata.
+     * @param {Array<Object>} sections - The curriculum sections.
+     * @param {Object} progress - The user's progress data.
+     */
     renderCourseSidebar(course, sections, progress) {
         const sidebarTitle = document.querySelector('.sidebar-title');
         if (sidebarTitle) {
@@ -226,6 +285,11 @@ class CoursePlayer {
         this.attachLessonClickHandlers();
     }
 
+    /**
+     * Generates sidebar lesson item HTML.
+     * @param {Array<Object>} lessons - The lessons in a section.
+     * @returns {string} The lesson items HTML.
+     */
     renderLessonItems(lessons) {
         return lessons.map(lesson => {
             const isActive = this.lessonId == lesson.LessonId ? 'active' : '';
@@ -246,6 +310,9 @@ class CoursePlayer {
         }).join('');
     }
 
+    /**
+     * Binds click handlers to lesson items in the sidebar.
+     */
     attachLessonClickHandlers() {
         const lessonItems = document.querySelectorAll('.lesson-item');
         lessonItems.forEach(item => {
@@ -260,6 +327,11 @@ class CoursePlayer {
         });
     }
 
+    /**
+     * Enables or disables the next/previous navigation buttons.
+     * @param {Object|null} nextLesson - The next lesson data.
+     * @param {Object|null} previousLesson - The previous lesson data.
+     */
     updateNavigationButtons(nextLesson, previousLesson) {
         const nextBtn = document.getElementById('nextLessonBtn');
         const prevBtn = document.getElementById('prevLessonBtn');
@@ -283,6 +355,10 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Updates the mark-complete button state.
+     * @param {boolean} isCompleted - Whether the lesson is complete.
+     */
     updateCompleteButton(isCompleted) {
         const markCompleteBtn = document.getElementById('markCompleteBtn');
         if (markCompleteBtn) {
@@ -304,6 +380,10 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Marks the current lesson as complete and awards points.
+     * @returns {Promise<void>}
+     */
     async markLessonComplete() {
         if (!this.currentLesson || this.currentLesson.IsCompleted) {
             return;
@@ -334,7 +414,7 @@ class CoursePlayer {
                     this.showSuccessNotification(`Lesson Complete! +${pointsAwarded} points`);
                 }
                 
-                // Refresh progress and points using sync module
+
                 if (window.progressSync) {
                     await window.progressSync.refreshCourseProgress(this.courseId);
                 }
@@ -350,6 +430,9 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Navigates to the next lesson in sequence.
+     */
     navigateToNextLesson() {
         const nextBtn = document.getElementById('nextLessonBtn');
         if (nextBtn && !nextBtn.disabled) {
@@ -361,6 +444,9 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Navigates to the previous lesson in sequence.
+     */
     navigateToPreviousLesson() {
         const prevBtn = document.getElementById('prevLessonBtn');
         if (prevBtn && !prevBtn.disabled) {
@@ -372,6 +458,9 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Starts the 5-second interval watch time tracker.
+     */
     startWatchTimeTracking() {
         this.stopWatchTimeTracking();
         
@@ -381,6 +470,9 @@ class CoursePlayer {
         }, 5000);
     }
 
+    /**
+     * Stops the watch time tracking interval.
+     */
     stopWatchTimeTracking() {
         if (this.watchTimeInterval) {
             clearInterval(this.watchTimeInterval);
@@ -388,6 +480,10 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Sends accumulated watch time to the server.
+     * @returns {Promise<void>}
+     */
     async updateWatchTime() {
         if (!this.currentLesson) return;
 
@@ -408,11 +504,19 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Updates the browser URL with the current lesson ID.
+     * @param {string} lessonId - The active lesson ID.
+     */
     updateURL(lessonId) {
         const newURL = `${window.location.pathname}?course_id=${this.courseId}&lesson_id=${lessonId}`;
         window.history.pushState({ lessonId }, '', newURL);
     }
 
+    /**
+     * Displays a points/completion notification banner.
+     * @param {string} message - The notification message.
+     */
     showSuccessNotification(message) {
         const notification = document.getElementById('pointsNotification');
         if (notification) {
@@ -427,11 +531,18 @@ class CoursePlayer {
         }
     }
 
+    /**
+     * Displays an error alert.
+     * @param {string} message - The error message.
+     */
     showError(message) {
         alert(message);
     }
 }
 
+/**
+ * Closes the points notification banner.
+ */
 function closePointsNotification() {
     const notification = document.getElementById('pointsNotification');
     if (notification) {

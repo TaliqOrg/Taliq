@@ -1,3 +1,9 @@
+/**
+ * login.css
+ * Styles for the login and signup pages including split layout,
+ * form elements, image pane, and responsive breakpoints.
+ */
+
 .split-layout {
     display: flex;
     align-items: center;
@@ -5,27 +11,26 @@
 
 .login-pane {
     flex: 1;
-    /* take all the space */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 4rem 2rem;
 }
 
-/* login form customization */
+/* Login Form */
 .login-content {
     width: 100%;
     max-width: 34rem;
 }
 
-/* main title */
+/* Login Title */
 .login-title {
     font-family: var(--font-heading);
     color: var(--primary);
     margin-bottom: 0.6rem;
 }
 
-/* main description under the title */
+/* Login Subtitle */
 .login-subtitle {
     color: var(--text-muted);
 }
@@ -36,15 +41,14 @@
     gap: 1.5rem;
 }
 
-/* --- Remember me & Forgot Password --- */
+/* Form Options */
 .form-options {
     display: flex;
     justify-content: space-between;
-    /* seperate options */
     align-items: center;
 }
 
-/* Remember me label */
+/* Remember Me */
 .remember-me {
     display: flex;
     align-items: center;
@@ -54,7 +58,7 @@
     cursor: pointer;
 }
 
-/* for Forgot Password/Terms/Policy links */
+/* Auxiliary Links */
 .forgot-link {
     font-size: 0.9rem;
     font-weight: 400;
@@ -67,7 +71,7 @@
 
 
 
-/* signup text under login/signup form */
+/* Signup Prompt */
 .signup-prompt {
     text-align: center;
     margin-top: 1.5rem;
@@ -85,13 +89,11 @@
     color: var(--primary-hover);
 }
 
-/* --- Image Area --- */
+/* Image Pane */
 .image-pane {
     flex: 1;
     display: none;
-    /* mobile-first design: hide image on mobiles */
     height: 85vh;
-    /* 85% of viewport height */
     background-color: var(--surface-low);
 }
 
@@ -105,14 +107,12 @@
 
 
 
-/* ---------- Responsive Layout ---------- */
+/* Responsive Layout */
 
 
 @media (min-width: 900px) {
-    /* Laptops & Large Screens */
 
     .image-pane {
         display: block;
-        /* Show image only on large screens */
     }
 }

@@ -1,7 +1,16 @@
 <?php
 /**
- * Points API v2.0 (Refactored)
- * Simplified points API - points stored directly in User table
+ * Points API Endpoint (Version 2)
+ *
+ * Simplified points API with points stored directly in the User table.
+ * Provides user points retrieval with streak and level data, as well as
+ * a full listing of all level definitions.
+ *
+ * @package    Taliq\Api
+ * @subpackage Points
+ * @version    2.0.0
+ *
+ * @method GET Retrieves user points/streaks or all level definitions.
  */
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -28,7 +37,6 @@ $userId = $_SESSION['user_id'];
 
 switch ($action) {
     case 'get_user_points':
-        // Get points directly from User table
         $stmt = $pdo->prepare("SELECT Points, CurrentStreak, LongestStreak FROM User WHERE UserId = ?");
         $stmt->execute([$userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);

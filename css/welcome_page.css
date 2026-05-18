@@ -1,4 +1,10 @@
-/* ---------- Header & Navigation ---------- */
+/**
+ * welcome_page.css
+ * Styles for the public landing page including header navigation,
+ * hero section, course grid, CTA banner, footer, and responsive layout.
+ */
+
+/* Header & Navigation */
 .main-header {
     background-color: var(--surface);
     position: sticky;
@@ -7,7 +13,7 @@
     border-bottom: 2px solid var(--secondary-container);
 }
 
-/* Aligning the navbar (used flexbox) */
+/* Navigation Container */
 .nav-container {
     display: flex;
     align-items: center;
@@ -15,7 +21,7 @@
     gap: 2rem;
 }
 
-/* logo customization */
+/* Logo */
 .logo {
     cursor: pointer;
     font-family: var(--font-heading);
@@ -25,7 +31,7 @@
 }
 
 
-/* ---------- search bar ---------- */
+/* Search Bar */
 .nav-search {
     display: flex;
     background-color: var(--surface-low);
@@ -36,13 +42,13 @@
     align-items: center;
 }
 
-/* when focus is set on the search bar  */
+/* Search Bar Focus State */
 .nav-search:focus-within {
     background-color: var(--surface);
     border-color: var(--primary);
 }
 
-/* customize search input */
+/* Search Input */
 .search-input {
     flex: 1;
 
@@ -58,7 +64,7 @@
     color: var(--text-muted);
 }
 
-/* adjust search icon */
+/* Search Icon */
 .search-icon {
     position: absolute;
     color: var(--text-muted);
@@ -68,17 +74,15 @@
 }
 
 
-/* ---------- nav links & cart button alignment ---------- */
+/* Navigation Links */
 
-/* nav links wrapper */
 .desktop-nav {
     display: flex;
-    /* used flexbox !!! */
     margin-left: auto;
     align-items: center;
 }
 
-/* for navigation links */
+/* Nav Link */
 .nav-link {
     display: flex;
     align-items: center;
@@ -95,7 +99,7 @@
     background-color: var(--surface-hover);
 }
 
-/* signup link */
+/* Signup Button */
 .nav-signup {
     background-color: var(--primary);
     color: var(--on-primary);
@@ -107,7 +111,7 @@
     color: var(--on-primary)
 }
 
-/* login link */
+/* Login Button */
 .nav-login {
     border: 2px solid var(--primary);
     margin: 0 1rem;
@@ -117,22 +121,19 @@
     background-color: var(--surface-hover);
 }
 
-/* ---------- Welcome Section (used grid layout) ---------- */
+/* Welcome Hero Section */
 
-/* main conatiner */
 .welcome-card {
     background-color: var(--surface-low);
     border-radius: var(--border-radius-xl);
     padding: 2rem;
-
-    display: grid; /* using grid with two fraction columns */
+    display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
-
     align-items: center;
 }
 
-/* title heading */
+/* Welcome Title */
 .welcome-title {
     font-family: var(--font-heading);
     font-size: 2.5rem;
@@ -141,7 +142,7 @@
     margin-bottom: 1.5rem;
 }
 
-/* text under the title */
+/* Welcome Subtitle */
 .welcome-subtitle {
     font-size: 1rem;
     color: var(--text-muted);
@@ -149,16 +150,15 @@
     max-width: 500px;
 }
 
-/* buttons under the text */
+/* Welcome Buttons */
 .welcome-buttons {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
-    /* for screen change */
     justify-content: center;
 }
 
-/* welcome Image */
+/* Welcome Image */
 .welcome-img {
     width: 100%;
     height: 90%;
@@ -166,15 +166,14 @@
 }
 
 
-/* ---------- Products Grid ---------- */
+/* Product Grid */
 
-/* bottom margin */
 .section-header {
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
 
-/* header title */
+/* Section Title */
 .section-title {
     font-family: var(--font-heading);
     font-size: 2rem;
@@ -182,29 +181,29 @@
     margin-bottom: 0.5rem;
 }
 
-/* header subtitle */
+/* Section Subtitle */
 .section-subtitle {
     color: var(--text-muted);
     font-size: 0.95rem;
     margin-bottom: 3rem;
 }
 
-/* a grid container for cards */
+/* Course Card Grid */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 445px));
     gap: 1rem;
 }
 
-/* customize container for image and its badge */
+/* Card Image Container */
 .card-image-container {
-    position: relative; /* to set badge above it */
+    position: relative;
     height: 12rem;
     overflow: hidden;
     padding: 0.5rem;
 }
 
-/* image in course card */
+/* Card Image */
 .card-img {
     width: 100%;
     height: 100%;
@@ -212,24 +211,24 @@
     border-radius: 1rem;
 }
 
-/* for online badge */
+/* Online Badge */
 .badge-online {
     background-color: var(--primary-container);
     color: var(--on-primary);
 }
 
-/* for on-site badge */
+/* On-Site Badge */
 .badge-onsite {
     background-color: var(--badge-onsite);
     color: var(--surface);
 }
 
-/* content container in the course card */
+/* Card Content */
 .card-content {
     padding: 1.5rem;
 }
 
-/* course title */
+/* Card Title */
 .card-title {
     font-family: var(--font-heading);
     font-size: 1.20rem;
@@ -237,16 +236,15 @@
     margin-bottom: 0.5rem;
 }
 
-/* rating for the course */
+/* Rating */
 .rating {
     display: flex;
-    /* using flexbox */
     align-items: center;
     gap: 0.25rem;
     margin-bottom: 1rem;
 }
 
-/* rating star icon */
+/* Star Icon */
 .star-icon {
     color: #fbbf24;
     font-size: 0.875rem;
@@ -263,14 +261,14 @@
     font-size: 0.85rem;
 }
 
-/* for price & action in the card */
+/* Card Footer */
 .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* price for the course */
+/* Price */
 .price {
     font-family: var(--font-heading);
     font-size: 1.3rem;
@@ -278,7 +276,7 @@
     color: var(--primary);
 }
 
-/* cart button for the course */
+/* Add to Cart Button */
 .add-cart-btn {
     width: 2.5rem;
     height: 2.5rem;
@@ -302,7 +300,7 @@
     margin-top: 4rem;
 }
 
-/* --- cta Section --- */
+/* CTA Section */
 .cta-card {
     background: var(--primary-container);
     border-radius: 2.5rem;
@@ -334,13 +332,13 @@
     background-color: var(--surface-hover);
 }
 
-/* --- Footer --- */
+/* Footer */
 .main-footer {
     background-color: #f2f4f6;
     margin-top: auto;
 }
 
-/* ---------- Footer Section ---------- */
+/* Footer Container */
 .footer-container {
     display: flex;
     justify-content: space-between;
@@ -356,7 +354,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* for navigation links container (flexbox) */
+/* Footer Links */
 .footer-links {
     display: flex;
     gap: 2rem;
@@ -373,7 +371,7 @@
     text-decoration: underline;
 }
 
-/*  for copyright container */
+/* Footer Copyright */
 .footer-bottom {
     text-align: center;
     padding-bottom: 2rem;
@@ -383,11 +381,10 @@
 }
 
 
-/* ---------- Responsive Media Queries ---------- */
+/* Responsive Layout */
 
 
 @media (max-width: 768px) {
-    /* For Tablets and Mobile */
 
     .desktop-nav,
     .nav-search {

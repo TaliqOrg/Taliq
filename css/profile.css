@@ -1,3 +1,10 @@
+/**
+ * profile.css
+ * Styles for the user profile page including sidebar navigation,
+ * personal info, gamification stats, level progress, enrolled courses,
+ * certificates, orders, and responsive layout breakpoints.
+ */
+
 .active {
     color: var(--primary);
 }
