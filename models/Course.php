@@ -77,9 +77,10 @@ class Course {
         $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
         $thumbSql = $thumbnailUrl ? ', ThumbnailUrl = :thumbnail_url' : '';
+        $seatsSql = ($courseType === 'course') ? ', MaxStudents = :max_students' : '';
 
         $sql = "UPDATE {$table}
-                SET Title = :title, CategoryId = :category_id, Description = :description, Price = :price, DurationHours = :duration_hours, Level = :level, Language = :language, IsPublished = :is_published {$thumbSql}
+                SET Title = :title, CategoryId = :category_id, Description = :description, Price = :price, DurationHours = :duration_hours, Level = :level, Language = :language, IsPublished = :is_published {$thumbSql} {$seatsSql}
                 WHERE {$idColumn} = :id";
 
         $params = [
@@ -96,6 +97,9 @@ class Course {
         if ($thumbnailUrl) {
             $params[':thumbnail_url'] = $thumbnailUrl;
         }
+        if ($courseType === 'course') {
+            $params[':max_students'] = (int)($data['MaxStudents'] ?? 0);
+        }
 
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($params);
@@ -111,9 +115,9 @@ class Course {
 
     public function createCourse($data, $thumbnailUrl) {
         $sql = "INSERT INTO Course
-                    (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished)
+                    (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished, MaxStudents)
                 VALUES
-                    (:category_id, :title, :description, :price, :duration_hours, :level, :language, :thumbnail_url, :is_published)";
+                    (:category_id, :title, :description, :price, :duration_hours, :level, :language, :thumbnail_url, :is_published, :max_students)";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -126,6 +130,31 @@ class Course {
             ':language'       => $data['Language'],
             ':thumbnail_url'  => $thumbnailUrl,
             ':is_published'   => !empty($data['IsPublished']) ? 1 : 0,
+            ':max_students'   => (int)($data['MaxStudents'] ?? 0),
+        ]);
+
+        return $this->db->lastInsertId();
+    }
+
+    public function createWorkshop($data, $thumbnailUrl) {
+        $sql = "INSERT INTO Workshop
+                    (CategoryId, Title, Description, Price, Location, DurationHours, Level, Language, ThumbnailUrl, IsPublished, Capacity)
+                VALUES
+                    (:category_id, :title, :description, :price, :location, :duration_hours, :level, :language, :thumbnail_url, :is_published, :capacity)";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':category_id'    => $data['CategoryId'],
+            ':title'          => $data['Title'],
+            ':description'    => $data['Description'],
+            ':price'          => $data['Price'],
+            ':location'       => $data['Location'] ?? '',
+            ':duration_hours' => $data['DurationHours'],
+            ':level'          => strtolower($data['Level']),
+            ':language'       => $data['Language'],
+            ':thumbnail_url'  => $thumbnailUrl,
+            ':is_published'   => !empty($data['IsPublished']) ? 1 : 0,
+            ':capacity'       => (int)($data['MaxStudents'] ?? 0),
         ]);
 
         return $this->db->lastInsertId();

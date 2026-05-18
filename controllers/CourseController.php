@@ -75,6 +75,9 @@ class CourseController {
             return ['success' => false, 'message' => 'Invalid parameters'];
         }
         $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language'];
+        if ($courseType === 'course') {
+            $required[] = 'MaxStudents';
+        }
         foreach ($required as $field) {
             if (empty($postData[$field])) {
                 return ['success' => false, 'message' => "$field is required"];
@@ -113,7 +116,11 @@ class CourseController {
     }
 
     public function addCourse($postData, $fileData) {
-        $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language'];
+        $courseType = $postData['CourseType'] ?? 'course';
+        $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language', 'MaxStudents'];
+        if ($courseType === 'workshop') {
+            $required[] = 'Location';
+        }
         foreach ($required as $field) {
             if (empty($postData[$field])) {
                 return ['success' => false, 'message' => "$field is required"];
@@ -133,11 +140,15 @@ class CourseController {
             }
             $thumbnailUrl = '/Taliq/uploads/' . $filename;
         }
-        $courseId = $this->courseModel->createCourse($postData, $thumbnailUrl);
-        if ($courseId) {
-            return ['success' => true, 'message' => 'Course created successfully', 'course_id' => $courseId];
+        if ($courseType === 'workshop') {
+            $newId = $this->courseModel->createWorkshop($postData, $thumbnailUrl);
+        } else {
+            $newId = $this->courseModel->createCourse($postData, $thumbnailUrl);
         }
-        return ['success' => false, 'message' => 'Failed to create course'];
+        if ($newId) {
+            return ['success' => true, 'message' => ucfirst($courseType) . ' created successfully', 'course_id' => $newId];
+        }
+        return ['success' => false, 'message' => 'Failed to create ' . $courseType];
     }
 
     public function getWithLessons($courseId, $courseType) {
