@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 5:  Wishlist Model
+ * Author:  Abdullah Al Tamh
+ */
 
 class Wishlist {
     private $db;

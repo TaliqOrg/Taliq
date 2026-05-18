@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 8:  Session Check API Endpoint
+ * Author:  Moamen Rabah
+ */
 require_once '../config/constants.php';
 require_once '../includes/functions.php';
 

@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 11: Contact Us Model
+ * Author:  Fadhlallah Almohammed
+ */
 
 class ContactMessage {
     private $db;

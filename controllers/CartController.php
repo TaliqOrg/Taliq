@@ -1,4 +1,9 @@
 <?php
+/*
+ * Task 5:  Add to Cart + Stock Check
+ * Task 6:  Checkout Controller
+ * Author:  Abdullah Al Tamh
+ */
 
 require_once '../config/constants.php';
 require_once '../config/database.php';

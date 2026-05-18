@@ -1,4 +1,13 @@
-// Escape HTML special characters before inserting DB data into innerHTML
+/*
+ * Task 5:  Add to Cart + Stock Check
+ * Task 6:  Checkout (Display / Modify / Delete / Empty)
+ * Task 7:  Buy
+ * Task 12: Past Purchases (Cookies)
+ * Task 13: Forms Validation
+ * Authors: Abdullah Al Tamh, Abdulhadi Shamea, Moamen Rabah, Fadhlallah Almohammed
+ */
+
+// Task 5 | Author: Abdullah Al Tamh
 function escapeHtml(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -8,9 +17,7 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 }
 
-// Add an item to the cart
-// courseId: the course ID (or null if it's a workshop)
-// workshopId: the workshop ID (or null if it's a course)
+// Task 5 | Author: Abdullah Al Tamh
 async function addToCart(courseId, workshopId, price, quantity) {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php', {
@@ -45,7 +52,7 @@ async function addToCart(courseId, workshopId, price, quantity) {
     }
 }
 
-// Update the cart badge in the header (the little number on the cart icon)
+// Task 5 | Author: Abdullah Al Tamh
 function updateCartBadge(count) {
     const badge = document.querySelector('.cart-badge');
     if (!badge) return;
@@ -59,7 +66,7 @@ function updateCartBadge(count) {
     }
 }
 
-// Fetch the cart count from the server and update the badge
+// Task 5 | Author: Abdullah Al Tamh
 async function loadCartBadge() {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php?action=count');
@@ -72,7 +79,7 @@ async function loadCartBadge() {
     }
 }
 
-// Show a small message below the Add to Cart button
+// Task 5 | Author: Abdullah Al Tamh
 function showCartMessage(message, type) {
     const existing = document.getElementById('cart-msg');
     if (existing) existing.remove();
@@ -101,7 +108,7 @@ function showCartMessage(message, type) {
     }, 3000);
 }
 
-// Build the HTML for one cart item
+// Task 6 | Author: Abdullah Al Tamh
 function renderCartItem(item) {
     const badgeClass = item.Type === 'course' ? 'badge-online' : 'badge-onsite';
     const badgeText  = item.Type === 'course' ? 'Online' : 'On-site';
@@ -143,7 +150,7 @@ function renderCartItem(item) {
     `;
 }
 
-// Send a quantity update to the server and refresh the cart display
+// Task 6 | Author: Abdulhadi Shamea
 async function updateCartItem(cartItemId, newQty) {
     if (newQty < 1) return; // minimum is 1, delete handles removal
 
@@ -184,7 +191,7 @@ async function updateCartItem(cartItemId, newQty) {
     }
 }
 
-// Empty the entire cart
+// Task 6 | Author: Abdullah Al Tamh
 async function emptyCart() {
     if (!confirm('Are you sure you want to remove all items from your cart?')) return;
 
@@ -221,7 +228,7 @@ async function emptyCart() {
     }
 }
 
-// Remove one item from the cart and refresh the display
+// Task 6 | Author: Abdullah Al Tamh
 async function deleteCartItem(cartItemId) {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php', {
@@ -275,7 +282,7 @@ async function deleteCartItem(cartItemId) {
     }
 }
 
-// Fetch cart items from the server and display them on the cart page
+// Task 6 | Author: Abdullah Al Tamh
 async function loadCartItems() {
     const container     = document.getElementById('cart-items-container');
     const originalPrice = document.getElementById('cart-original-price');
@@ -329,7 +336,7 @@ async function loadCartItems() {
     }
 }
 
-// Build the HTML for one item in the checkout summary
+// Task 6 | Author: Abdullah Al Tamh
 function renderCheckoutItem(item) {
     const subtotal = parseFloat(item.Subtotal).toFixed(2);
     return `
@@ -340,7 +347,7 @@ function renderCheckoutItem(item) {
     `;
 }
 
-// Load the checkout page: fill in user info and order summary
+// Task 6 | Author: Abdullah Al Tamh
 async function loadCheckoutPage() {
     const itemsContainer = document.getElementById('checkout-items-container');
     const originalPrice  = document.getElementById('checkout-original-price');
@@ -387,7 +394,7 @@ async function loadCheckoutPage() {
     }
 }
 
-// Complete the purchase — validate form, send to API, redirect on success
+// Task 7 + Task 13 | Author: Abdullah Al Tamh, Fadhlallah Almohammed
 async function completePurchase() {
     const billingName  = document.getElementById('billingName').value.trim();
     const billingEmail = document.getElementById('billingEmail').value.trim();
@@ -438,10 +445,7 @@ async function completePurchase() {
     }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// RECENT PURCHASES COOKIE HELPERS
-// ══════════════════════════════════════════════════════════════════════════════
-
+// Task 12 | Author: Moamen Rabah
 function getRecentPurchasesCookie() {
     const cookie = document.cookie
         .split('; ')
@@ -457,6 +461,7 @@ function getRecentPurchasesCookie() {
     return [];
 }
 
+// Task 12 | Author: Moamen Rabah
 function setRecentPurchasesCookie(purchases) {
     // Keep only last 10 purchases, expires in 30 days
     const limitedPurchases = purchases.slice(0, 10);
@@ -465,6 +470,7 @@ function setRecentPurchasesCookie(purchases) {
     document.cookie = `recent_purchases=${encodeURIComponent(JSON.stringify(limitedPurchases))}; expires=${expires.toUTCString()}; path=/`;
 }
 
+// Task 12 | Author: Moamen Rabah
 function saveRecentPurchases(newItems) {
     const existing = getRecentPurchasesCookie();
     

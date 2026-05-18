@@ -1,4 +1,9 @@
 <?php
+/*
+ * Task 5:  Add to Cart + Stock Check
+ * Task 6:  Checkout (Display / Modify / Delete / Empty)
+ * Author:  Abdullah Al Tamh
+ */
 
 class Cart {
     private $db;

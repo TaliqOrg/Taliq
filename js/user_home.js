@@ -1,4 +1,7 @@
-// User Home Page JavaScript
+/*
+ * Task 12: Past Purchases (Cookies) — Recent Purchases Section
+ * Author:  Moamen Rabah
+ */
 
 document.addEventListener('DOMContentLoaded', function() {
     loadContinueLearning();
@@ -9,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // CONTINUE LEARNING SECTION
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 12 | Author: Abdulhadi Shamea, Moamen Rabah
 async function loadContinueLearning() {
     const container = document.getElementById('continue-learning-container');
     if (!container) return;
@@ -44,6 +48,7 @@ async function loadContinueLearning() {
     }
 }
 
+// Task 12 | Author: Abdulhadi Shamea, Moamen Rabah
 function createContinueLearningCard(course) {
     const placeholder = '../../images/placeholder-course.png';
     const thumbnail   = course.ThumbnailUrl || placeholder;
@@ -96,6 +101,7 @@ function createContinueLearningCard(course) {
 // RECENT PURCHASES SECTION (Using Cookies)
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 12 | Author: Moamen Rabah
 async function loadRecentPurchases() {
     const container = document.getElementById('recent-purchases-container');
     if (!container) return;
@@ -135,6 +141,7 @@ async function loadRecentPurchases() {
     }
 }
 
+// Task 12 | Author: Moamen Rabah
 function createPurchaseCard(course) {
     const placeholder = '../../images/placeholder-course.png';
     const thumbnail = course.ThumbnailUrl || placeholder;
@@ -160,6 +167,7 @@ function createPurchaseCard(course) {
 // COOKIE HELPERS FOR RECENT PURCHASES
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 12 | Author: Moamen Rabah
 function getRecentPurchasesCookie() {
     const cookie = document.cookie
         .split('; ')
@@ -175,6 +183,7 @@ function getRecentPurchasesCookie() {
     return [];
 }
 
+// Task 12 | Author: Moamen Rabah
 function setRecentPurchasesCookie(purchases) {
     // Keep only last 10 purchases, expires in 30 days
     const limitedPurchases = purchases.slice(0, 10);
@@ -183,6 +192,7 @@ function setRecentPurchasesCookie(purchases) {
     document.cookie = `recent_purchases=${encodeURIComponent(JSON.stringify(limitedPurchases))}; expires=${expires.toUTCString()}; path=/`;
 }
 
+// Task 12 | Author: Moamen Rabah
 function addToRecentPurchases(courseId, workshopId) {
     const purchases = getRecentPurchasesCookie();
     const newItem = { courseId, workshopId, timestamp: Date.now() };
@@ -202,6 +212,7 @@ function addToRecentPurchases(courseId, workshopId) {
 // UTILITY
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 12 | Author: Moamen Rabah
 function createEmptyState(title, message, icon) {
     return `
         <div class="empty-state-small">

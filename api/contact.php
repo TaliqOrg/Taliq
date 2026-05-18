@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 11: Contact Us API Endpoint
+ * Author:  Fadhlallah Almohammed
+ */
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

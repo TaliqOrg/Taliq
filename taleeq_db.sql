@@ -1,3 +1,7 @@
+-- Task 1:  Database Design
+-- Author: Abdullah Al Tamh
+-- Ticket: #30
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/

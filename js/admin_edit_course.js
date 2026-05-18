@@ -1,3 +1,8 @@
+/*
+ * Task 10: Edit Course (Admin)
+ * Author:  Fadhlallah Almohammed
+ */
+
 const params     = new URLSearchParams(window.location.search);
 const courseId   = params.get('id');
 const courseType = params.get('type') || 'course';
@@ -11,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('edit-course-form').addEventListener('submit', handleSubmit);
 });
 
+// Task 10 | Author: Fadhlallah Almohammed
 async function loadCourse() {
     try {
         const response = await fetch(
@@ -51,6 +57,7 @@ async function loadCourse() {
     }
 }
 
+// Task 10 | Author: Fadhlallah Almohammed
 async function handleSubmit(e) {
     e.preventDefault();
 

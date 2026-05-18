@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 1:  Database Design (User Profile Schema)
+ * Author:  Abdullah Al Tamh
+ */
 /**
  * Profile Model v2.0 (Refactored)
  * Simplified model with unified points system - Points stored in User table

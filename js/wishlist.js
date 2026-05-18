@@ -1,4 +1,7 @@
-// Wishlist functionality
+/*
+ * Task 5:  Wishlist (Add / Remove / View)
+ * Author:  Abdullah Al Tamh
+ */
 let wishlistIds = [];
 
 document.addEventListener('DOMContentLoaded', function() {

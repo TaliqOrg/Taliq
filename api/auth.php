@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 8:  Authentication API Endpoint
+ * Author:  Moamen Rabah
+ */
 
 require_once '../controllers/AuthController.php';
 
