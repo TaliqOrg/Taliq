@@ -1,3 +1,10 @@
+/*
+ * Task 4:  Course Details Page
+ * Task 5:  Seat Inventory Display
+ * Task 14: Help Modal
+ * Authors: Abdulhadi Shamea, Abdullah Al Tamh
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     urlParams = new URLSearchParams(window.location.search)
 
@@ -5,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
+// Task 4 + Task 5 | Author: Abdulhadi Shamea
 function populateCourseDetails() {
 
     const id = urlParams.get('id');
@@ -141,6 +149,7 @@ function populateCourseDetails() {
 // LOAD WORKSHOP SESSIONS
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 4 | Author: Abdulhadi Shamea
 function loadWorkshopSessions(workshopId) {
     const container = document.getElementById('curriculum-container');
     if (!container) return;
@@ -202,6 +211,7 @@ function loadWorkshopSessions(workshopId) {
 // LOAD COURSE CURRICULUM
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 4 | Author: Abdulhadi Shamea
 function loadCourseCurriculum(courseId) {
     fetch(`/taleeq/Taliq/api/courses.php?action=curriculum&course_id=${courseId}`)
         .then(response => response.json())
@@ -257,6 +267,7 @@ function loadCourseCurriculum(courseId) {
 // COPY COURSE LINK TO CLIPBOARD
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 4 | Author: Abdulhadi Shamea
 function copyCourseLinkToClipboard() {
     const currentUrl = window.location.href;
     const button = document.getElementById('copyLinkBtn');
@@ -292,6 +303,7 @@ function copyCourseLinkToClipboard() {
     }
 }
 
+// Task 4 | Author: Abdulhadi Shamea
 function showCopyFeedback(button, success) {
     const originalHTML = button.innerHTML;
 
@@ -317,6 +329,7 @@ function showCopyFeedback(button, success) {
 // If the user already owns this course, swap the buttons
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 5 | Author: Abdullah Al Tamh
 async function checkEnrollmentStatus(id, type) {
     // Only applies to courses (workshop duplicate is blocked at cart level)
     if (type !== 'course') return;

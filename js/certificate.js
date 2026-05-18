@@ -1,3 +1,8 @@
+/*
+ * Task 7:  Certificate Generation
+ * Author:  Abdullah Al Tamh
+ */
+
 document.addEventListener('DOMContentLoaded', function () {
     const certId = new URLSearchParams(window.location.search).get('cert_id');
 

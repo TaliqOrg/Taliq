@@ -1,3 +1,9 @@
+/*
+ * Task 16: Efficiency (Reusable Components & Shared Utilities)
+ * Author:  Moamen Rabah
+ */
+
+// Task 16 | Author: Moamen Rabah
 function updateCartBadge(count) {
     const badge = document.querySelector('.cart-badge');
     if (!badge) return;
@@ -11,6 +17,7 @@ function updateCartBadge(count) {
     }
 }
 
+// Task 16 | Author: Moamen Rabah
 async function loadCartBadge() {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php?action=count');
@@ -23,6 +30,7 @@ async function loadCartBadge() {
     }
 }
 
+// Task 16 | Author: Moamen Rabah
 async function quickAddToCart(courseId, workshopId, price) {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php', {
@@ -55,6 +63,7 @@ async function quickAddToCart(courseId, workshopId, price) {
     }
 }
 
+// Task 16 | Author: Moamen Rabah
 function showToast(message, type = 'success') {
     const existing = document.getElementById('toast-notification');
     if (existing) existing.remove();
@@ -84,6 +93,7 @@ function showToast(message, type = 'success') {
     }, 2500);
 }
 
+// Task 16 | Author: Moamen Rabah
 async function loadComponent(elementId, componentPath) {
     try {
         const response = await fetch(componentPath);
@@ -94,6 +104,7 @@ async function loadComponent(elementId, componentPath) {
     }
 }
 
+// Task 16 | Author: Moamen Rabah
 async function initializeComponents() {
     await loadComponent('header-placeholder', '/taleeq/Taliq/components/header.html');
     await loadComponent('footer-placeholder', '/taleeq/Taliq/components/footer.html');
@@ -114,6 +125,7 @@ async function initializeComponents() {
     }
 }
 
+// Task 16 | Author: Moamen Rabah
 async function updateHeaderFooter() {
     const session = await checkSession();
     

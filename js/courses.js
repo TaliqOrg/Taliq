@@ -1,3 +1,9 @@
+/*
+ * Task 3:  Course Listing & Filters
+ * Task 14: Help Modal
+ * Author:  Abdulhadi Shamea
+ */
+
 // Pagination & filter state
 let allCourses = [];
 let filteredCourses = [];
@@ -31,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // FETCH
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 3 | Author: Abdulhadi Shamea
 function fetchCoursesWithPagination() {
     fetch('/taleeq/Taliq/api/courses.php?action=list')
         .then(response => response.json())
@@ -63,6 +70,7 @@ function fetchCoursesWithPagination() {
         });
 }
 
+// Task 3 | Author: Abdulhadi Shamea
 function fetchCourses(limit) {
     let apiUrl = '/taleeq/Taliq/api/courses.php?action=list';
     if (limit > 0) apiUrl += `&limit=${limit}`;
@@ -85,6 +93,7 @@ function fetchCourses(limit) {
 // FILTERS & SORT
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 3 | Author: Abdulhadi Shamea
 function attachFilterListeners() {
     document.querySelectorAll('.filters-sidebar input[type="checkbox"]').forEach(cb => {
         cb.addEventListener('change', applyFilters);
@@ -93,6 +102,7 @@ function attachFilterListeners() {
     if (sortSelect) sortSelect.addEventListener('change', applyFilters);
 }
 
+// Task 3 | Author: Abdulhadi Shamea
 function applyFilters() {
     const checkedCategories = getCheckedValues('category');
     const checkedTypes      = getCheckedValues('type');
@@ -160,6 +170,7 @@ function applyFilters() {
     renderPagination();
 }
 
+// Task 3 | Author: Abdulhadi Shamea
 function getCheckedValues(name) {
     return [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(cb => cb.value);
 }
@@ -168,6 +179,7 @@ function getCheckedValues(name) {
 // RENDER
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 3 | Author: Abdulhadi Shamea
 function renderCourses() {
     const container = document.getElementById('course-container');
     if (!container) return;
@@ -188,6 +200,7 @@ function renderCourses() {
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+// Task 3 | Author: Abdulhadi Shamea
 function updateResultsCount() {
     const el = document.querySelector('.results-count');
     if (!el) return;
@@ -199,7 +212,7 @@ function updateResultsCount() {
         : 'No courses found';
 }
 
-// Create HTML for a single course card
+// Task 3 | Author: Abdulhadi Shamea
 function createCourseCard(course) {
     const badgeClass    = course.CourseType === 'course' ? 'badge-online' : 'badge-onsite';
     const badgeText     = course.CourseType === 'course' ? 'Online' : 'On-Site';
@@ -236,6 +249,7 @@ function createCourseCard(course) {
 // PAGINATION
 // ══════════════════════════════════════════════════════════════════════════════
 
+// Task 3 | Author: Abdulhadi Shamea
 function renderPagination() {
     const container = document.querySelector('.pagination');
     if (!container) return;
@@ -281,6 +295,7 @@ function renderPagination() {
     container.innerHTML = html;
 }
 
+// Task 3 | Author: Abdulhadi Shamea
 function goToPage(page) {
     if (page < 1 || page > totalPages || page === currentPage) return;
     currentPage = page;
@@ -289,16 +304,19 @@ function goToPage(page) {
     renderPagination();
 }
 
+// Task 3 | Author: Abdulhadi Shamea
 function hidePagination() {
     const container = document.querySelector('.pagination');
     if (container) container.style.display = 'none';
 }
 
+// Task 14 | Author: Abdulhadi Shamea
 function openHelpModal() {
     document.getElementById('helpModal').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
 
+// Task 14 | Author: Abdulhadi Shamea
 function closeHelpModal() {
     document.getElementById('helpModal').style.display = 'none';
     document.body.style.overflow = 'auto';

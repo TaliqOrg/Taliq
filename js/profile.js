@@ -1,6 +1,7 @@
-// ══════════════════════════════════════════════════════════════════════════════
-// PROFILE PAGE - Main JavaScript
-// ══════════════════════════════════════════════════════════════════════════════
+/*
+ * Task 8:  User Profile Page
+ * Author:  Moamen Rabah
+ */
 
 document.addEventListener('DOMContentLoaded', function() {
     initProfileTabs();

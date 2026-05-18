@@ -1,3 +1,8 @@
+/*
+ * Task 10: Manage Courses (Admin)
+ * Author:  Fadhlallah Almohammed
+ */
+
 let allCourses = [];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('type-filter')?.addEventListener('change', applyFilters);
 });
 
+// Task 10 | Author: Fadhlallah Almohammed
 async function loadCourses() {
     const container = document.getElementById('courses-list');
     if (!container) return;
@@ -41,6 +47,7 @@ async function loadCourses() {
     }
 }
 
+// Task 10 | Author: Fadhlallah Almohammed
 function renderCourses(courses) {
     const container = document.getElementById('courses-list');
     if (!courses.length) {
@@ -55,6 +62,7 @@ function renderCourses(courses) {
     container.innerHTML = courses.map(c => createCard(c)).join('');
 }
 
+// Task 10 | Author: Fadhlallah Almohammed
 function createCard(course) {
     const isPublished = parseInt(course.IsPublished) === 1;
     const badge       = isPublished
@@ -99,6 +107,7 @@ function createCard(course) {
         </div>`;
 }
 
+// Task 10 | Author: Fadhlallah Almohammed
 function applyFilters() {
     const query  = document.getElementById('search-input').value.toLowerCase();
     const status = document.getElementById('status-filter').value;
@@ -118,6 +127,7 @@ function applyFilters() {
     renderCourses(filtered);
 }
 
+// Task 10 | Author: Fadhlallah Almohammed
 async function deleteCourse(courseId, courseType, btn) {
     if (!confirm('Are you sure you want to delete this course? This cannot be undone.')) return;
     btn.disabled = true;

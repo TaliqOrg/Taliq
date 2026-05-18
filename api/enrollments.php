@@ -1,4 +1,9 @@
 <?php
+/*
+ * Task 5:  Enrollment Check
+ * Task 7:  Enrollment on Purchase
+ * Author:  Abdullah Al Tamh
+ */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

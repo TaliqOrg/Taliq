@@ -1,3 +1,8 @@
+/*
+ * Task 9:  Create New Course (Admin)
+ * Author:  Fadhlallah Almohammed
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('new-course-form');
     if (!form) return;

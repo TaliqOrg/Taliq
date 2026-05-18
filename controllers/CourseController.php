@@ -1,4 +1,9 @@
 <?php
+/*
+ * Task 9:  Create Course (Admin)
+ * Task 10: Manage Courses (Admin)
+ * Author:  Fadhlallah Almohammed
+ */
 
 require_once '../config/constants.php';
 require_once '../config/database.php';

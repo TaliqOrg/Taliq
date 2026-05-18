@@ -1,3 +1,10 @@
+/*
+ * Task 8:  Authenticate Managers + Session Management
+ * Task 13: Forms Validation
+ * Authors: Moamen Rabah, Fadhlallah Almohammed
+ */
+
+// Task 8 + Task 13 | Author: Moamen Rabah, Fadhlallah Almohammed
 function initLoginForm() {
     const loginForm = document.getElementById('loginForm');
     
@@ -49,6 +56,7 @@ function initLoginForm() {
     });
 }
 
+// Task 8 + Task 13 | Author: Moamen Rabah, Fadhlallah Almohammed
 function initRegisterForm() {
     const registerForm = document.getElementById('registerForm');
     
@@ -127,6 +135,7 @@ function initRegisterForm() {
     });
 }
 
+// Task 8 | Author: Moamen Rabah
 async function checkSession() {
     console.log('[AUTH] checkSession() - fetching session status');
     try {
@@ -141,6 +150,7 @@ async function checkSession() {
     }
 }
 
+// Task 8 | Author: Moamen Rabah
 async function requireAuth() {
     console.log('[AUTH] requireAuth() called');
     const session = await checkSession();
@@ -155,6 +165,7 @@ async function requireAuth() {
     return session.user;
 }
 
+// Task 8 | Author: Moamen Rabah
 async function requireAdmin() {
     const user = await requireAuth();
     
@@ -168,14 +179,17 @@ async function requireAdmin() {
     return user;
 }
 
+// Task 8 | Author: Moamen Rabah
 async function requireUser() {
     return await requireAuth();
 }
 
+// Task 8 | Author: Moamen Rabah
 function logout() {
     window.location.href = '/taleeq/Taliq/api/auth.php?action=logout';
 }
 
+// Task 8 | Author: Moamen Rabah
 function updateUserInfo(user) {
     const userNameElements = document.querySelectorAll('[data-user-name]');
     const userEmailElements = document.querySelectorAll('[data-user-email]');
@@ -197,6 +211,7 @@ function updateUserInfo(user) {
     }
 })();
 
+// Task 8 | Author: Moamen Rabah
 async function autoProtect() {
     const path = window.location.pathname;
     console.log('[AUTH] autoProtect() called for path:', path);

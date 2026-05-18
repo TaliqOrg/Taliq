@@ -1,4 +1,10 @@
 <?php
+/*
+ * Task 1:  Database Design
+ * Task 9:  Create Course
+ * Task 10: Manage Courses
+ * Author:  Abdullah Al Tamh
+ */
 
 class Course {
     private $db;

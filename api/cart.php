@@ -1,4 +1,9 @@
 <?php
+/*
+ * Task 5:  Add to Cart + Stock Check
+ * Task 6:  Checkout API Endpoint
+ * Author:  Abdullah Al Tamh
+ */
 
 require_once '../controllers/CartController.php';
 

@@ -1,4 +1,9 @@
 <?php
+/*
+ * Task 5:  Seat Inventory (Enrollment Count + MaxStudents Decrement)
+ * Task 7:  Buy (Enrollment on Purchase)
+ * Author:  Abdullah Al Tamh
+ */
 
 class Enrollment {
     private $db;

@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 7:  Buy (Order Processing)
+ * Author:  Abdullah Al Tamh
+ */
 
 class Order {
     private $db;

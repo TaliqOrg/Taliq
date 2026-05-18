@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 5:  Wishlist API Endpoint
+ * Author:  Abdullah Al Tamh
+ */
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
