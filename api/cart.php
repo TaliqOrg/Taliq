@@ -1,17 +1,8 @@
 <?php
-/**
- * Shopping Cart API Endpoint
- *
- * Manages shopping cart operations for authenticated users. Supports retrieving
- * cart item count and details via GET, and adding, updating, deleting, or
- * emptying cart items via POST with JSON payloads.
- *
- * @package    Taliq\Api
- * @subpackage Cart
- * @version    1.0.0
- *
- * @method GET  Retrieves cart count or full cart items list.
- * @method POST Adds, updates, deletes, or empties cart items.
+/*
+ * Task 5:  Add to Cart + Stock Check
+ * Task 6:  Checkout API Endpoint
+ * Author:  Abdullah Al Tamh
  */
 
 require_once '../controllers/CartController.php';
@@ -21,13 +12,16 @@ header('Content-Type: application/json');
 $cartController = new CartController();
 $method = $_SERVER['REQUEST_METHOD'];
 
+// ── GET ──────────────────────────────────────────────────────────────────────
 if ($method === 'GET') {
     $action = $_GET['action'] ?? '';
 
     if ($action === 'count') {
+        // Return how many items are in the cart (used for the header badge)
         json_response(['success' => true, 'count' => $cartController->getCount()]);
 
     } elseif ($action === 'items') {
+        // Return all cart items with subtotals and total
         if (!isset($_SESSION['user_id'])) {
             json_response(['success' => false, 'message' => 'Not authenticated'], 401);
         }
@@ -38,6 +32,7 @@ if ($method === 'GET') {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
     }
 
+// ── POST ─────────────────────────────────────────────────────────────────────
 } elseif ($method === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -48,6 +43,7 @@ if ($method === 'GET') {
     $action = $data['action'] ?? '';
 
     if ($action === 'add') {
+        // User must be logged in
         if (!isset($_SESSION['user_id'])) {
             json_response([
                 'success'  => false,

@@ -1,8 +1,6 @@
-/**
- * @file user_home.js
- * @description User home dashboard controller.
- * Loads continue-learning course cards and recent purchases from cookies.
- * @version 1.0.0
+/*
+ * Task 12: Past Purchases (Cookies) — Recent Purchases Section
+ * Author:  Moamen Rabah
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -10,18 +8,17 @@ document.addEventListener('DOMContentLoaded', function() {
     loadRecentPurchases();
 });
 
+// ══════════════════════════════════════════════════════════════════════════════
+// CONTINUE LEARNING SECTION
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Loads and renders courses the user is currently progressing through.
- * @returns {Promise<void>}
- */
+// Task 12 | Author: Abdulhadi Shamea, Moamen Rabah
 async function loadContinueLearning() {
     const container = document.getElementById('continue-learning-container');
     if (!container) return;
     
     try {
-
+        // Use progress sync module if available
         let courses;
         if (window.progressSync) {
             courses = await window.progressSync.getAllEnrollments(true);
@@ -32,7 +29,7 @@ async function loadContinueLearning() {
         }
         
         if (courses && courses.length > 0) {
-
+            // Filter to show only in-progress courses (not completed), limit to 4
             const inProgressCourses = courses
                 .filter(c => c.CompletionStatus !== 'completed')
                 .slice(0, 4);
@@ -51,11 +48,7 @@ async function loadContinueLearning() {
     }
 }
 
-/**
- * Creates an HTML card for a course in the continue-learning section.
- * @param {Object} course - The enrolled course data.
- * @returns {string} The card HTML markup.
- */
+// Task 12 | Author: Abdulhadi Shamea, Moamen Rabah
 function createContinueLearningCard(course) {
     const placeholder = '../../images/placeholder-course.png';
     const thumbnail   = course.ThumbnailUrl || placeholder;
@@ -104,21 +97,20 @@ function createContinueLearningCard(course) {
         </a>`;
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// RECENT PURCHASES SECTION (Using Cookies)
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Loads recent purchase data from cookies and renders purchase cards.
- * @returns {Promise<void>}
- */
+// Task 12 | Author: Moamen Rabah
 async function loadRecentPurchases() {
     const container = document.getElementById('recent-purchases-container');
     if (!container) return;
     
-
+    // Get recent purchases from cookie
     const recentPurchases = getRecentPurchasesCookie();
     
     if (recentPurchases && recentPurchases.length > 0) {
-
+        // Convert cookie objects to ID format: c1,c2,w3 (c=course, w=workshop)
         const ids = recentPurchases.map(p => {
             if (p.courseId) return 'c' + p.courseId;
             if (p.workshopId) return 'w' + p.workshopId;
@@ -130,7 +122,7 @@ async function loadRecentPurchases() {
             return;
         }
         
-
+        // Fetch course details for the IDs stored in cookie
         try {
             const response = await fetch('../../api/courses.php?action=by_ids&ids=' + ids.join(','));
             const result = await response.json();
@@ -149,11 +141,7 @@ async function loadRecentPurchases() {
     }
 }
 
-/**
- * Creates an HTML card for a recent purchase item.
- * @param {Object} course - The course/workshop data.
- * @returns {string} The card HTML markup.
- */
+// Task 12 | Author: Moamen Rabah
 function createPurchaseCard(course) {
     const placeholder = '../../images/placeholder-course.png';
     const thumbnail = course.ThumbnailUrl || placeholder;
@@ -175,12 +163,11 @@ function createPurchaseCard(course) {
     `;
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// COOKIE HELPERS FOR RECENT PURCHASES
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Reads the recent_purchases cookie and returns the parsed array.
- * @returns {Array<Object>} The array of recent purchase objects.
- */
+// Task 12 | Author: Moamen Rabah
 function getRecentPurchasesCookie() {
     const cookie = document.cookie
         .split('; ')
@@ -196,10 +183,7 @@ function getRecentPurchasesCookie() {
     return [];
 }
 
-/**
- * Stores the recent purchases array in a 30-day cookie (max 10 items).
- * @param {Array<Object>} purchases - The purchases to persist.
- */
+// Task 12 | Author: Moamen Rabah
 function setRecentPurchasesCookie(purchases) {
     // Keep only last 10 purchases, expires in 30 days
     const limitedPurchases = purchases.slice(0, 10);
@@ -208,35 +192,27 @@ function setRecentPurchasesCookie(purchases) {
     document.cookie = `recent_purchases=${encodeURIComponent(JSON.stringify(limitedPurchases))}; expires=${expires.toUTCString()}; path=/`;
 }
 
-/**
- * Adds a newly purchased item to the recent purchases cookie.
- * @param {number|null} courseId - The course ID, or null.
- * @param {number|null} workshopId - The workshop ID, or null.
- */
+// Task 12 | Author: Moamen Rabah
 function addToRecentPurchases(courseId, workshopId) {
     const purchases = getRecentPurchasesCookie();
     const newItem = { courseId, workshopId, timestamp: Date.now() };
     
-
+    // Remove if already exists (to move to front)
     const filtered = purchases.filter(p => 
         !(p.courseId === courseId && p.workshopId === workshopId)
     );
     
-
+    // Add to front
     filtered.unshift(newItem);
     
     setRecentPurchasesCookie(filtered);
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// UTILITY
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Generates a generic empty state HTML block.
- * @param {string} title - The heading text.
- * @param {string} message - The descriptive text.
- * @param {string} icon - The Material icon name.
- * @returns {string} The empty state HTML markup.
- */
+// Task 12 | Author: Moamen Rabah
 function createEmptyState(title, message, icon) {
     return `
         <div class="empty-state-small">

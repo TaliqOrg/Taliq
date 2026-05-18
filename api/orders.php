@@ -1,15 +1,7 @@
 <?php
-/**
- * Orders API Endpoint
- *
- * Processes order-related operations for authenticated users. Currently supports
- * completing a purchase by converting cart items into a finalized order.
- *
- * @package    Taliq\Api
- * @subpackage Orders
- * @version    1.0.0
- *
- * @method POST Completes a purchase for the authenticated user's cart.
+/*
+ * Task 7:  Orders API Endpoint
+ * Author:  Abdullah Al Tamh
  */
 
 require_once '../controllers/OrderController.php';

@@ -1,3 +1,9 @@
+<!--
+  Task 8:  Authentication (Registration Form)
+  Task 13: Forms Validation
+  Task 15: Accessibility (aria attributes)
+  Authors: Moamen Rabah, Fadhlallah Almohammed
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,14 +47,14 @@
                 <form id="registerForm" class="login-form">
 
                     <!-- Error Message -->
-                    <div id="errorMessage" class="error-message"></div>
+                    <div id="errorMessage" class="error-message" role="alert" aria-live="assertive"></div>
 
                     <!-- Full Name Field -->
                     <div class="input-group">
                         <label for="name" class="input-label">Full Name</label>
                         <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">person</span>
-                            <input type="text" id="name" class="form-input" placeholder="Enter your full name" required>
+                            <span class="material-symbols-outlined input-icon" aria-hidden="true">person</span>
+                            <input type="text" id="name" class="form-input" placeholder="Enter your full name" required aria-required="true">
                         </div>
                     </div>
 
@@ -56,8 +62,8 @@
                     <div class="input-group">
                         <label for="email" class="input-label">Email Address</label>
                         <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">mail</span>
-                            <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                            <span class="material-symbols-outlined input-icon" aria-hidden="true">mail</span>
+                            <input type="email" id="email" class="form-input" placeholder="Enter your email" required aria-required="true">
                         </div>
                     </div>
 
@@ -65,9 +71,9 @@
                     <div class="input-group">
                         <label for="password" class="input-label">Password</label>
                         <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <span class="material-symbols-outlined input-icon" aria-hidden="true">lock</span>
                             <input type="password" id="password" class="form-input" placeholder="Create a password"
-                                required>
+                                required aria-required="true">
                         </div>
                     </div>
 
@@ -75,9 +81,9 @@
                     <div class="input-group">
                         <label for="confirm-password" class="input-label">Confirm Password</label>
                         <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">verified_user</span>
+                            <span class="material-symbols-outlined input-icon" aria-hidden="true">verified_user</span>
                             <input type="password" id="confirm-password" class="form-input"
-                                placeholder="Confirm your password" required>
+                                placeholder="Confirm your password" required aria-required="true">
                         </div>
                     </div>
 

@@ -1,9 +1,6 @@
-/**
- * @file admin_course.js
- * @description Handles the new course creation form submission for administrators.
- * Sends form data (including file uploads) to the courses API and provides
- * success/error feedback with redirect to the course management page.
- * @version 1.0.0
+/*
+ * Task 9:  Create New Course (Admin)
+ * Author:  Fadhlallah Almohammed
  */
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,16 +1,7 @@
 <?php
-/**
- * Contact Form API Endpoint
- *
- * Processes contact form submissions. Validates required fields (email, subject,
- * message), checks email format, enforces minimum message length, and persists
- * the message to the database via the ContactMessage model.
- *
- * @package    Taliq\Api
- * @subpackage Contact
- * @version    1.0.0
- *
- * @method POST Accepts a JSON payload with name, email, subject, and message fields.
+/*
+ * Task 11: Contact Us API Endpoint
+ * Author:  Fadhlallah Almohammed
  */
 
 if (session_status() === PHP_SESSION_NONE) {

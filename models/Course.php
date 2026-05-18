@@ -1,15 +1,9 @@
 <?php
-/**
- * Course Model
- *
- * Handles all course and workshop database operations. Provides methods for
- * retrieving published listings (courses + workshops via UNION), individual
- * course lookups, admin CRUD operations with thumbnail uploads, and
- * curriculum retrieval with associated lessons.
- *
- * @package    Taliq\Models
- * @subpackage Course
- * @version    1.0.0
+/*
+ * Task 1:  Database Design
+ * Task 9:  Create Course
+ * Task 10: Manage Courses
+ * Author:  Abdullah Al Tamh
  */
 
 class Course {
@@ -20,11 +14,6 @@ class Course {
         $this->db = $pdo;
     }
 
-    /**
-     * Retrieves all published courses and workshops, ordered by creation date.
-     *
-     * @return array Array of published course/workshop records.
-     */
     public function getAllPublished() {
         $sql = "SELECT CourseId, Title, Description, Price, ThumbnailUrl, AverageRating, RatingCount, Level, Language, CategoryId, 'course' AS CourseType, CreatedAt
                 FROM Course
@@ -39,14 +28,6 @@ class Course {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Retrieves a single published course or workshop by ID and type.
-     *
-     * @param int    $courseId   The course or workshop ID.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return array|false The course record, or false if not found.
-     */
     public function getById($courseId, $courseType) {
         $table = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
@@ -56,13 +37,6 @@ class Course {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Retrieves multiple courses/workshops by an array of ID pairs.
-     *
-     * @param array $items Array of associative arrays with courseId and/or workshopId keys.
-     *
-     * @return array Array of matching course/workshop records.
-     */
     public function getByIds($items) {
         $courses = [];
         foreach ($items as $item) {
@@ -84,11 +58,6 @@ class Course {
         return $courses;
     }
 
-    /**
-     * Retrieves all courses and workshops for admin management (includes unpublished).
-     *
-     * @return array Array of all course/workshop records.
-     */
     public function getAllForAdmin() {
         $sql = "SELECT CourseId, Title, Price, ThumbnailUrl, IsPublished, 'course' AS CourseType, CategoryId, Level, DurationHours, Language, CreatedAt
                 FROM Course
@@ -101,14 +70,6 @@ class Course {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Retrieves a single course or workshop for admin editing (no publish filter).
-     *
-     * @param int    $courseId   The course or workshop ID.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return array|false The course record, or false if not found.
-     */
     public function getByIdForAdmin($courseId, $courseType) {
         $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
@@ -118,23 +79,14 @@ class Course {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * Updates an existing course or workshop record.
-     *
-     * @param int         $courseId     The course or workshop ID.
-     * @param string      $courseType   The type: 'course' or 'workshop'.
-     * @param array       $data         Associative array of field values.
-     * @param string|null $thumbnailUrl The new thumbnail URL, or null to keep existing.
-     *
-     * @return bool True on success.
-     */
     public function updateCourse($courseId, $courseType, $data, $thumbnailUrl) {
         $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
         $thumbSql = $thumbnailUrl ? ', ThumbnailUrl = :thumbnail_url' : '';
+        $seatsSql = ($courseType === 'course') ? ', MaxStudents = :max_students' : '';
 
         $sql = "UPDATE {$table}
-                SET Title = :title, CategoryId = :category_id, Description = :description, Price = :price, DurationHours = :duration_hours, Level = :level, Language = :language, IsPublished = :is_published {$thumbSql}
+                SET Title = :title, CategoryId = :category_id, Description = :description, Price = :price, DurationHours = :duration_hours, Level = :level, Language = :language, IsPublished = :is_published {$thumbSql} {$seatsSql}
                 WHERE {$idColumn} = :id";
 
         $params = [
@@ -151,19 +103,14 @@ class Course {
         if ($thumbnailUrl) {
             $params[':thumbnail_url'] = $thumbnailUrl;
         }
+        if ($courseType === 'course') {
+            $params[':max_students'] = (int)($data['MaxStudents'] ?? 0);
+        }
 
         $stmt = $this->db->prepare($sql);
         return $stmt->execute($params);
     }
 
-    /**
-     * Deletes a course or workshop by ID and type.
-     *
-     * @param int    $courseId   The course or workshop ID.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return bool True on success.
-     */
     public function deleteCourse($courseId, $courseType) {
         $table    = ($courseType === 'course') ? 'Course' : 'Workshop';
         $idColumn = ($courseType === 'course') ? 'CourseId' : 'WorkshopId';
@@ -172,19 +119,11 @@ class Course {
         return $stmt->execute([':id' => $courseId]);
     }
 
-    /**
-     * Creates a new course record in the database.
-     *
-     * @param array       $data         Associative array of course fields.
-     * @param string|null $thumbnailUrl The thumbnail URL for the course.
-     *
-     * @return int|false The new course ID, or false on failure.
-     */
     public function createCourse($data, $thumbnailUrl) {
         $sql = "INSERT INTO Course
-                    (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished)
+                    (CategoryId, Title, Description, Price, DurationHours, Level, Language, ThumbnailUrl, IsPublished, MaxStudents)
                 VALUES
-                    (:category_id, :title, :description, :price, :duration_hours, :level, :language, :thumbnail_url, :is_published)";
+                    (:category_id, :title, :description, :price, :duration_hours, :level, :language, :thumbnail_url, :is_published, :max_students)";
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
@@ -197,19 +136,36 @@ class Course {
             ':language'       => $data['Language'],
             ':thumbnail_url'  => $thumbnailUrl,
             ':is_published'   => !empty($data['IsPublished']) ? 1 : 0,
+            ':max_students'   => (int)($data['MaxStudents'] ?? 0),
         ]);
 
         return $this->db->lastInsertId();
     }
 
-    /**
-     * Retrieves a course with its associated lessons list.
-     *
-     * @param int    $courseId   The course ID.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return array|false The course record with a 'lessons' key, or false if not found.
-     */
+    public function createWorkshop($data, $thumbnailUrl) {
+        $sql = "INSERT INTO Workshop
+                    (CategoryId, Title, Description, Price, Location, DurationHours, Level, Language, ThumbnailUrl, IsPublished, Capacity)
+                VALUES
+                    (:category_id, :title, :description, :price, :location, :duration_hours, :level, :language, :thumbnail_url, :is_published, :capacity)";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':category_id'    => $data['CategoryId'],
+            ':title'          => $data['Title'],
+            ':description'    => $data['Description'],
+            ':price'          => $data['Price'],
+            ':location'       => $data['Location'] ?? '',
+            ':duration_hours' => $data['DurationHours'],
+            ':level'          => strtolower($data['Level']),
+            ':language'       => $data['Language'],
+            ':thumbnail_url'  => $thumbnailUrl,
+            ':is_published'   => !empty($data['IsPublished']) ? 1 : 0,
+            ':capacity'       => (int)($data['MaxStudents'] ?? 0),
+        ]);
+
+        return $this->db->lastInsertId();
+    }
+
     public function getByIdWithLessons($courseId, $courseType) {
         
         $course = $this->getById($courseId, $courseType);

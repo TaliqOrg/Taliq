@@ -1,15 +1,9 @@
-/**
- * @file components.js
- * @description Shared UI component utilities for the Taliq application.
- * Handles dynamic header/footer loading, cart badge management, quick add-to-cart,
- * toast notifications, search bar wiring, and role-based navigation visibility.
- * @version 1.0.0
+/*
+ * Task 16: Efficiency (Reusable Components & Shared Utilities)
+ * Author:  Moamen Rabah
  */
 
-/**
- * Updates the cart badge count in the header.
- * @param {number} count - The number of items in the cart.
- */
+// Task 16 | Author: Moamen Rabah
 function updateCartBadge(count) {
     const badge = document.querySelector('.cart-badge');
     if (!badge) return;
@@ -23,10 +17,7 @@ function updateCartBadge(count) {
     }
 }
 
-/**
- * Fetches the cart item count from the API and updates the badge.
- * @returns {Promise<void>}
- */
+// Task 16 | Author: Moamen Rabah
 async function loadCartBadge() {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php?action=count');
@@ -39,14 +30,7 @@ async function loadCartBadge() {
     }
 }
 
-/**
- * Adds an item to the cart via the API and updates the badge.
- *
- * @param {number|null} courseId - The course ID, or null.
- * @param {number|null} workshopId - The workshop ID, or null.
- * @param {number} price - The item price.
- * @returns {Promise<void>}
- */
+// Task 16 | Author: Moamen Rabah
 async function quickAddToCart(courseId, workshopId, price) {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php', {
@@ -79,12 +63,7 @@ async function quickAddToCart(courseId, workshopId, price) {
     }
 }
 
-/**
- * Displays a temporary toast notification at the top of the page.
- *
- * @param {string} message - The notification message.
- * @param {string} [type='success'] - The notification type ('success' or 'error').
- */
+// Task 16 | Author: Moamen Rabah
 function showToast(message, type = 'success') {
     const existing = document.getElementById('toast-notification');
     if (existing) existing.remove();
@@ -114,13 +93,7 @@ function showToast(message, type = 'success') {
     }, 2500);
 }
 
-/**
- * Loads an HTML component file into a placeholder element.
- *
- * @param {string} elementId - The ID of the placeholder element.
- * @param {string} componentPath - The URL path to the component HTML file.
- * @returns {Promise<void>}
- */
+// Task 16 | Author: Moamen Rabah
 async function loadComponent(elementId, componentPath) {
     try {
         const response = await fetch(componentPath);
@@ -131,10 +104,7 @@ async function loadComponent(elementId, componentPath) {
     }
 }
 
-/**
- * Loads header and footer components, then updates navigation visibility.
- * @returns {Promise<void>}
- */
+// Task 16 | Author: Moamen Rabah
 async function initializeComponents() {
     await loadComponent('header-placeholder', '/taleeq/Taliq/components/header.html');
     await loadComponent('footer-placeholder', '/taleeq/Taliq/components/footer.html');
@@ -155,11 +125,7 @@ async function initializeComponents() {
     }
 }
 
-/**
- * Updates header/footer navigation links based on the user's session and role.
- * Shows visitor, user, or admin navigation as appropriate.
- * @returns {Promise<void>}
- */
+// Task 16 | Author: Moamen Rabah
 async function updateHeaderFooter() {
     const session = await checkSession();
     

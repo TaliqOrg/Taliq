@@ -1,8 +1,6 @@
-/**
- * @file admin_edit_course.js
- * @description Handles the edit course form for administrators.
- * Fetches existing course data by ID, populates form fields, and submits updates.
- * @version 1.0.0
+/*
+ * Task 10: Edit Course (Admin)
+ * Author:  Fadhlallah Almohammed
  */
 
 const params     = new URLSearchParams(window.location.search);
@@ -18,10 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('edit-course-form').addEventListener('submit', handleSubmit);
 });
 
-/**
- * Loads existing course data from the API and populates form fields.
- * @returns {Promise<void>}
- */
+// Task 10 | Author: Fadhlallah Almohammed
 async function loadCourse() {
     try {
         const response = await fetch(
@@ -44,17 +39,25 @@ async function loadCourse() {
         document.getElementById('level').value        = capitalize(c.Level) || '';
         document.getElementById('language').value     = c.Language     || '';
         document.getElementById('isPublished').checked = parseInt(c.IsPublished) === 1;
+        document.getElementById('max_students').value  = c.MaxStudents ?? '';
         document.querySelector('.section-subtitle strong').textContent = c.Title;
+
+        // Show course type label and location field for workshops
+        const typeLabel = document.getElementById('course-type-label');
+        if (typeLabel) typeLabel.textContent = courseType === 'workshop' ? 'In-Person' : 'Online';
+
+        if (courseType === 'workshop') {
+            const locationField = document.getElementById('location-field');
+            if (locationField) locationField.style.display = 'block';
+            const locationInput = document.getElementById('location');
+            if (locationInput) locationInput.value = c.Location || '';
+        }
     } catch (err) {
         alert('Failed to load course data.');
     }
 }
 
-/**
- * Handles the edit form submission. Sends updated course data to the API.
- * @param {Event} e - The form submit event.
- * @returns {Promise<void>}
- */
+// Task 10 | Author: Fadhlallah Almohammed
 async function handleSubmit(e) {
     e.preventDefault();
 

@@ -1,15 +1,10 @@
-/**
- * @file auth.js
- * @description Handles user authentication, session management, and route protection.
- * Manages login/registration form submissions, session verification, role-based
- * access control (admin vs user), and automatic page protection via the Fetch API.
- * @version 1.0.0
+/*
+ * Task 8:  Authenticate Managers + Session Management
+ * Task 13: Forms Validation
+ * Authors: Moamen Rabah, Fadhlallah Almohammed
  */
 
-/**
- * Initializes the login form submit handler.
- * Sends credentials to the auth API and redirects on success.
- */
+// Task 8 + Task 13 | Author: Moamen Rabah, Fadhlallah Almohammed
 function initLoginForm() {
     const loginForm = document.getElementById('loginForm');
     
@@ -61,10 +56,7 @@ function initLoginForm() {
     });
 }
 
-/**
- * Initializes the registration form submit handler.
- * Validates inputs (full name, password match/length) and sends to the auth API.
- */
+// Task 8 + Task 13 | Author: Moamen Rabah, Fadhlallah Almohammed
 function initRegisterForm() {
     const registerForm = document.getElementById('registerForm');
     
@@ -143,10 +135,7 @@ function initRegisterForm() {
     });
 }
 
-/**
- * Checks the current session status via the check_session API.
- * @returns {Promise<{authenticated: boolean, user: Object|null}>} The session state.
- */
+// Task 8 | Author: Moamen Rabah
 async function checkSession() {
     console.log('[AUTH] checkSession() - fetching session status');
     try {
@@ -161,10 +150,7 @@ async function checkSession() {
     }
 }
 
-/**
- * Enforces authentication. Redirects to login page if not authenticated.
- * @returns {Promise<Object|null>} The authenticated user object, or null.
- */
+// Task 8 | Author: Moamen Rabah
 async function requireAuth() {
     console.log('[AUTH] requireAuth() called');
     const session = await checkSession();
@@ -179,10 +165,7 @@ async function requireAuth() {
     return session.user;
 }
 
-/**
- * Enforces admin role. Redirects non-admin users to the user home page.
- * @returns {Promise<Object|null>} The admin user object, or null.
- */
+// Task 8 | Author: Moamen Rabah
 async function requireAdmin() {
     const user = await requireAuth();
     
@@ -196,25 +179,17 @@ async function requireAdmin() {
     return user;
 }
 
-/**
- * Alias for requireAuth. Enforces user authentication.
- * @returns {Promise<Object|null>} The authenticated user object, or null.
- */
+// Task 8 | Author: Moamen Rabah
 async function requireUser() {
     return await requireAuth();
 }
 
-/**
- * Logs the user out by redirecting to the auth logout endpoint.
- */
+// Task 8 | Author: Moamen Rabah
 function logout() {
     window.location.href = '/taleeq/Taliq/api/auth.php?action=logout';
 }
 
-/**
- * Populates DOM elements with user data using data-* attribute selectors.
- * @param {Object} user - The user object with first_name, last_name, email, and role.
- */
+// Task 8 | Author: Moamen Rabah
 function updateUserInfo(user) {
     const userNameElements = document.querySelectorAll('[data-user-name]');
     const userEmailElements = document.querySelectorAll('[data-user-email]');
@@ -236,10 +211,7 @@ function updateUserInfo(user) {
     }
 })();
 
-/**
- * Automatically protects pages based on URL path.
- * Admin pages require admin role; user pages require authentication.
- */
+// Task 8 | Author: Moamen Rabah
 async function autoProtect() {
     const path = window.location.pathname;
     console.log('[AUTH] autoProtect() called for path:', path);

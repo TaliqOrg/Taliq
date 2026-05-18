@@ -1,15 +1,8 @@
 <?php
-/**
- * Course Controller
- *
- * Manages course-related business logic for both public-facing and admin
- * operations. Handles retrieving published courses, course details, lessons,
- * curriculum data, and provides full CRUD operations for admin course management
- * including thumbnail image uploads.
- *
- * @package    Taliq\Controllers
- * @subpackage Courses
- * @version    1.0.0
+/*
+ * Task 9:  Create Course (Admin)
+ * Task 10: Manage Courses (Admin)
+ * Author:  Fadhlallah Almohammed
  */
 
 require_once '../config/constants.php';
@@ -24,13 +17,6 @@ class CourseController {
         $this->courseModel = new Course();
     }
 
-    /**
-     * Retrieves all published courses with an optional limit.
-     *
-     * @param int $limit Maximum number of courses to return (0 = no limit).
-     *
-     * @return array Associative array with success status, records, count, and total.
-     */
     public function getAll($limit = 0) {
         $courses = $this->courseModel->getAllPublished();
         $total = count($courses);
@@ -45,14 +31,6 @@ class CourseController {
         ];
     }
 
-    /**
-     * Retrieves a single course by its ID and type.
-     *
-     * @param int    $courseId   The course ID.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return array Associative array with success status and course data or error message.
-     */
     public function getById($courseId, $courseType) {
         if (empty($courseId) || empty($courseType)) {
             return ['success' => false, 'message' => 'Course ID and type are required'];
@@ -68,13 +46,6 @@ class CourseController {
         return ['success' => false, 'message' => 'Course not found'];
     }
 
-    /**
-     * Retrieves multiple courses by an array of ID/type pairs.
-     *
-     * @param array $ids Array of associative arrays with courseId and workshopId keys.
-     *
-     * @return array Associative array with success status, records, and count.
-     */
     public function getByIds($ids) {
         if (empty($ids)) {
             return ['success' => false, 'message' => 'No IDs provided'];
@@ -87,24 +58,11 @@ class CourseController {
         ];
     }
 
-    /**
-     * Retrieves all courses for the admin panel (includes unpublished).
-     *
-     * @return array Associative array with success status, records, and count.
-     */
     public function getAllAdmin() {
         $courses = $this->courseModel->getAllForAdmin();
         return ['success' => true, 'records' => $courses, 'count' => count($courses)];
     }
 
-    /**
-     * Retrieves a single course for admin editing.
-     *
-     * @param int    $courseId   The course ID.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return array Associative array with success status and course data or error message.
-     */
     public function getCourseForEdit($courseId, $courseType) {
         if (empty($courseId) || !in_array($courseType, ['course', 'workshop'])) {
             return ['success' => false, 'message' => 'Invalid parameters'];
@@ -117,21 +75,14 @@ class CourseController {
         return ['success' => false, 'message' => 'Course not found'];
     }
 
-    /**
-     * Updates an existing course with optional thumbnail image upload.
-     *
-     * @param int    $courseId   The course ID to update.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     * @param array  $postData  The form data containing course fields.
-     * @param array  $fileData  The uploaded file data ($_FILES).
-     *
-     * @return array Associative array with success status and message.
-     */
     public function editCourse($courseId, $courseType, $postData, $fileData) {
         if (empty($courseId) || !in_array($courseType, ['course', 'workshop'])) {
             return ['success' => false, 'message' => 'Invalid parameters'];
         }
         $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language'];
+        if ($courseType === 'course') {
+            $required[] = 'MaxStudents';
+        }
         foreach ($required as $field) {
             if (empty($postData[$field])) {
                 return ['success' => false, 'message' => "$field is required"];
@@ -158,14 +109,6 @@ class CourseController {
         return ['success' => false, 'message' => 'Failed to update course'];
     }
 
-    /**
-     * Deletes a course by its ID and type.
-     *
-     * @param int    $courseId   The course ID to delete.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return array Associative array with success status and message.
-     */
     public function removeCourse($courseId, $courseType) {
         if (empty($courseId) || !in_array($courseType, ['course', 'workshop'])) {
             return ['success' => false, 'message' => 'Invalid parameters'];
@@ -177,16 +120,12 @@ class CourseController {
         return ['success' => false, 'message' => 'Failed to delete course'];
     }
 
-    /**
-     * Creates a new course with optional thumbnail image upload.
-     *
-     * @param array $postData The form data containing course fields.
-     * @param array $fileData The uploaded file data ($_FILES).
-     *
-     * @return array Associative array with success status, message, and new course ID.
-     */
     public function addCourse($postData, $fileData) {
-        $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language'];
+        $courseType = $postData['CourseType'] ?? 'course';
+        $required = ['Title', 'CategoryId', 'Description', 'Price', 'DurationHours', 'Level', 'Language', 'MaxStudents'];
+        if ($courseType === 'workshop') {
+            $required[] = 'Location';
+        }
         foreach ($required as $field) {
             if (empty($postData[$field])) {
                 return ['success' => false, 'message' => "$field is required"];
@@ -206,21 +145,17 @@ class CourseController {
             }
             $thumbnailUrl = '/Taliq/uploads/' . $filename;
         }
-        $courseId = $this->courseModel->createCourse($postData, $thumbnailUrl);
-        if ($courseId) {
-            return ['success' => true, 'message' => 'Course created successfully', 'course_id' => $courseId];
+        if ($courseType === 'workshop') {
+            $newId = $this->courseModel->createWorkshop($postData, $thumbnailUrl);
+        } else {
+            $newId = $this->courseModel->createCourse($postData, $thumbnailUrl);
         }
-        return ['success' => false, 'message' => 'Failed to create course'];
+        if ($newId) {
+            return ['success' => true, 'message' => ucfirst($courseType) . ' created successfully', 'course_id' => $newId];
+        }
+        return ['success' => false, 'message' => 'Failed to create ' . $courseType];
     }
 
-    /**
-     * Retrieves a course along with its associated lessons.
-     *
-     * @param int    $courseId   The course ID.
-     * @param string $courseType The type: 'course' or 'workshop'.
-     *
-     * @return array Associative array with success status and course data including lessons.
-     */
     public function getWithLessons($courseId, $courseType) {
         if (empty($courseId) || empty($courseType)) {
             return ['success' => false, 'message' => 'Course ID and type are required'];

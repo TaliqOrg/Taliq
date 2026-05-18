@@ -1,3 +1,9 @@
+<!--
+  Task 8:  Authentication (Login Form)
+  Task 13: Forms Validation
+  Task 15: Accessibility (aria attributes)
+  Authors: Moamen Rabah, Fadhlallah Almohammed
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,14 +46,14 @@
                 <form id="loginForm" class="login-form">
 
                     <!-- Error Message -->
-                    <div id="errorMessage" class="error-message"></div>
+                    <div id="errorMessage" class="error-message" role="alert" aria-live="assertive"></div>
 
                     <!-- Email Field -->
                     <div class="input-group">
                         <label for="email" class="input-label">Email Address</label>
                         <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">mail</span>
-                            <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                            <span class="material-symbols-outlined input-icon" aria-hidden="true">mail</span>
+                            <input type="email" id="email" class="form-input" placeholder="Enter your email" required aria-required="true">
                         </div>
                     </div>
 
@@ -55,9 +61,9 @@
                     <div class="input-group">
                         <label for="password" class="input-label">Password</label>
                         <div class="input-wrapper">
-                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <span class="material-symbols-outlined input-icon" aria-hidden="true">lock</span>
                             <input type="password" id="password" class="form-input" placeholder="Enter your password"
-                                required>
+                                required aria-required="true">
                         </div>
                     </div>
 

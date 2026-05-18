@@ -1,19 +1,8 @@
 <?php
-/**
- * Wishlist API Endpoint
- *
- * Manages wishlist operations for authenticated users. Supports retrieving
- * wishlist count, item details, and item IDs via GET. Allows toggling,
- * adding, removing, and clearing wishlist items via POST with JSON payloads.
- *
- * @package    Taliq\Api
- * @subpackage Wishlist
- * @version    1.0.0
- *
- * @method GET  Retrieves wishlist count, items, IDs, or checks item presence.
- * @method POST Toggles, adds, removes, or clears wishlist items.
+/*
+ * Task 5:  Wishlist API Endpoint
+ * Author:  Abdullah Al Tamh
  */
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -26,6 +15,7 @@ header('Content-Type: application/json');
 $wishlistController = new WishlistController();
 $method = $_SERVER['REQUEST_METHOD'];
 
+// GET 
 if ($method === 'GET') {
     $action = $_GET['action'] ?? '';
 
@@ -62,6 +52,7 @@ if ($method === 'GET') {
         json_response(['success' => false, 'message' => 'Invalid action'], 400);
     }
 
+// POST
 } elseif ($method === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 

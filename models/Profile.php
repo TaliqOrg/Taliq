@@ -1,4 +1,8 @@
 <?php
+/*
+ * Task 1:  Database Design (User Profile Schema)
+ * Author:  Abdullah Al Tamh
+ */
 /**
  * Profile Model
  *

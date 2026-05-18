@@ -1,16 +1,13 @@
-/**
- * @file cart.js
- * @description Client-side shopping cart management for the Taliq application.
- * Handles adding, updating, deleting, and emptying cart items, as well as
- * rendering checkout summaries and processing purchases.
- * @version 1.0.0
+/*
+ * Task 5:  Add to Cart + Stock Check
+ * Task 6:  Checkout (Display / Modify / Delete / Empty)
+ * Task 7:  Buy
+ * Task 12: Past Purchases (Cookies)
+ * Task 13: Forms Validation
+ * Authors: Abdullah Al Tamh, Abdulhadi Shamea, Moamen Rabah, Fadhlallah Almohammed
  */
 
-/**
- * Escapes HTML special characters to prevent XSS injection.
- * @param {string} str - The raw string to escape.
- * @returns {string} The HTML-safe escaped string.
- */
+// Task 5 | Author: Abdullah Al Tamh
 function escapeHtml(str) {
     return String(str)
         .replace(/&/g, '&amp;')
@@ -20,15 +17,7 @@ function escapeHtml(str) {
         .replace(/'/g, '&#39;');
 }
 
-/**
- * Adds an item to the cart via the API.
- *
- * @param {number|null} courseId - The course ID, or null for workshops.
- * @param {number|null} workshopId - The workshop ID, or null for courses.
- * @param {number} price - The item price.
- * @param {number} quantity - The quantity to add.
- * @returns {Promise<void>}
- */
+// Task 5 | Author: Abdullah Al Tamh
 async function addToCart(courseId, workshopId, price, quantity) {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php', {
@@ -63,10 +52,7 @@ async function addToCart(courseId, workshopId, price, quantity) {
     }
 }
 
-/**
- * Updates the cart badge count in the header.
- * @param {number} count - The number of items in the cart.
- */
+// Task 5 | Author: Abdullah Al Tamh
 function updateCartBadge(count) {
     const badge = document.querySelector('.cart-badge');
     if (!badge) return;
@@ -80,10 +66,7 @@ function updateCartBadge(count) {
     }
 }
 
-/**
- * Fetches the cart item count from the server and updates the badge.
- * @returns {Promise<void>}
- */
+// Task 5 | Author: Abdullah Al Tamh
 async function loadCartBadge() {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php?action=count');
@@ -96,11 +79,7 @@ async function loadCartBadge() {
     }
 }
 
-/**
- * Displays a temporary feedback message near the Add to Cart button.
- * @param {string} message - The feedback text.
- * @param {string} type - The message type ('success' or 'error').
- */
+// Task 5 | Author: Abdullah Al Tamh
 function showCartMessage(message, type) {
     const existing = document.getElementById('cart-msg');
     if (existing) existing.remove();
@@ -129,11 +108,7 @@ function showCartMessage(message, type) {
     }, 3000);
 }
 
-/**
- * Generates the HTML for a single cart item card.
- * @param {Object} item - The cart item data object.
- * @returns {string} The cart item HTML markup.
- */
+// Task 6 | Author: Abdullah Al Tamh
 function renderCartItem(item) {
     const badgeClass = item.Type === 'course' ? 'badge-online' : 'badge-onsite';
     const badgeText  = item.Type === 'course' ? 'Online' : 'On-site';
@@ -175,12 +150,7 @@ function renderCartItem(item) {
     `;
 }
 
-/**
- * Sends a quantity update to the server and re-renders the cart.
- * @param {number} cartItemId - The cart item ID.
- * @param {number} newQty - The new quantity value.
- * @returns {Promise<void>}
- */
+// Task 6 | Author: Abdulhadi Shamea
 async function updateCartItem(cartItemId, newQty) {
     if (newQty < 1) return; // minimum is 1, delete handles removal
 
@@ -221,10 +191,7 @@ async function updateCartItem(cartItemId, newQty) {
     }
 }
 
-/**
- * Empties the entire cart after user confirmation.
- * @returns {Promise<void>}
- */
+// Task 6 | Author: Abdullah Al Tamh
 async function emptyCart() {
     if (!confirm('Are you sure you want to remove all items from your cart?')) return;
 
@@ -261,11 +228,7 @@ async function emptyCart() {
     }
 }
 
-/**
- * Removes a single item from the cart and refreshes the display.
- * @param {number} cartItemId - The cart item ID to remove.
- * @returns {Promise<void>}
- */
+// Task 6 | Author: Abdullah Al Tamh
 async function deleteCartItem(cartItemId) {
     try {
         const response = await fetch('/taleeq/Taliq/api/cart.php', {
@@ -319,10 +282,7 @@ async function deleteCartItem(cartItemId) {
     }
 }
 
-/**
- * Fetches all cart items from the server and renders them on the cart page.
- * @returns {Promise<void>}
- */
+// Task 6 | Author: Abdullah Al Tamh
 async function loadCartItems() {
     const container     = document.getElementById('cart-items-container');
     const originalPrice = document.getElementById('cart-original-price');
@@ -376,11 +336,7 @@ async function loadCartItems() {
     }
 }
 
-/**
- * Generates the HTML for a checkout order summary item.
- * @param {Object} item - The cart item data object.
- * @returns {string} The summary item HTML markup.
- */
+// Task 6 | Author: Abdullah Al Tamh
 function renderCheckoutItem(item) {
     const subtotal = parseFloat(item.Subtotal).toFixed(2);
     return `
@@ -391,10 +347,7 @@ function renderCheckoutItem(item) {
     `;
 }
 
-/**
- * Loads the checkout page with user billing info and order summary.
- * @returns {Promise<void>}
- */
+// Task 6 | Author: Abdullah Al Tamh
 async function loadCheckoutPage() {
     const itemsContainer = document.getElementById('checkout-items-container');
     const originalPrice  = document.getElementById('checkout-original-price');
@@ -441,10 +394,7 @@ async function loadCheckoutPage() {
     }
 }
 
-/**
- * Validates the checkout form, processes the purchase, and redirects on success.
- * @returns {Promise<void>}
- */
+// Task 7 + Task 13 | Author: Abdullah Al Tamh, Fadhlallah Almohammed
 async function completePurchase() {
     const billingName  = document.getElementById('billingName').value.trim();
     const billingEmail = document.getElementById('billingEmail').value.trim();
@@ -495,10 +445,7 @@ async function completePurchase() {
     }
 }
 
-/**
- * Reads the recent_purchases cookie and returns the parsed array.
- * @returns {Array<Object>} The array of recent purchase objects.
- */
+// Task 12 | Author: Moamen Rabah
 function getRecentPurchasesCookie() {
     const cookie = document.cookie
         .split('; ')
@@ -514,21 +461,16 @@ function getRecentPurchasesCookie() {
     return [];
 }
 
-/**
- * Stores the recent purchases array in a 30-day cookie (max 10 items).
- * @param {Array<Object>} purchases - The purchases to store.
- */
+// Task 12 | Author: Moamen Rabah
 function setRecentPurchasesCookie(purchases) {
+    // Keep only last 10 purchases, expires in 30 days
     const limitedPurchases = purchases.slice(0, 10);
     const expires = new Date();
     expires.setDate(expires.getDate() + 30);
     document.cookie = `recent_purchases=${encodeURIComponent(JSON.stringify(limitedPurchases))}; expires=${expires.toUTCString()}; path=/`;
 }
 
-/**
- * Merges new purchased items into the recent purchases cookie.
- * @param {Array<Object>} newItems - The newly purchased items.
- */
+// Task 12 | Author: Moamen Rabah
 function saveRecentPurchases(newItems) {
     const existing = getRecentPurchasesCookie();
     
@@ -552,7 +494,7 @@ function saveRecentPurchases(newItems) {
     setRecentPurchasesCookie(existing);
 }
 
-/** Initializes cart badge and page-specific loading on DOMContentLoaded. */
+// Load the cart badge when the page loads
 document.addEventListener('DOMContentLoaded', function () {
     loadCartBadge();
 

@@ -1,8 +1,6 @@
-/**
- * @file certificate.js
- * @description Fetches and renders a certificate's details on the certificate page.
- * Reads the cert_id from URL search params and populates the certificate card.
- * @version 1.0.0
+/*
+ * Task 7:  Certificate Generation
+ * Author:  Abdullah Al Tamh
  */
 
 document.addEventListener('DOMContentLoaded', function () {

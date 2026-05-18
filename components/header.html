@@ -1,12 +1,17 @@
-<header class="main-header">
-    <nav class="container nav-container">
+<!--
+  Task 15: Accessibility (aria attributes)
+  Task 16: Reusable Components
+  Authors: Abdulhadi Shamea, Moamen Rabah
+-->
+<header class="main-header" role="banner">
+    <nav class="container nav-container" aria-label="Main navigation">
         <!-- Logo -->
-        <a href="/taleeq/Taliq/pages/welcome_page.html" id="headerLogo" class="logo">Taliq</a>
+        <a href="/taleeq/Taliq/pages/welcome_page.html" id="headerLogo" class="logo" aria-label="Taliq home">Taliq</a>
 
         <!-- Search Bar (for logged-in users only) -->
         <div class="nav-search" id="headerSearch" style="display: none;">
-            <span class="material-symbols-outlined search-icon">search</span>
-            <input type="text" id="headerSearchInput" placeholder="Search courses..." class="search-input">
+            <span class="material-symbols-outlined search-icon" aria-hidden="true">search</span>
+            <input type="text" id="headerSearchInput" placeholder="Search courses..." class="search-input" aria-label="Search courses">
         </div>
 
         <!-- Navigation Links -->
@@ -31,12 +36,12 @@
                     <span data-user-name>My Account</span>
                 </a>
 
-                <a href="/taleeq/Taliq/pages/user/cart.html" class="cart-btn" style="margin: 1rem;">
-                    <span class="material-symbols-outlined">shopping_cart</span>
-                    <span class="cart-badge"></span>
+                <a href="/taleeq/Taliq/pages/user/cart.html" class="cart-btn" style="margin: 1rem;" aria-label="Shopping cart">
+                    <span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span>
+                    <span class="cart-badge" aria-live="polite"></span>
                 </a>
 
-                <a href="#" onclick="logout(); return false;" class="nav-link" style="color: #dc2626;">Logout</a>
+                <a href="#" onclick="logout(); return false;" class="nav-link" style="color: #dc2626;" aria-label="Log out">Logout</a>
             </div>
 
             <!-- Admin Links -->

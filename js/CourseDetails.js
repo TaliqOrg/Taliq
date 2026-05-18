@@ -1,9 +1,8 @@
-/**
- * @file CourseDetails.js
- * @description Renders the course/workshop detail page.
- * Fetches course data by ID and type, populates all detail sections including
- * pricing, curriculum, sessions, learning outcomes, requirements, and enrollment status.
- * @version 1.0.0
+/*
+ * Task 4:  Course Details Page
+ * Task 5:  Seat Inventory Display
+ * Task 14: Help Modal
+ * Authors: Abdulhadi Shamea, Abdullah Al Tamh
  */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -13,9 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 })
 
-/**
- * Fetches and populates all course detail sections from the API.
- */
+// Task 4 + Task 5 | Author: Abdulhadi Shamea
 function populateCourseDetails() {
 
     const id = urlParams.get('id');
@@ -31,17 +28,34 @@ function populateCourseDetails() {
                     return;
                 }
                 
-
+                // Extract course data from response
                 const course = data.course;
                 const badgeClass = (type === "course") ? 'badge-online' : 'badge-onsite';
                 const PlaceOfCourse = (type === "course") ? 'Online' : 'On-Site';
                 const placeholder = '/taleeq/Taliq/images/placeholder.png';
 
-
+                //put data in HTML elements
                 document.getElementById('Course-Title').innerText = course.Title;
                 document.getElementById('average-Rating').innerText = parseFloat(course.AverageRating || 0).toFixed(1);
                 document.getElementById('Rating-Count').innerText = "(" + (course.RatingCount || 0) + ' ratings)';
                 document.getElementById('EnrolledAmount').innerText = (course.EnrollmentCount || 0) + ' students enrolled';
+
+                // Show remaining seats for courses
+                if (type === 'course') {
+                    const seats = parseInt(course.MaxStudents) || 0;
+                    const seatsEl = document.getElementById('seatsRemaining');
+                    if (seatsEl && seats === 0) {
+                        seatsEl.innerHTML = '<span style="color:#dc2626;">&#x26A0; Course Full — No seats available</span>';
+                        const btn = document.getElementById('addToCartBtn');
+                        if (btn) {
+                            btn.disabled = true;
+                            btn.innerHTML = '<span class="material-symbols-outlined">block</span> Course Full';
+                        }
+                    } else if (seatsEl && seats > 0) {
+                        const color = seats <= 5 ? '#f59e0b' : '#16a34a';
+                        seatsEl.innerHTML = `<span style="color:${color};">${seats} seat${seats !== 1 ? 's' : ''} remaining</span>`;
+                    }
+                }
                 document.getElementById('Duration Time').innerText = parseFloat(course.DurationHours || 0).toFixed(0) + " hours";
                 document.getElementById('Course-Level').innerText = course.Level || 'Beginner';
                 document.getElementById('course-hero-img').src = course.ThumbnailUrl || placeholder;
@@ -53,11 +67,11 @@ function populateCourseDetails() {
                 document.getElementById('courseLanguage').innerText = course.Language || 'English';
                 document.getElementById('HasCert').innerText = course.HasCertificate ? "Yes" : "No";
 
-
+                //prints out the duration of the cours if its on-demand video or in person training
                 document.getElementById("Course Duration and location").innerText =
                     `${parseFloat(course.DurationHours || 0).toFixed(0)} hours ${type === "course" ? "on-demand video" : "In-Person Training"}`;
 
-
+                // Update Add to Cart button with correct course data
                 const courseId = type === 'course' ? id : null;
                 const workshopId = type === 'workshop' ? id : null;
                 const addToCartBtn = document.getElementById('addToCartBtn');
@@ -68,14 +82,14 @@ function populateCourseDetails() {
                     };
                 }
 
-
+                //whenever this course has a Certificate or not
                 let hasCert = document.getElementById('CertIncluded');
                 if (course.HasCertificate) {
                     hasCert.innerHTML = '<span class="material-symbols-outlined">workspace_premium</span>\n' +
                         ' <span>Certificate of completion</span>'
                 }
 
-
+                //prints out the learning outcomes of said course or "what you'll learn"
                 const learningoutcomesContainer = document.getElementById('learning-outcomes-container');
                 const outcomesArray = JSON.parse(course.LearningOutcomes || "[]");
                 if (learningoutcomesContainer) {
@@ -91,7 +105,7 @@ function populateCourseDetails() {
                     });
                 }
 
-
+                //prints out whenever the course has requirements the user must have
                 const RequirementsContainer = document.getElementById('RequirementToLearn');
                 const RequirementsArray = JSON.parse(course.Requirements || "[]");
 
@@ -110,20 +124,20 @@ function populateCourseDetails() {
                     RequirementsContainer.innerHTML = '<p>No specific requirements.</p>';
                 }
 
-
+                // Update breadcrumb with course title
                 const breadcrumbTitle = document.getElementById('breadcrumb-title');
                 if (breadcrumbTitle) {
                     breadcrumbTitle.innerText = course.Title;
                 }
 
-
+                // Load curriculum for courses, sessions for workshops
                 if (type === 'course') {
                     loadCourseCurriculum(id);
                 } else {
                     loadWorkshopSessions(id);
                 }
 
-
+                // Check if user already owns this course — update buttons accordingly
                 checkEnrollmentStatus(id, type);
 
             })
@@ -131,12 +145,11 @@ function populateCourseDetails() {
     }
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// LOAD WORKSHOP SESSIONS
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Fetches and renders workshop session data.
- * @param {string} workshopId - The workshop ID.
- */
+// Task 4 | Author: Abdulhadi Shamea
 function loadWorkshopSessions(workshopId) {
     const container = document.getElementById('curriculum-container');
     if (!container) return;
@@ -179,7 +192,7 @@ function loadWorkshopSessions(workshopId) {
 
             container.innerHTML = rows;
 
-
+            // If every session is full, disable the Add to Cart button
             const allFull = data.sessions.every(s => s.AvailableSeats !== null && s.AvailableSeats <= 0);
             if (allFull) {
                 const addToCartBtn = document.getElementById('addToCartBtn');
@@ -194,12 +207,11 @@ function loadWorkshopSessions(workshopId) {
         });
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// LOAD COURSE CURRICULUM
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Fetches and renders the course curriculum sections and lessons.
- * @param {string} courseId - The course ID.
- */
+// Task 4 | Author: Abdulhadi Shamea
 function loadCourseCurriculum(courseId) {
     fetch(`/taleeq/Taliq/api/courses.php?action=curriculum&course_id=${courseId}`)
         .then(response => response.json())
@@ -251,16 +263,16 @@ function loadCourseCurriculum(courseId) {
         });
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// COPY COURSE LINK TO CLIPBOARD
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Copies the current page URL to the clipboard with feedback.
- */
+// Task 4 | Author: Abdulhadi Shamea
 function copyCourseLinkToClipboard() {
     const currentUrl = window.location.href;
     const button = document.getElementById('copyLinkBtn');
     
-
+    // Use modern clipboard API
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(currentUrl)
             .then(() => {
@@ -271,7 +283,7 @@ function copyCourseLinkToClipboard() {
                 showCopyFeedback(button, false);
             });
     } else {
-
+        // Fallback for older browsers
         const textArea = document.createElement('textarea');
         textArea.value = currentUrl;
         textArea.style.position = 'fixed';
@@ -291,11 +303,7 @@ function copyCourseLinkToClipboard() {
     }
 }
 
-/**
- * Displays visual copy feedback on the share button.
- * @param {HTMLButtonElement} button - The copy link button.
- * @param {boolean} success - Whether the copy succeeded.
- */
+// Task 4 | Author: Abdulhadi Shamea
 function showCopyFeedback(button, success) {
     const originalHTML = button.innerHTML;
 
@@ -316,20 +324,20 @@ function showCopyFeedback(button, success) {
     }, 2000);
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// CHECK ENROLLMENT STATUS — Bug #6
+// If the user already owns this course, swap the buttons
+// ══════════════════════════════════════════════════════════════════════════════
 
-
-/**
- * Checks if the user is enrolled and updates UI buttons accordingly.
- * @param {string} id - The course or workshop ID.
- * @param {string} type - The item type ('course' or 'workshop').
- * @returns {Promise<void>}
- */
+// Task 5 | Author: Abdullah Al Tamh
 async function checkEnrollmentStatus(id, type) {
+    // Only applies to courses (workshop duplicate is blocked at cart level)
     if (type !== 'course') return;
 
     try {
         const response = await fetch(`/taleeq/Taliq/api/enrollments.php?action=check_enrollment&course_id=${id}`);
 
+        // 401 = not logged in, just show the normal buttons
         if (!response.ok) return;
 
         const data = await response.json();
@@ -347,5 +355,6 @@ async function checkEnrollmentStatus(id, type) {
             if (wishlistBtn) wishlistBtn.style.display = 'none';
         }
     } catch (e) {
+        // Network error or not logged in — keep the default buttons as-is
     }
 }
